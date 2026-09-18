@@ -6,7 +6,7 @@
 #    By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/09/18 14:10:09 by ethutin-          #+#    #+#              #
-#    Updated: 2026/09/18 14:33:37 by toespino         ###   ########.fr        #
+#    Updated: 2026/09/18 15:11:02 by toespino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ LIBFT		:= $(LIBFT_DIR)libft.a
 MLX         := $(MLX_DIR)libmlx.so
 
 INCLUDES    := -Iincludes -I$(LIBFT_INCL) -I$(MLX_DIR)
-LIBS        := $(LIBFT) $(MLX)
+LIBS        := $(LIBFT) $(MLX) -lSDL2
 
 Q			:= @
 
