@@ -6,9 +6,11 @@
 #    By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/09/18 14:10:09 by ethutin-          #+#    #+#              #
-#    Updated: 2026/09/18 15:51:45 by ethutin-         ###   ########.fr        #
+#    Updated: 2026/09/18 14:33:37 by toespino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+include sources.mk
 
 CC          := cc
 CFLAGS      := -Wall -Wextra -Werror -g
@@ -18,36 +20,19 @@ BUILDS_DIR  := builds
 
 MAKEFLAGS 	+= --no-print-directory //Remove this to view the directories
 
-LIBFT_DIR	:= includes/libft/
+LIBFT_DIR	:= libft/
 LIBFT_INCL	:= $(LIBFT_DIR)includes/
-MLX_DIR		:= includes/MacroBoX/
+MLX_DIR		:= macrolibx/
 
 LIBFT		:= $(LIBFT_DIR)libft.a
-MLX         := $(MLX_DIR)libmbx.a
+MLX         := $(MLX_DIR)libmlx.so
 
 INCLUDES    := -Iincludes -I$(LIBFT_INCL) -I$(MLX_DIR)
-LIBS        := $(LIBFT) $(MLX) -lreadline -lm
+LIBS        := $(LIBFT) $(MLX)
 
 Q			:= @
 
-SR_U_M      := src/utils/error_management/
-SR_U_G      := src/utils/back_fonction/
-SR_U_P      := src/parse/
-
-ERR_MANAGE  := $(SR_U_M)error_manage1.c
-
-ERR_GEN     := $(SR_U_G)fnc_gen1.c \
-			   $(SR_U_G)init.c \
-			   $(SR_U_G)free.c
-
-PARSING     := $(SR_U_P)central_verif.c
-
-SRCS        := miniRT.c \
-			   $(ERR_MANAGE) \
-			   $(ERR_GEN) \
-			   $(PARSING)
-
-OBJS        := $(patsubst %.c,$(BUILDS_DIR)/%.o,$(SRCS))
+OBJS        := $(patsubst %.c,$(BUILDS_DIR)/%.o,$(SOURCES))
 DEPS        := $(OBJS:.o=.d)
 
 all: $(NAME)
