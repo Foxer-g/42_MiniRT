@@ -6,7 +6,7 @@
 /*   By: toespino <toespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/17 14:12:29 by toespino          #+#    #+#             */
-/*   Updated: 2026/09/17 16:26:48 by toespino         ###   ########.fr       */
+/*   Updated: 2026/09/18 12:56:24 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,4 +14,5 @@
 # define MINIRT_H
 
 # include "type.h"
+# include "libft.h"
 #endif
