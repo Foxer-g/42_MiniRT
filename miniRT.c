@@ -1,32 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   miniRT.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toespino <toespino@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/09/18 12:12:10 by toespino          #+#    #+#             */
-/*   Updated: 2026/09/18 12:54:07 by toespino         ###   ########.fr       */
+/*   Created: 2026/09/18 11:05:30 by ethutin-          #+#    #+#             */
+/*   Updated: 2026/09/21 17:53:47 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-int32_t main(int32_t ac, char ** av)
+int	main(int ac, char **av)
 {
-	t_data	scene;
+	void	*tmp_data;
 
-	if (ac == 2)
-	{
-		if (!parse_input)
-			return (1);
-		while (window)
-		{
-			scene = calculate_scene();
-			render(scene);
-		}
-	}
-	else
-		printf("\e[31mWrong usage :\e[0m must be used as with a unique argument");
+	(void)ac;
+	(void)av;
+	(void) tmp_data;
+	// if (central_verif(ac, av))
+	// 	return (1);
+	// tmp_data = fill_tmp_data();
+	ft_printf("\e[1;38;2;251;255;0moui tout vas bien\n");
 	return (0);
 }
