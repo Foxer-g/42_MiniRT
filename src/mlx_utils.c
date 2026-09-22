@@ -1,24 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   central_verif.c                                    :+:      :+:    :+:   */
+/*   mlx_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: toespino <toespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/09/16 18:00:37 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/09/18 10:59:20 by ethutin-         ###   ########.fr       */
+/*   Created: 2026/09/21 12:20:35 by toespino          #+#    #+#             */
+/*   Updated: 2026/09/21 13:01:41 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-bool	central_verif(int ac, char **av)
-{
-	if (ac != 2)
-	{
-		error_perror(ERR_AC, P_ERROR, 2, -1);
-		return (true);
-	}
-	(void)av;
-	return (false);
-}
+

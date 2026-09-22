@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   type.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toespino <toespino@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/17 14:38:21 by toespino          #+#    #+#             */
-/*   Updated: 2026/09/18 14:57:30 by toespino         ###   ########.fr       */
+/*   Updated: 2026/09/21 17:48:35 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 // @field x: double, Position on x axis.
 // @field y: double, Position on y axis.
 // @field z: double, Position on z axis.
-typedef struct	s_coodinate
+typedef struct s_coodinate
 {
 	double	x;
 	double	y;
@@ -35,7 +35,7 @@ typedef struct	s_coodinate
 // @field x: double, Vector value on x axis.
 // @field y: double, Vector value on y axis.
 // @field z: double, Vector value on z axis.
-typedef struct	s_vector
+typedef struct s_vector
 {
 	double	x;
 	double	y;
@@ -48,7 +48,7 @@ typedef struct	s_vector
 // @field r: int8_t, Red value up to 255.
 // @field g: int8_t, Green value up to 255.
 // @field b: int8_t, Blue value up to 255.
-typedef struct	s_color
+typedef struct s_color
 {
 	int8_t	r;
 	int8_t	g;
@@ -62,7 +62,7 @@ typedef struct	s_color
 // @field coordinate: [[t_coordinate]], Coordinates of a point in the plane.
 // @field color: [[t_color]], Plane color.
 // @field normal: [[t_vector]], Plane normal vector.
-typedef struct	s_plane
+typedef struct s_plane
 {
 	char			*type;
 	t_coordinate	coordinate;
@@ -77,7 +77,7 @@ typedef struct	s_plane
 // @field coordinate: [[t_coordinate]], Sphere center coordinates.
 // @field color: [[t_color]], Sphere color.
 // @field radius: double, Sphere radius.
-typedef struct	s_sphere
+typedef struct s_sphere
 {
 	char			*type;
 	t_coordinate	coordinate;
@@ -94,7 +94,7 @@ typedef struct	s_sphere
 // @field diameter: double, Cylinder diameter.
 // @field height: double, Cylinder height.
 // @field normal: [[t_vector]], Cylinder normal vector.
-typedef struct	s_cylinder
+typedef struct s_cylinder
 {
 	char			*type;
 	t_coordinate	coordinate;
@@ -110,7 +110,7 @@ typedef struct	s_cylinder
 // @field coordinate: [[t_coordinate]], Light coordinates.
 // @field color: [[t_color]], Light color.
 // @field brightness: double, Light brightness.
-typedef struct	s_light
+typedef struct s_light
 {
 	t_coordinate	coordinate;
 	t_color			color;
@@ -122,7 +122,7 @@ typedef struct	s_light
 // @desc Sketchy ambient light representation.
 // @field color: [[t_color]], Ambient light color.
 // @field brightness: double, Ambient light brightness.
-typedef struct	s_amb
+typedef struct s_amb
 {
 	t_color	color;
 	double	brightness;
@@ -137,7 +137,7 @@ typedef struct	s_amb
 // @field fov: int32_t, Fov value for the camera in degres.
 // @field height: int32_t, Window height in pixels.
 // @field width: int32_t, Window width in pixels.
-typedef struct	s_data
+typedef struct s_data
 {
 	void	*objs;
 	t_light	*lights;
