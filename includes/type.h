@@ -6,7 +6,7 @@
 /*   By: toespino <toespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/17 14:38:21 by toespino          #+#    #+#             */
-/*   Updated: 2026/09/18 14:57:30 by toespino         ###   ########.fr       */
+/*   Updated: 2026/09/22 16:30:03 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include <stdint.h>
 # include <stdbool.h>
+# include "mlx.h"
+# include "mlx_extended.h"
 
 // @doc t_coordinate
 // @kind type
@@ -50,21 +52,21 @@ typedef struct	s_vector
 // @field b: int8_t, Blue value up to 255.
 typedef struct	s_color
 {
-	int8_t	r;
-	int8_t	g;
-	int8_t	b;
+	uint8_t	r;
+	uint8_t	g;
+	uint8_t	b;
 }	t_color;
 
 // @doc t_plane
 // @kind type
 // @desc Plane representation in an environement.
-// @field type: char *, Object indentification field.
+// @field type: char , Object indentification field.
 // @field coordinate: [[t_coordinate]], Coordinates of a point in the plane.
 // @field color: [[t_color]], Plane color.
 // @field normal: [[t_vector]], Plane normal vector.
 typedef struct	s_plane
 {
-	char			*type;
+	char			type;
 	t_coordinate	coordinate;
 	t_color			color;
 	t_vector		normal;
@@ -73,13 +75,13 @@ typedef struct	s_plane
 // @doc t_sphere
 // @kind type
 // @desc Sphere representation in an environement.
-// @field type: char *, Object indentification field.
+// @field type: char , Object indentification field.
 // @field coordinate: [[t_coordinate]], Sphere center coordinates.
 // @field color: [[t_color]], Sphere color.
 // @field radius: double, Sphere radius.
 typedef struct	s_sphere
 {
-	char			*type;
+	char			type;
 	t_coordinate	coordinate;
 	t_color			color;
 	double			radius;
@@ -88,7 +90,7 @@ typedef struct	s_sphere
 // @doc t_cylinder
 // @kind type
 // @desc Cylinder representation in an environement.
-// @field type: char *, Object indentification field.
+// @field type: char , Object indentification field.
 // @field coordinate: [[t_coordinate]], Cylinder center coordinates.
 // @field color: [[t_color]], Cylinder color.
 // @field diameter: double, Cylinder diameter.
@@ -96,7 +98,7 @@ typedef struct	s_sphere
 // @field normal: [[t_vector]], Cylinder normal vector.
 typedef struct	s_cylinder
 {
-	char			*type;
+	char			type;
 	t_coordinate	coordinate;
 	t_color			color;
 	double			diameter;
@@ -148,4 +150,14 @@ typedef struct	s_data
 	int32_t	width;
 }	t_data;
 
+// @doc t_mlx
+// @kind type
+// @desc Basics ressources to work with MacrolibX.
+// @field mlx: mlx_content, MacrolibX data.
+// @filed win: mlx_window, MacrolibX window data.
+typedef struct s_mlx
+{
+	mlx_context	mlx;
+	mlx_window	win;
+}	t_mlx;
 #endif

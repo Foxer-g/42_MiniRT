@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/17 14:12:29 by toespino          #+#    #+#             */
-/*   Updated: 2026/09/21 13:02:46 by toespino         ###   ########.fr       */
+/*   Updated: 2026/09/21 14:37:23 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include "libft.h"
 # include "type.h"
-# include "mlx.h"
 # include <stdio.h>
 
 //=====Color Reference To Use Everywhere=====//
