@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 09:51:16 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/09/21 17:08:55 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/09/22 17:16:03 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,47 @@ bool	error_message(char *error)
 	return (0);
 }
 
-int	malloc_error(int exit_code)
+int	malloc_error(int exit_code, int fd)
 {
-	ft_putstr_fd(DATA_ER, 2);
+	if (fd >= 0)
+		close(fd);
+	ft_putstr_fd(ERR_MALOC, 2);
 	exit (exit_code);
+}
+
+bool	error_file_rt(int *flag)
+{
+	if (*flag == CODE_RT_G)
+		ft_putstr_fd(ERR_RT_G, 2);
+	else if (*flag == CODE_RT_G)
+		ft_putstr_fd(ERR_RT_G, 2);
+	else if (*flag == CODE_RT_G)
+		ft_putstr_fd(ERR_RT_G, 2);
+	else if (*flag == CODE_RT_G)
+		ft_putstr_fd(ERR_RT_G, 2);
+	else if (*flag == CODE_RT_G)
+		ft_putstr_fd(ERR_RT_G, 2);
+	else if (*flag == CODE_RT_G)
+		ft_putstr_fd(ERR_RT_G, 2);
+	else if (*flag == CODE_RT_G)
+		ft_putstr_fd(ERR_RT_G, 2);
+	else if (*flag == CODE_RT_G)
+		ft_putstr_fd(ERR_RT_G, 2);
+	else if (*flag == CODE_RT_G)
+		ft_putstr_fd(ERR_RT_G, 2);
+	else if (*flag == CODE_RT_G)
+		ft_putstr_fd(ERR_RT_G, 2);
+	else if (*flag == CODE_RT_G)
+		ft_putstr_fd(ERR_RT_G, 2);
+	else if (*flag == CODE_RT_G)
+		ft_putstr_fd(ERR_RT_G, 2);
+	return (EXIT_FAILURE);
 }
 
 // int	data_malloc_error(t_data *data)
 // {
 // 	if (data)
 // 		free_data(data);
-// 	ft_putstr_fd(DATA_ER, 2);
+// 	ft_putstr_fd(ERR_MALOC, 2);
 // 	exit (EXIT_FAILURE);
 // }

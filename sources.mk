@@ -1,3 +1,22 @@
+###########COLOR###########
+RESET		= \e[0m
+BLACK		= \e[48;2;0;0;0m
+RED			= \e[31
+D_RED		= \e[1;38;2;187;6;6m
+DK_RED		= \e[1;38;2;89;0;0m
+MAG			= \e[1;38;2;242;0;255m
+GREEN		= \e[32m
+L_GREEN 	= \e[1;38;2;39;245;73m
+L_BLUE		= \e[1;38;2;0;255;255m
+Z_BLUE		= \e[1;38;2;22;184;243m
+ORANGE		= \e[1;38;2;255;128;0m
+L_YELLOW	= \e[1;38;2;251;255;0m
+L_Y_G		= \e[1;38;2;45;0;073m
+PINKO		= \e[1;38;2;255;0;144m
+RESET_C		= \e[0m
+
+###########################
+
 ###########Diretory###########
 SRC_DIR 		= src/
 UTILS_DIR		= src/utils/
@@ -15,7 +34,7 @@ MLX_DIR					= macrolibx/
 ###########FILES###########
 MAIN_FILES 			= miniRT.c
 RENDER_FILES		= render.c
-PARSING_FILES		= central_verif.c
+PARSING_FILES		= central_verif.c filler.c verif_data.c
 ERROR_FILES			= error_manage1.c
 BACK_FONCK_FILES	= back_fnct1.c init.c free.c
 ###########################
@@ -40,8 +59,6 @@ MLX				= $(MLX_DIR)libmlx.so
 LIBFT_INCLUDE	= $(LIBFT_DIR)includes/
 MLX_INCLUDE		= $(MLX_DIR)includes/
 
-#INCLUDES		= -Iincludes -I$(LIBFT_DIR) -I$(MLX_DIR)
 INCLUDES		= -Iincludes -I$(LIBFT_INCLUDE) -I$(MLX_INCLUDE)
-
 #############################
 

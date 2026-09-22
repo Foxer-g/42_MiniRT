@@ -6,7 +6,7 @@
 #    By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/09/18 14:10:09 by ethutin-          #+#    #+#              #
-#    Updated: 2026/09/21 18:07:01 by ethutin-         ###   ########.fr        #
+#    Updated: 2026/09/22 15:55:33 by ethutin-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,8 +32,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT) $(MLX)
 	$(Q)$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $@
-	$(Q)echo "\e[1;38;2;187;6;6m[\e[1;38;2;242;0;255mminiRT\e[1;38;2;187;6;6m]\
- \e[1;38;2;255;128;0mCompiled successfully!\e[0m"
+	$(Q)echo "$(D_RED)[$(MAG)miniRT$(D_RED)] $(ORANGE)Compiled successfully!$(RESET)"
 
 $(LIBFT):
 	$(Q)$(MAKE) -C $(LIBFT_DIR)
@@ -46,12 +45,12 @@ $(BUILDS_DIR)/%.o: %.c
 	$(Q)$(CC) $(CFLAGS) $(INCLUDES) -MMD -MP -c $< -o $@
 
 clean:
-	$(Q)echo "\e[1;38;2;255;128;0m[CLEAN]\e[0m"
+	$(Q)echo "$(ORANGE)[CLEAN]$(RESET)"
 	$(Q)rm -rf $(BUILDS_DIR)
 	$(Q)$(MAKE) -C $(LIBFT_DIR) clean
 
 fclean: clean
-	$(Q)echo "\e[1;38;2;255;128;0m[FCLEAN]\e[0m"
+	$(Q)echo "$(ORANGE)[FCLEAN]$(RESET)"
 	$(Q)$(MAKE) -C $(LIBFT_DIR) fclean
 	$(Q)$(MAKE) -C $(MLX_DIR) fclean
 	$(Q)rm -f $(NAME)

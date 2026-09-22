@@ -1,32 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   miniRT.c                                           :+:      :+:    :+:   */
+/*   verif_data.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/09/18 11:05:30 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/09/22 17:56:45 by ethutin-         ###   ########.fr       */
+/*   Created: 2026/09/22 18:13:45 by ethutin-          #+#    #+#             */
+/*   Updated: 2026/09/22 18:13:58 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-int	main(int ac, char **av)
+bool    verif_data(char *line, int *flag_line, int *nb_e)
 {
-	void	*tmp_data;
-	int		nb_e;
-
-	// (void)ac;
-	// (void)av;
-	(void) tmp_data;
-	nb_e = 0;
-	if (central_verif(ac, av, &nb_e))
-		return (1);
-	//fill_tmp_data(tmp_data);
-	// render
-	//ft_free_nt_tab(tmp_data, nb_e);
-	// ft_putstr_fd(OUI, 0);
-	//ft_printf(OUI);
-	return (0);
+	(void)flag_line;
+	(void)nb_e;
+	(void)line;
+	return (false);
 }
