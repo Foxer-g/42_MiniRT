@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/17 14:12:29 by toespino          #+#    #+#             */
-/*   Updated: 2026/09/22 18:53:50 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/09/23 19:58:41 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,28 +84,24 @@
 # define C_ERROR	1
 # define NF 		-1
 
-# define CODE_RT_G 1
-// # define code_RT_G 1
-// # define code_RT_G 1
-// # define code_RT_G 1
-// # define code_RT_G 1
+# define ERR_RT_G D_RED "Error\n["ORANGE
+# define ERR_RT_END D_RED "] " ORANGE "is not a valid identifier\n" RESET
 
-# define ERR_RT_G "Error\n"
-// # define ERR_RT_G "Error\n"
-// # define ERR_RT_G "Error\n"
-// # define ERR_RT_G "Error\n"
-// # define ERR_RT_G "Error\n"
-// # define ERR_RT_G "Error\n"
-// # define ERR_RT_G "Error\n"
-// # define ERR_RT_G "Error\n"
+# define ERR_OPEN_C_V GREEN "[" ORANGE "IN " Z_BLUE "CENTRAL_VERIF "\
+ORANGE "BY " Z_BLUE "ERROR_PERROR_B" GREEN "] " RESET
+
 
 # define ERR_RT D_RED"Error\n"RESET
+
 # define ERR_MALOC D_RED "[Error] " ORANGE "A malloc has failed\n"RESET
+
 # define ERR_AC D_RED "[Error] " ORANGE "You must enter one argument only\n\
 -> ./miniRT <xxxxxxx>.rt\n"RESET
-# define ERR_FILNAM D_RED "[Error] " ORANGE "You must only enter a file with\
+
+# define ERR_FILNAM D_RED "[Error] " ORANGE "You must only enter a single file with\
 .rt extension\n-> ./miniRT <xxxxxxx>.rt\n"RESET
-# define ERR_OPEN D_RED "[Error] " ORANGE "No such file or directory\n"RESET
+
+# define ERR_PERROR D_RED "[Error] " ORANGE
 
 # define OUI D_RED "[" MAG"MAIN"D_RED"] " Z_BLUE "TOUT VAS BIEN\n"RESET
 
@@ -116,13 +112,16 @@
 //==========================================================//
 
 //==========Error Managenment==========//
+void	*central_filler(int fd);
+
 void	error_perror(char *error, int type, int fd, int exit_code);
+void	data_malloc_error(void *data, unsigned int nb_e);
 
 int		malloc_error(int exit_code, int fd);
 
 bool	error_perror_b(char *error, int type, int fd, bool operator);
 bool	error_message(char *error);
-bool	error_file_rt(int *flag);
+bool	error_file_rt(char *flag);
 //=====================================//
 
 //==========Renderer==========//
@@ -130,11 +129,14 @@ void	render(void);
 //============================//
 
 //==========Parsing==========//
+char	*is_identifier(char *word, int fd);
+
 void	fill_tmp_data(void *tmp_data);
 
-bool	verif_data(char *line, int *flag_line, int *nb_e);
-
-bool	central_verif(int ac, char **av, int *nb_e);
+bool	check_line(char **flag, char *line, int fd);
+bool	check_scene(char **flag, int fd);
+bool	data_verif(char *line, int *flag_line, int *nb_e);
+bool	central_verif(int ac, char **av);
 bool	check_filename(const char *filename);
 //===========================//
 

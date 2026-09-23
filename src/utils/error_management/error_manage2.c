@@ -1,19 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   filler.c                                           :+:      :+:    :+:   */
+/*   error_manage2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/09/22 13:58:59 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/09/22 18:14:56 by ethutin-         ###   ########.fr       */
+/*   Created: 2026/09/23 14:10:46 by ethutin-          #+#    #+#             */
+/*   Updated: 2026/09/23 14:22:38 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-void    fill_tmp_data(void *tmp_data)
+void    data_malloc_error(void *data, unsigned nb_e)
 {
-    (void)tmp_data;
-    return ;
+	if (data)
+			ft_free_nt_tab(data, nb_e);
+	ft_putstr_fd(ERR_MALOC, 2);
+	exit (EXIT_FAILURE);
 }

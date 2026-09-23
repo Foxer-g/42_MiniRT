@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/18 11:05:30 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/09/22 17:56:45 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/09/23 19:57:25 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 int	main(int ac, char **av)
 {
-	void	*tmp_data;
-	int		nb_e;
+	//void			*data;
 
-	// (void)ac;
-	// (void)av;
-	(void) tmp_data;
-	nb_e = 0;
-	if (central_verif(ac, av, &nb_e))
+	if (central_verif(ac, av))
 		return (1);
-	//fill_tmp_data(tmp_data);
+	//data = data_filler();
 	// render
-	//ft_free_nt_tab(tmp_data, nb_e);
-	// ft_putstr_fd(OUI, 0);
+	//ft_arr_free(data);
 	//ft_printf(OUI);
+	ft_printf("end of program\n");
 	return (0);
 }
+
+/* TO DO
+continuer la verification de data
+regler l'erreur dans check_identifie, marche pas 
+*/

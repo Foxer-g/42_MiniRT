@@ -1,4 +1,4 @@
-###########COLOR###########
+###########COLOR########### //check end
 RESET		= \e[0m
 BLACK		= \e[48;2;0;0;0m
 RED			= \e[31
@@ -34,8 +34,8 @@ MLX_DIR					= macrolibx/
 ###########FILES###########
 MAIN_FILES 			= miniRT.c
 RENDER_FILES		= render.c
-PARSING_FILES		= central_verif.c filler.c verif_data.c
-ERROR_FILES			= error_manage1.c
+PARSING_FILES		= central_verif.c data_verif.c
+ERROR_FILES			= error_manage1.c error_manage2.c
 BACK_FONCK_FILES	= back_fnct1.c init.c free.c
 ###########################
 
