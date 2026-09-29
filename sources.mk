@@ -21,10 +21,13 @@ RESET_C		= \e[0m
 SRC_DIR 		= src/
 UTILS_DIR		= src/utils/
 
-RENDER_SRCS_DIR 		= $(SRC_DIR)render/
-PARSING_SRCS_DIR		= $(SRC_DIR)parser/
-ERROR_UTILS_SRCS_DIR	= $(UTILS_DIR)error_management/
-BACKFONC_UTILS_SRCS_DIR = $(UTILS_DIR)back_fonction/
+
+RENDER_SRCS_DIR 				= $(SRC_DIR)render/
+PARSING_SRCS_DIR				= $(SRC_DIR)parser/
+FILLER_PARSE_SRCS_DIR			= $(SRC_DIR)parser/filler/
+ERROR_UTILS_SRCS_DIR			= $(UTILS_DIR)error_management/
+BACKFONC_UTILS_SRCS_DIR 		= $(UTILS_DIR)back_fonction/
+INIT_BACKFONC_UTILS_SRCS_DIR	= $(UTILS_DIR)init_free/
 
 BUILDS_DIR				= builds
 LIBFT_DIR   			= libft/
@@ -35,22 +38,28 @@ MLX_DIR					= macrolibx/
 MAIN_FILES 			= miniRT.c
 RENDER_FILES		= render.c
 PARSING_FILES		= central_verif.c data_verif.c
-ERROR_FILES			= error_manage1.c error_manage2.c
-BACK_FONCK_FILES	= back_fnct1.c init.c free.c
+FILLER_FILES		= filler.c filler_extend.c
+ERROR_FILES			= error_manage1.c error_manage2.c error_rt_data.c
+BACK_FONCK_FILES	= back_fnct1.c cop_libft.c
+INIT_FREE_FILES		= init1.c init2.c init3.c free1.c free2.c
 ###########################
 
 ###########SOURCES###########
-MAIN_SOURCES	= $(MAIN_FILES)
-RENDER_SOURCES	= $(addprefix $(RENDER_SRCS_DIR), $(RENDER_FILES))
-PARSING_SOURCES = $(addprefix $(PARSING_SRCS_DIR), $(PARSING_FILES))
-ERROR_SOURCES	= $(addprefix $(ERROR_UTILS_SRCS_DIR), $(ERROR_FILES))
-UTILS_SOURCES	= $(addprefix $(BACKFONC_UTILS_SRCS_DIR), $(BACK_FONCK_FILES))
+MAIN_SOURCES				= $(MAIN_FILES)
+RENDER_SOURCES				= $(addprefix $(RENDER_SRCS_DIR), $(RENDER_FILES))
+PARSING_SOURCES 			= $(addprefix $(PARSING_SRCS_DIR), $(PARSING_FILES))
+FILLER_PARSE_SRCS_SOURCE	= $(addprefix $(FILLER_PARSE_SRCS_DIR), $(FILLER_FILES))
+ERROR_SOURCES				= $(addprefix $(ERROR_UTILS_SRCS_DIR), $(ERROR_FILES))
+UTILS_SOURCES				= $(addprefix $(BACKFONC_UTILS_SRCS_DIR), $(BACK_FONCK_FILES))
+INIT_FREE_SOURCES			= $(addprefix $(INIT_BACKFONC_UTILS_SRCS_DIR), $(INIT_FREE_FILES))
 
 SOURCES			= $(MAIN_SOURCES) \
 					$(RENDER_SOURCES) \
 					$(PARSING_SOURCES) \
+					$(FILLER_PARSE_SRCS_SOURCE) \
 					$(ERROR_SOURCES) \
-					$(UTILS_SOURCES)
+					$(UTILS_SOURCES) \
+					$(INIT_FREE_SOURCES)
 #############################
 
 ###########INCLUDE###########

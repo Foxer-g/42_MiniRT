@@ -6,16 +6,16 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/23 14:10:46 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/09/23 14:22:38 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/09/29 13:53:30 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-void    data_malloc_error(void *data, unsigned nb_e)
+void	data_malloc_error(t_data *data, char *error)
 {
-	if (data)
-			ft_free_nt_tab(data, nb_e);
-	ft_putstr_fd(ERR_MALOC, 2);
+	free_data(data);
+	ft_putstr_fd(error, 2);
 	exit (EXIT_FAILURE);
 }
+

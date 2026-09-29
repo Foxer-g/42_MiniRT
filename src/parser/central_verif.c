@@ -6,79 +6,70 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/16 18:00:37 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/09/23 19:54:12 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/09/29 14:01:59 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-bool	check_line(char **flag, char *line, int fd)
+bool	check_line(t_data *s)
 {
 	int		i;
-	char	*identifier;
 
 	i = 0;
-	while (ft_isspace(line[i]))
+	while (ft_isspace(s->p->line[i]) || s->p->line[i] == '\n')
 		i++;
-	identifier = is_identifier(line + i, fd);
-	if (identifier)
-	{
-		*flag = identifier;
-		return (true);
-	}
-	return (false);
+	if (!s->p->line[i])
+		return (false);
+	s->p->identifier = ft_strdup(s->p->line + i);
+	if (!s->p->identifier)
+		data_malloc_error(s, ERR_INIT_IDENTIFIER);
+	return (is_identifier(s));
 }
 
-bool	check_scene(char **flag, int fd)
+bool	check_scene(t_data *s)
 {
-	char	*line;
-	int 	i = 0;
 	while (1)
 	{
-		line = get_next_line(fd);
-		if (!line)
-			break;
-		*flag = NULL;
-		i++;
-		printf("line : %d\n", i);
-		if (check_line(flag, line, fd))
+		s->p->line = get_next_line(s->p->fd);
+		if (!s->p->line)
+			break ;
+		if (check_line(s))
 		{
-			free(line);
 			get_next_line(-1);
-			close(fd);
 			return (true);
 		}
-		free(line);
+		free_parse(s->p, false);
 	}
 	get_next_line(-1);
 	return (false);
 }
 
-bool	check_filename(const char *filename)
+bool	check_filename(const char *filename, t_data *data)
 {
 	int	len;
 
 	len = ft_strlen(filename);
 	if (ft_strncmp(&filename[len - 3], ".rt", 4) != 0)
-		return (error_perror_b(ERR_FILNAM, P_ERROR, 2, true));
+	{
+		free_data(data);
+		return (true);
+	}
 	return (false);
 }
 
-bool	central_verif(int ac, char **av)
+bool	central_verif(t_data *s, char **av)
 {
-	int		fd;
-	char	*flag;
-
-	if (ac != 2)
-		return (error_perror_b(ERR_AC, P_ERROR, 2, true));
-	else if (check_filename(av[1]))
-		return (true);
-	fd = open(av[1], O_RDONLY);
-	if (fd <= 0)
+	if (check_filename(av[1], s))
+		return (error_perror_b(ERR_FILNAME, P_ERROR, 2, true));
+	s->p->fd = open(av[1], O_RDONLY);
+	if (s->p->fd <= 0)
+	{
+		free_data(s);
 		return (error_perror_b(ERR_OPEN_C_V, C_ERROR, 2, true));
-	flag = NULL;
-	if (check_scene(&flag, fd))
-		return (error_file_rt(flag));
-	close(fd);
+	}
+	if (check_scene(s))
+		return (true);
+	close(s->p->fd);
 	return (false);
 }

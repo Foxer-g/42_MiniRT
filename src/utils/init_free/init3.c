@@ -1,18 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render.c                                           :+:      :+:    :+:   */
+/*   init3.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/09/21 16:14:35 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/09/28 16:34:11 by ethutin-         ###   ########.fr       */
+/*   Created: 2026/09/28 15:40:23 by ethutin-          #+#    #+#             */
+/*   Updated: 2026/09/29 13:02:02 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-void	render(void)
+t_color	init_color(void)
 {
-	return ;
+	t_color	color;
+
+	color.r = 0;
+	color.g = 0;
+	color.b = 0;
+	return (color);
 }

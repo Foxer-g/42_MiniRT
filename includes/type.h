@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/17 14:38:21 by toespino          #+#    #+#             */
-/*   Updated: 2026/09/21 17:48:35 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/09/29 13:33:49 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,20 @@ typedef struct s_amb
 	double	brightness;
 }	t_amb;
 
+typedef struct s_parse
+{
+	char 	*line;
+	char	*identifier;
+	char	*data_line;
+
+	int32_t	index;
+	int8_t	extend;
+	int8_t	fd;
+	int8_t	err_type;
+	bool	error;
+
+}	t_parse;
+
 // @doc t_data
 // @kind type
 // @desc Scene representation in a struct, isn't it beatiful ?
@@ -139,6 +153,7 @@ typedef struct s_amb
 // @field width: int32_t, Window width in pixels.
 typedef struct s_data
 {
+	t_parse	*p;
 	void	*objs;
 	t_light	*lights;
 	t_amb	ambient;
@@ -146,6 +161,8 @@ typedef struct s_data
 	int32_t	fov;
 	int32_t	height;
 	int32_t	width;
+
+	char	*to_img;
 }	t_data;
 
 #endif

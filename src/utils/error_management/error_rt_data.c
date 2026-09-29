@@ -1,18 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   error_rt_data.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/17 11:17:43 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/09/18 10:59:20 by ethutin-         ###   ########.fr       */
+/*   Created: 2026/09/29 13:53:18 by ethutin-          #+#    #+#             */
+/*   Updated: 2026/09/29 13:59:29 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-void	free_data(t_data *data)
+void	error_identifier_rt(t_parse *p)
 {
-	(void)data;
+	ft_putstr_fd(ERR_RT_G, 2);
+	ft_putstr_fd(p->identifier, 2);
+	ft_putstr_fd(ERR_RT_IDENTIFIER, 2);
+	p->error = true;
 }

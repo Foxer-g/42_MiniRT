@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 11:53:33 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/09/22 14:02:30 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/09/29 11:41:03 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,3 +48,15 @@ int	nb_arg(char **ar)
 		i++;
 	return (i);
 }
+
+bool	valid_ratio (double ratio)
+{
+	return (ratio < 0.0 || ratio > 1.0);
+}
+bool 	valid_color(t_color color)
+{
+	return ((color.r < (int8_t)0 || color.r > (int8_t)255)
+	|| (color.g < (int8_t)0 || color.g > (int8_t)255)
+	|| (color.b < (int8_t)0 || color.b > (int8_t)255));
+}
+

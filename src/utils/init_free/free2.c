@@ -1,18 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render.c                                           :+:      :+:    :+:   */
+/*   free1.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/09/21 16:14:35 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/09/28 16:34:11 by ethutin-         ###   ########.fr       */
+/*   Created: 2026/09/28 15:47:58 by ethutin-          #+#    #+#             */
+/*   Updated: 2026/09/28 15:52:54 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-void	render(void)
+void	free_plane(t_plane *plane)
 {
-	return ;
+	if (!plane)
+		return ;
+	if (plane->type)
+		free (plane->type);
+	free (plane);
+}
+
+void	free_sphere(t_sphere *sphere)
+{
+	if (!sphere)
+		return ;
+	if (sphere->type)
+		free (sphere->type);
+	free (sphere);
 }

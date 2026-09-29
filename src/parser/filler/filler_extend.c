@@ -1,20 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   filler_extend.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/17 11:20:04 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/09/18 10:59:20 by ethutin-         ###   ########.fr       */
+/*   Created: 2026/09/25 09:37:44 by ethutin-          #+#    #+#             */
+/*   Updated: 2026/09/29 15:03:13 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-t_data	*init_data(int ac, char **av)
+void	fill_cylinder_data(t_parse *p)
 {
-	(void)ac;
-	(void)av;
-	return (NULL);
+	(void)p;
+	return ;
+}
+
+void	fill_triangle_data(t_parse *p) //a pas utiliser pour l'instant
+{
+	(void)p;
+	return ;
 }

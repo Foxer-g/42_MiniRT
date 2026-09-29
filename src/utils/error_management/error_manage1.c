@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 09:51:16 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/09/23 19:04:00 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/09/29 13:47:45 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,8 @@ int	malloc_error(int exit_code, int fd)
 	exit (exit_code);
 }
 
-bool	error_file_rt(char *error)
+void	error_rt_selection(t_parse *p)
 {
-	ft_putstr_fd(ERR_RT_G, 2);
-	ft_putstr_fd(error, 2);
-	ft_putstr_fd(ERR_RT_END, 2);
-	free(error);
-	return (false);
+	if (p->err_type == IDENTIFIER_CODE)
+		error_identifier_rt(p);
 }
