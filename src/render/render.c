@@ -6,7 +6,7 @@
 /*   By: toespino <toespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/18 12:59:48 by toespino          #+#    #+#             */
-/*   Updated: 2026/09/25 15:05:47 by toespino         ###   ########.fr       */
+/*   Updated: 2026/10/05 18:03:58 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,13 @@ static bool	process_pixel(t_vector ray, int32_t index, t_data scene,
 	else
 		return (false);
 }
+
 static bool	calculate_pixel(int32_t x, int32_t y, t_color *pixel, t_data scene)
 {
 	t_vector	ray;
 	int32_t		to_render;
 
-	ray = generate__ray(x, y, scene);
+	ray = generate_ray(x, y, scene);
 	to_render = get_ray_target(ray, scene);
 	if (to_render == -1)
 	{
