@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/17 14:12:29 by toespino          #+#    #+#             */
-/*   Updated: 2026/09/21 14:37:23 by toespino         ###   ########.fr       */
+/*   Updated: 2026/10/05 16:10:18 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@
 
 # define DATA_ER	"\e[1;38;2;255;0;144mError : A malloc has failed\n"
 # define ERR_AC		"\e[1;38;2;255;0;144mError : You must enter one argument\
+# define _USE_MATH_DEFINES
 only\n -> ./miniRT <xxxx>.rt\n"
 //================================================//
 
