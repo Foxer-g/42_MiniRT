@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cop_libft.c                                        :+:      :+:    :+:   */
+/*   back_fnct3.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/29 13:22:42 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/09/29 13:22:49 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/10/08 17:03:29 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,22 +33,51 @@ static uint16_t	get_size(t_type type)
 	return (UINT16_MAX);
 }
 
-void	ad_data_to_objs(t_data *s, void **arr, void *value)
+static bool	extend_fail(t_header *header, void **arr, void *new_value)
 {
-	t_header	*header;
-	void		*new;
+	void		*new_arr;
 
-	header = (t_header *)*arr - 1;
 	if (header->count >= header->capacity)
 	{
-		new = ft_extend_array_back(arr);
-		if (!new)
-            data_malloc_error(s, ERR_ADD_DATA);
-		*arr = new;
+		new_arr = ft_extend_array_back(arr);
+		if (!new_arr)
+		{
+			free(new_value);
+			return (true);
+		}
+		*arr = new_arr;
 		header = (t_header *)*arr - 1;
 	}
-	((void **)*arr)[header->count] = value;
+	return (false);
+}
+
+bool	ad_data_to_objs(void **arr, void *value, t_type type)
+{
+	t_header	*header;
+	void		*new_value;
+	size_t		size;
+
+	if (type == PTR)
+	{
+		new_value = ft_strdup(value);
+		if (!new_value)
+			return (true);
+	}
+	else
+	{
+		size = get_size(type);
+		new_value = ft_calloc(size, 1);
+		if (!new_value)
+			return (true);
+		ft_memcpy(new_value, value, size);
+	}
+	header = (t_header *)*arr - 1;
+	if (extend_fail(header, arr, new_value))
+		return (true);
+	((void **)*arr)[header->count] = new_value;
 	header->count++;
+	print_value(new_value, type);
+	return (false);
 }
 
 void	*ft_init_array_back(t_elem elem)
@@ -65,18 +94,6 @@ void	*ft_init_array_back(t_elem elem)
 	result->count = 0;
 	result->capacity = ARR_DEFAULT_SIZE;
 	return (result + 1);
-}
-
-void	*ft_realloc_back(void *ptr, uintmax_t old_size, uintmax_t new_size)
-{
-	void	*new_ptr;
-
-	new_ptr = malloc(new_size);
-	if (!new_ptr)
-		return (NULL);
-	ft_memcpy(new_ptr, ptr, ft_min(old_size, new_size));
-	free(ptr);
-	return (new_ptr);
 }
 
 void	*ft_extend_array_back(void **arr)

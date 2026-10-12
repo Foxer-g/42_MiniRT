@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 11:17:43 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/09/29 13:28:09 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/10/09 15:52:12 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,12 @@ void	free_parse(t_parse *parse, bool complete)
 {
 	if (!parse)
 		return ;
+	if (parse->obj)
+		free_nt_arr(parse->obj);
 	if (parse->line)
 		free(parse->line);
-	if (parse->identifier)
-		free(parse->identifier);
-	if (parse->data_line)
-		free(parse->data_line);;
+	parse->obj = NULL;
 	parse->line = NULL;
-	parse->identifier = NULL;
-	parse->data_line = NULL;
 	if (complete)
 	{
 		if (parse->fd >= 0)
@@ -74,4 +71,5 @@ void	free_data(t_data *data)
 	if (data->to_img)
 		free (data->to_img);
 	free (data);
+	data = NULL;
 }

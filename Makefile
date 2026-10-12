@@ -6,7 +6,7 @@
 #    By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/09/18 14:10:09 by ethutin-          #+#    #+#              #
-#    Updated: 2026/09/22 15:55:33 by ethutin-         ###   ########.fr        #
+#    Updated: 2026/10/12 10:35:35 by ethutin-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ CFLAGS      := -Wall -Wextra -Werror -g
 
 NAME        := miniRT
 
-MAKEFLAGS   += --no-print-directory #Remove this to view the directories
+MAKEFLAGS   += --no-print-directory #comment this to view the directories
 
 LIBS        := $(LIBFT) $(MLX) -lSDL2
 

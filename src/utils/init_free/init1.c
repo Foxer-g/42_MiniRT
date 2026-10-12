@@ -6,15 +6,15 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 11:20:04 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/09/29 13:34:28 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/10/09 15:47:17 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-t_coordinate	init_coordinate(void)
+t_coord	init_coordinate(void)
 {
-	t_coordinate	coordinate;
+	t_coord	coordinate;
 
 	coordinate.x = 0.0;
 	coordinate.y = 0.0;
@@ -37,7 +37,7 @@ t_light	*init_light(t_data *data)
 
 	light = ft_calloc(sizeof(t_light), 1);
 	if (!light)
-		data_malloc_error(data, ERR_INIT_LI);
+		data_malloc_error(data, __func__, false, NULL);
 	light->coordinate = init_coordinate();
 	light->color = init_color();
 	light->brightness = 0.0;
@@ -50,15 +50,13 @@ t_parse	*init_parse(t_data *data)
 
 	parse = ft_calloc(1, sizeof(t_parse));
 	if (!parse)
-		data_malloc_error(data, ERR_INIT_PA);
+		data_malloc_error(data, __func__, false, NULL);
 	parse->line = NULL;
-	parse->identifier = NULL;
-	parse->data_line = NULL;
-	parse->index = 0;
-	parse->extend = 1;
 	parse->fd = -1;
-	parse->err_type = 0;
 	parse->error = false;
+	parse->al = false;
+	parse->c = false;
+	parse->l = false;
 	return (parse);
 }
 
@@ -68,7 +66,7 @@ t_data	*init_data(void)
 
 	data = ft_calloc(sizeof(t_data), 1);
 	if (!data)
-		data_malloc_error(NULL, ERR_INIT_DA);
+		data_malloc_error(NULL, __func__, false, NULL);
 	data->p = init_parse(data);
 	data->objs = init_objs(data);
 	data->lights = init_light(data);

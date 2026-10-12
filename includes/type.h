@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/17 14:38:21 by toespino          #+#    #+#             */
-/*   Updated: 2026/09/29 13:33:49 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/10/09 11:07:49 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <stdint.h>
 # include <stdbool.h>
 
-// @doc t_coordinate
+// @doc t_coord
 // @kind type
 // @desc Representation of coordinates in space.
 // @field x: double, Position on x axis.
@@ -27,7 +27,7 @@ typedef struct s_coodinate
 	double	x;
 	double	y;
 	double	z;
-}	t_coordinate;
+}	t_coord;
 
 // @doc t_vector
 // @kind type
@@ -59,13 +59,13 @@ typedef struct s_color
 // @kind type
 // @desc Plane representation in an environement.
 // @field type: char *, Object indentification field.
-// @field coordinate: [[t_coordinate]], Coordinates of a point in the plane.
+// @field coordinate: [[t_coord]], Coordinates of a point in the plane.
 // @field color: [[t_color]], Plane color.
 // @field normal: [[t_vector]], Plane normal vector.
 typedef struct s_plane
 {
 	char			*type;
-	t_coordinate	coordinate;
+	t_coord			coordinate;
 	t_color			color;
 	t_vector		normal;
 }	t_plane;
@@ -74,13 +74,13 @@ typedef struct s_plane
 // @kind type
 // @desc Sphere representation in an environement.
 // @field type: char *, Object indentification field.
-// @field coordinate: [[t_coordinate]], Sphere center coordinates.
+// @field coordinate: [[t_coord]], Sphere center coordinates.
 // @field color: [[t_color]], Sphere color.
 // @field radius: double, Sphere radius.
 typedef struct s_sphere
 {
 	char			*type;
-	t_coordinate	coordinate;
+	t_coord			coordinate;
 	t_color			color;
 	double			radius;
 }	t_sphere;
@@ -89,7 +89,7 @@ typedef struct s_sphere
 // @kind type
 // @desc Cylinder representation in an environement.
 // @field type: char *, Object indentification field.
-// @field coordinate: [[t_coordinate]], Cylinder center coordinates.
+// @field coordinate: [[t_coord]], Cylinder center coordinates.
 // @field color: [[t_color]], Cylinder color.
 // @field diameter: double, Cylinder diameter.
 // @field height: double, Cylinder height.
@@ -97,7 +97,7 @@ typedef struct s_sphere
 typedef struct s_cylinder
 {
 	char			*type;
-	t_coordinate	coordinate;
+	t_coord			coordinate;
 	t_color			color;
 	double			diameter;
 	double			height;
@@ -107,12 +107,12 @@ typedef struct s_cylinder
 // @doc t_light
 // @kind type
 // @desc Sketchy light representation.
-// @field coordinate: [[t_coordinate]], Light coordinates.
+// @field coordinate: [[t_coord]], Light coordinates.
 // @field color: [[t_color]], Light color.
 // @field brightness: double, Light brightness.
 typedef struct s_light
 {
-	t_coordinate	coordinate;
+	t_coord			coordinate;
 	t_color			color;
 	double			brightness;
 }	t_light;
@@ -130,16 +130,16 @@ typedef struct s_amb
 
 typedef struct s_parse
 {
-	char 	*line;
-	char	*identifier;
-	char	*data_line;
+	char	**obj;
+	char	*line;
+	char	*curent_data;
 
-	int32_t	index;
-	int8_t	extend;
 	int8_t	fd;
-	int8_t	err_type;
-	bool	error;
 
+	bool	error;
+	bool	al;
+	bool	c;
+	bool	l;
 }	t_parse;
 
 // @doc t_data
@@ -164,5 +164,18 @@ typedef struct s_data
 
 	char	*to_img;
 }	t_data;
+
+typedef struct s_strtod
+{
+	const char	*start;
+	const char	*end;
+
+	int			i;
+	int			sign;
+	int			decimal;
+	int			expo;
+
+	double		mantis;
+}	t_strtod;
 
 #endif

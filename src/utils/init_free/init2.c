@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/28 15:37:24 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/09/29 13:01:58 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/10/08 20:04:58 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_plane	*init_plane(t_data *data)
 
 	plane = ft_calloc(sizeof(t_plane), 1);
 	if (!plane)
-		data_malloc_error(data, ERR_INIT_PL);
+		data_malloc_error(data, __func__, false, NULL);
 	plane->type = NULL;
 	plane->coordinate = init_coordinate();
 	plane->color = init_color();
@@ -42,7 +42,7 @@ t_sphere	*init_sphere(t_data *data)
 
 	sphere = ft_calloc(sizeof(t_sphere), 1);
 	if (!sphere)
-		data_malloc_error(data, ERR_INIT_SP);
+		data_malloc_error(data, __func__, false, NULL);
 	sphere->type = NULL;
 	sphere->coordinate = init_coordinate();
 	sphere->color = init_color();
@@ -56,7 +56,7 @@ t_cylinder	*init_cylinder(t_data *data)
 
 	cylinder = ft_calloc(sizeof(t_cylinder), 1);
 	if (!cylinder)
-		data_malloc_error(data, ERR_INIT_CY);
+		data_malloc_error(data, __func__, false, NULL);
 	cylinder->type = NULL;
 	cylinder->coordinate = init_coordinate();
 	cylinder->color = init_color();
@@ -73,6 +73,6 @@ void	*init_objs(t_data *data)
 	elem.type = PTR;
 	data->objs = ft_init_array_back(elem);
 	if (!data->objs)
-		data_malloc_error(data, ERR_INIT_OB);
+		data_malloc_error(data, __func__, false, NULL);
 	return (data->objs);
 }
