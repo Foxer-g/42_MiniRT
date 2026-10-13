@@ -6,7 +6,7 @@
 /*   By: toespino <toespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/18 12:59:48 by toespino          #+#    #+#             */
-/*   Updated: 2026/10/05 18:03:58 by toespino         ###   ########.fr       */
+/*   Updated: 2026/10/13 05:54:44 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static bool	calculate_pixel(int32_t x, int32_t y, t_color *pixel, t_data scene)
 	int32_t		to_render;
 
 	ray = generate_ray(x, y, scene);
+	vector_normalize(&ray);
 	to_render = get_ray_target(ray, scene);
 	if (to_render == -1)
 	{
