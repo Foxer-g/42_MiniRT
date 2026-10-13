@@ -6,7 +6,7 @@
 /*   By: toespino <toespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/25 13:52:35 by toespino          #+#    #+#             */
-/*   Updated: 2026/10/05 18:03:52 by toespino         ###   ########.fr       */
+/*   Updated: 2026/10/13 08:31:56 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int64_t	get_ray_target(t_vector ray, t_data scene)
 			res = cylinder_distance(ray, scene.(t_cylinder)obj[i]);
 		else if (scene.(t_plane)obj[i].type == 'p')
 			res = plane_distance(ray, scene.(t_plane)obj[i]); 
-		if (res < 0 && res < closest)
+		if (res > 0 && res < closest)
 		{
 			closest = res;
 			closest_index = i;
