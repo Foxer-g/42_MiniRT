@@ -6,7 +6,7 @@
 /*   By: toespino <toespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/05 18:11:39 by toespino          #+#    #+#             */
-/*   Updated: 2026/10/13 09:16:27 by toespino         ###   ########.fr       */
+/*   Updated: 2026/10/14 10:04:45 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,11 @@ double	sphere_distance(t_vector ray, t_sphere obj)
     return (-1.0);
 }
 
-bool	render_sphere(t_vector ray, int32_t index, t_data scene, t_color *pixel)
+bool	render_sphere(t_vector ray, int32_t i, t_data scene, t_color *pixel)
 {
+	(void) ray;
+	(void) index;
+	(void) scene;
+	(void) pixel;
 	return (true);
 }
