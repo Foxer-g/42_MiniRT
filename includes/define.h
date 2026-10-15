@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/05 10:22:16 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/10/12 10:42:41 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/10/15 11:44:53 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,14 @@
 # define NO_FD  -1
 //-------------------//
 
-/*---------------------ERR_CODE---------------------*/
+/*---------------------ERR_REF---------------------*/
+# define ERR_MALOC "a malloc as failed"
+# define ERR_MLX "a mlx as failed"
+# define ERR_WIN "a window as failed"
+
 /////CENTRAL_VERIF/////
-# define ERR_AC "You must enter one argument only\n -> ./miniRT <xxxxxxx>.rt\n"
+# define ERR_AC "You must enter one argument only\n ->\
+ ./miniRT <xxxxxxx>.rt\nIN "
 # define ERR_FILNAME "You must only enter a single file with a\
  .rt extension\n-> ./miniRT <xxxxxxx>.rt\nIN "
 # define ERR_NOT_IDENTIFIER "Identifier not \
@@ -125,11 +130,18 @@ numerical betwen [0:180] caratere IN"
 the correct format IN "
 # define ERR_RT_INCORECT_BRIGHTNESS "The brightness must be betwen [0:1] IN"
 # define ERR_RT_FORMAT_BRIGHTNESS "Wrong format used, correct format x.x IN"
+
+/////RENDER/////
+# define ERR_REN_GEN_IMG "an error as happen IN " //semi placeholder
+
+# define ERR_PLACEHOLDER "PLACEHOLDER"
 /////////////////////////////////////
 
-# define ERR_MALOC "[Error] a malloc as failed\n"
 # define LOCAL '.'
 # define SEP ','
+# define DEF_HEIGHT 15//160 // a voir si on les conserves
+# define DEF_WIDTH 20//240 //
+# define TITLE "Mongolian Rescue Therapy"
 //================================================//
 
 #endif

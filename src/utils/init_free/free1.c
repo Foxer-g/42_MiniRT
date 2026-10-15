@@ -6,20 +6,11 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 11:17:43 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/10/09 15:52:12 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/10/15 18:48:18 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
-
-void	free_cylinder(t_cylinder *cylinder)
-{
-	if (!cylinder)
-		return ;
-	if (cylinder->type)
-		free (cylinder->type);
-	free (cylinder);
-}
 
 void	free_objs(void *objs)
 {
@@ -33,13 +24,6 @@ void	free_objs(void *objs)
 	while (++i < header->count)
 		free(((void **)objs)[i]);
 	free(header);
-}
-
-void	free_light(t_light *light)
-{
-	if (!light)
-		return ;
-	free (light);
 }
 
 void	free_parse(t_parse *parse, bool complete)
@@ -61,15 +45,30 @@ void	free_parse(t_parse *parse, bool complete)
 	}
 }
 
+void	free_mlx_st(t_mlx *mlx_st)
+{
+	if (!mlx_st)
+		return ;
+	if (mlx_st->win)
+		mlx_destroy_window(mlx_st->mlx, mlx_st->win);
+	if (mlx_st->img)
+		mlx_destroy_image(mlx_st->mlx, mlx_st->img);
+	if (mlx_st->mlx)
+		mlx_destroy_context(mlx_st->mlx);
+	free(mlx_st);
+}
+
 void	free_data(t_data *data)
 {
 	if (!data)
 		return ;
 	free_parse(data->p, true);
 	free_objs(data->objs);
+	free_objs(data->scene_objs);
 	free_light(data->lights);
+	free_camera(data->camera);
+	free_mlx_st(data->mlx_st);
 	if (data->to_img)
 		free (data->to_img);
-	free (data);
-	data = NULL;
+	free(data);
 }

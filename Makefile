@@ -6,7 +6,7 @@
 #    By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/09/18 14:10:09 by ethutin-          #+#    #+#              #
-#    Updated: 2026/10/12 10:35:35 by ethutin-         ###   ########.fr        #
+#    Updated: 2026/10/14 15:32:09 by ethutin-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ NAME        := miniRT
 
 MAKEFLAGS   += --no-print-directory #comment this to view the directories
 
-LIBS        := $(LIBFT) $(MLX) -lSDL2
+LIBS        := $(LIBFT) $(MLX) -lSDL2 -lm
 
 Q           := @
 

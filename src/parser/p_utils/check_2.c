@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/07 17:08:09 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/10/09 15:10:58 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/10/14 17:44:10 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ bool	valid_double(t_data *s, char *str)
 
 	data = ft_split(str, SEP);
 	if (!data)
-		data_malloc_error(s, __func__, true, NULL);
+		data_malloc_error_parse(s, __func__, true, NULL);
 	if (nb_arg(data) != 1)
 	{
 		free_nt_arr(data);
@@ -41,8 +41,8 @@ bool	valid_double(t_data *s, char *str)
 		free_nt_arr(data);
 		return (true);
 	}
-	if (ad_data_to_objs(&s->objs, &data, DOUBLE))
-		data_malloc_error(s, __func__, true, data);
+	if (ad_data_to_objs(&s->objs, &data, DOUBLE, 0))
+		data_malloc_error_parse(s, __func__, true, data);
 	free_nt_arr(data);
 	return (false);
 }
@@ -66,7 +66,7 @@ bool	valid_brightness(t_data *s, char *str)
 
 	brightness = ft_split(str, SEP);
 	if (!brightness)
-		data_malloc_error(s, __func__, true, NULL);
+		data_malloc_error_parse(s, __func__, true, NULL);
 	if (nb_arg(brightness) != 1)
 	{
 		free_nt_arr(brightness);
@@ -78,8 +78,8 @@ bool	valid_brightness(t_data *s, char *str)
 		free_nt_arr(brightness);
 		return (true);
 	}
-	if (ad_data_to_objs(&s->objs, &brgh, DOUBLE))
-		data_malloc_error(s, __func__, true, brightness);
+	if (ad_data_to_objs(&s->objs, &brgh, DOUBLE, 0))
+		data_malloc_error_parse(s, __func__, true, brightness);
 	free_nt_arr(brightness);
 	return (false);
 }

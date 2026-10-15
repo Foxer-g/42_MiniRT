@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/16 18:00:37 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/10/12 10:19:47 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/10/15 18:51:46 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ bool	check_line(t_data *s)
 		return (false);
 	s->p->obj = ft_split(s->p->line + leap_space(s->p->line), ' ');
 	if (!s->p->obj)
-		data_malloc_error(s, __func__, true, NULL);
+		data_malloc_error_parse(s, __func__, true, NULL);
 	if (!ft_strncmp(s->p->obj[0], "A", 2))
 		fill_ambient_lighting(s, s->p, s->p->obj);
 	else if (!ft_strncmp(s->p->obj[0], "C", 2))
@@ -50,7 +50,7 @@ bool	check_scene(t_data *s)
 		s->p->line = ft_strtrim(tmp, " \n");
 		free (tmp);
 		if (!s->p->line)
-			data_malloc_error(s, __func__, true, NULL);
+			data_malloc_error_parse(s, __func__, true, NULL);
 		if (check_line(s))
 		{
 			get_next_line(-1);
@@ -83,5 +83,7 @@ bool	central_verif(t_data *s, char **av)
 		return (true);
 	if (s->p->fd >= 0)
 		close(s->p->fd);
+	init_scene(s);
+	init_scene_object(s, -1);
 	return (false);
 }

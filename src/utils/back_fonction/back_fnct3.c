@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/29 13:22:42 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/10/08 17:03:29 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/10/15 18:47:16 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static uint16_t	get_size(t_type type)
 	return (UINT16_MAX);
 }
 
-static bool	extend_fail(t_header *header, void **arr, void *new_value)
+bool	extend_fail(t_header *header, void **arr, void *new_value)
 {
 	void		*new_arr;
 
@@ -51,11 +51,10 @@ static bool	extend_fail(t_header *header, void **arr, void *new_value)
 	return (false);
 }
 
-bool	ad_data_to_objs(void **arr, void *value, t_type type)
+bool	ad_data_to_objs(void **arr, void *value, t_type type, size_t size)
 {
 	t_header	*header;
 	void		*new_value;
-	size_t		size;
 
 	if (type == PTR)
 	{
@@ -74,6 +73,7 @@ bool	ad_data_to_objs(void **arr, void *value, t_type type)
 	header = (t_header *)*arr - 1;
 	if (extend_fail(header, arr, new_value))
 		return (true);
+	header = (t_header *)*arr - 1;
 	((void **)*arr)[header->count] = new_value;
 	header->count++;
 	print_value(new_value, type);

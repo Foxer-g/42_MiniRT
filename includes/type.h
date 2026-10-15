@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/17 14:38:21 by toespino          #+#    #+#             */
-/*   Updated: 2026/10/09 11:07:49 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/10/15 19:05:31 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include <stdint.h>
 # include <stdbool.h>
+# include "mlx.h"
+# include "mlx_extended.h"
 
 // @doc t_coord
 // @kind type
@@ -50,9 +52,9 @@ typedef struct s_vector
 // @field b: int8_t, Blue value up to 255.
 typedef struct s_color
 {
-	int8_t	r;
-	int8_t	g;
-	int8_t	b;
+	uint8_t	r;
+	uint8_t	g;
+	uint8_t	b;
 }	t_color;
 
 // @doc t_plane
@@ -64,7 +66,7 @@ typedef struct s_color
 // @field normal: [[t_vector]], Plane normal vector.
 typedef struct s_plane
 {
-	char			*type;
+	uint8_t			type;	
 	t_coord			coordinate;
 	t_color			color;
 	t_vector		normal;
@@ -79,7 +81,7 @@ typedef struct s_plane
 // @field radius: double, Sphere radius.
 typedef struct s_sphere
 {
-	char			*type;
+	uint8_t			type;	
 	t_coord			coordinate;
 	t_color			color;
 	double			radius;
@@ -96,7 +98,7 @@ typedef struct s_sphere
 // @field normal: [[t_vector]], Cylinder normal vector.
 typedef struct s_cylinder
 {
-	char			*type;
+	uint8_t			type;	
 	t_coord			coordinate;
 	t_color			color;
 	double			diameter;
@@ -128,19 +130,68 @@ typedef struct s_amb
 	double	brightness;
 }	t_amb;
 
+// @doc t_parse
+// @kind type
+// @field obj: char **, the decomposition of line.
+// @field line: char *, line extract from the file provided.
+// @field fd: int32_t, the file descriptor use to open the file provided.
+// @field error: bool, identifier use in the parsing to stop the program.
+// @field al: bool, identifier use in the parsing to block replication of data.
+// @field c: bool, identifier use in the parsing to block replication of data.
+// @field l: bool, identifier use in the parsing to block replication of data.
 typedef struct s_parse
 {
 	char	**obj;
 	char	*line;
-	char	*curent_data;
 
-	int8_t	fd;
+	int32_t	fd;
 
 	bool	error;
 	bool	al;
 	bool	c;
 	bool	l;
 }	t_parse;
+
+// @doc t_cam
+// @kind type
+// @field vector: [[t_vector]], Normalized orientation vector.
+// @field coordinate: [[t_coord]], Coordinates of the viewpoint.
+// @field fov: int32_t, Field of view of the cmera.
+typedef struct s_cam
+{
+	t_vector	vector;
+	t_coord		coordinate;
+
+	int32_t		fov;
+}	t_cam;
+
+// @doc t_mlx
+// @kind type
+// @desc Basics ressources to work with MacrolibX.
+// @field mlx: mlx_content, MacrolibX data.
+// @filed win: mlx_window, MacrolibX window data.
+// @filed img: mlx_image, MacrolibX image data.
+typedef struct s_mlx
+{
+	mlx_context	mlx;
+	mlx_window	win;
+	mlx_image	img;
+}	t_mlx;
+
+typedef enum st_type
+{
+	SPH,
+	PLA,
+	CYL
+}	t_st_type;
+
+typedef enum s_kind
+{
+	OBJ_PLANE,
+	OBJ_SPHERE,
+	OBJ_CYLINDER,
+	OBJ_DEFAULT
+}	t_kind;
 
 // @doc t_data
 // @kind type
@@ -153,12 +204,15 @@ typedef struct s_parse
 // @field width: int32_t, Window width in pixels.
 typedef struct s_data
 {
-	t_parse	*p;
 	void	*objs;
+	void	*scene_objs;
+
+	t_parse	*p;
 	t_light	*lights;
 	t_amb	ambient;
+	t_cam	*camera;
+	t_mlx	*mlx_st;
 
-	int32_t	fov;
 	int32_t	height;
 	int32_t	width;
 

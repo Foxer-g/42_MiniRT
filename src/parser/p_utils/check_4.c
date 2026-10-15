@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/07 17:10:25 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/10/09 15:12:16 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/10/15 13:48:31 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ bool	valid_ratio(t_data *s, char *str)
 
 	ratio = ft_split(str, SEP);
 	if (!ratio)
-		data_malloc_error(s, __func__, true, NULL);
+		data_malloc_error_parse(s, __func__, true, NULL);
 	if (nb_arg(ratio) != 1)
 	{
 		free_nt_arr(ratio);
@@ -43,8 +43,8 @@ bool	valid_ratio(t_data *s, char *str)
 		free_nt_arr(ratio);
 		return (true);
 	}
-	if (ad_data_to_objs(&s->objs, &ratio, DOUBLE))
-		data_malloc_error(s, __func__, true, ratio);
+	if (ad_data_to_objs(&s->objs, &ratio, DOUBLE, 0))
+		data_malloc_error_parse(s, __func__, true, ratio);
 	free_nt_arr(ratio);
 	return (false);
 }

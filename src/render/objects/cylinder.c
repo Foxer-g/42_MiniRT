@@ -1,23 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init3.c                                            :+:      :+:    :+:   */
+/*   cylinder.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/09/28 15:40:23 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/10/07 17:02:09 by ethutin-         ###   ########.fr       */
+/*   Created: 2026/10/14 13:30:22 by ethutin-          #+#    #+#             */
+/*   Updated: 2026/10/15 11:30:33 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-t_color	init_color(void)
+double	cylinder_distance(t_vector ray, t_cylinder obj)
 {
-	t_color	color;
+	(void) ray;
+	(void) obj;
+	return (DBL_MAX);
+}
 
-	color.r = 0;
-	color.g = 0;
-	color.b = 0;
-	return (color);
+bool	render_cylinder(t_vector ray, int32_t index, \
+t_data *scene, t_color *pixel)
+{
+	(void)ray;
+	(void)index;
+	(void)scene;
+	(void)pixel;
+	return (true);
 }

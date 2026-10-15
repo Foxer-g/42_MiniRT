@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/25 09:37:44 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/10/09 14:18:46 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/10/14 17:43:11 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	fill_cylinder(t_data *s, char **obj)
 		error_generic_rt(s->p, ERR_RT_INVALID_DATA, __func__);
 		return ;
 	}
-	if (ad_data_to_objs(&s->objs, "c", PTR))
-		data_malloc_error(s, __func__, true, NULL);
+	if (ad_data_to_objs(&s->objs, "c", PTR, 0))
+		data_malloc_error_parse(s, __func__, true, NULL);
 	if (valid_coord(s, obj[1]))
 		return ;
 	if (valid_vector(s, obj[2]))
@@ -36,6 +36,6 @@ void	fill_cylinder(t_data *s, char **obj)
 void	fill_triangle(t_data *s, char **obj)//a terminer apres la manda
 {
 	(void)obj;
-	if (ad_data_to_objs(&s->objs, "TRIANGLE EUH OUI!", PTR))
-		data_malloc_error(s, __func__, true, NULL);
+	if (ad_data_to_objs(&s->objs, "t", PTR, 0))
+		data_malloc_error_parse(s, __func__, true, NULL);
 }

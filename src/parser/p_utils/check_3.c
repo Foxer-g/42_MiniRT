@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/07 17:08:58 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/10/09 15:11:41 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/10/14 17:44:20 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ static bool	check_fov(t_data *s, char **fov)
 	data = ft_atoi(fov[0]);
 	if (data < 0 || data > 180)
 		return (error_generic_rt(s->p, ERR_RT_INCORECT_FOV, __func__));
-	else if (ad_data_to_objs(&s->objs, &data, N32))
-		data_malloc_error(s, __func__, true, fov);
+	else if (ad_data_to_objs(&s->objs, &data, N32, 0))
+		data_malloc_error_parse(s, __func__, true, fov);
 	return (false);
 }
 
@@ -40,7 +40,7 @@ bool	valid_fov(t_data *s, char *camera)
 
 	fov = ft_split(camera, SEP);
 	if (!fov)
-		data_malloc_error(s, __func__, true, NULL);
+		data_malloc_error_parse(s, __func__, true, NULL);
 	else if (nb_arg(fov) != 1)
 	{
 		free_nt_arr(fov);
@@ -65,8 +65,8 @@ static bool	get_vector(t_data *s, char **vector, int i)
 		return (error_generic_rt(s->p, ERR_RT_VOID_VECTOR, __func__));
 	else if (*end && !ft_isspace(*end))
 		return (error_generic_rt(s->p, ERR_RT_INCORECT_VECTOR, __func__));
-	else if (ad_data_to_objs(&s->objs, &data, DOUBLE))
-		data_malloc_error(s, __func__, true, vector);
+	else if (ad_data_to_objs(&s->objs, &data, DOUBLE, 0))
+		data_malloc_error_parse(s, __func__, true, vector);
 	return (false);
 }
 
@@ -77,7 +77,7 @@ bool	valid_vector(t_data *s, char *str)
 
 	vector = ft_split(str, SEP);
 	if (!vector)
-		data_malloc_error(s, __func__, true, NULL);
+		data_malloc_error_parse(s, __func__, true, NULL);
 	if (nb_arg(vector) != 3)
 	{
 		free_nt_arr(vector);
