@@ -6,7 +6,7 @@
 /*   By: toespino <toespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 04:55:00 by toespino          #+#    #+#             */
-/*   Updated: 2026/10/19 04:51:29 by toespino         ###   ########.fr       */
+/*   Updated: 2026/10/19 06:16:28 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,14 @@ void	vector_inv(t_vector *vec)
 	vec->x = -vec->x;
 	vec->y = -vec->y;
 	vec->z = -vec->z;
+}
+
+t_coordinate	vector_coordinate(t_vector vec, double t)
+{
+	t_coordinate	res;
+
+	res.x = vec.x * t;
+	res.y = vec.y * t;
+	res.z = vec.z * t;
+	return (res);
 }

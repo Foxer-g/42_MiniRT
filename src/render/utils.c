@@ -6,7 +6,7 @@
 /*   By: toespino <toespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/25 13:52:35 by toespino          #+#    #+#             */
-/*   Updated: 2026/10/13 08:31:56 by toespino         ###   ########.fr       */
+/*   Updated: 2026/10/19 06:41:42 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int64_t	get_ray_target(t_vector ray, t_data scene)
 		else if (scene.(t_plane)obj[i].type == 'c')
 			res = cylinder_distance(ray, scene.(t_cylinder)obj[i]);
 		else if (scene.(t_plane)obj[i].type == 'p')
-			res = plane_distance(ray, scene.(t_plane)obj[i]); 
+			res = plane_distance(ray, scene.(t_plane)obj[i]);
 		if (res > 0 && res < closest)
 		{
 			closest = res;
@@ -50,4 +50,20 @@ t_vector	generate_ray(int32_t x, int32_t y, t_data scene)
 	ray.y = (1 - 2 * y_on_screen) * fov_tan;
 	ray.z = 1;
 	return (ray);
+}
+
+double	rt_max(double a, double b)
+{
+	if (a > b)
+		return (a);
+	else
+		return (b);
+}
+
+double	rt_min(double a, double b)
+{
+	if (a < b)
+		return (a);
+	else
+		return (b);
 }
