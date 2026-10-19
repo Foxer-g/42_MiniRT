@@ -6,11 +6,21 @@
 /*   By: toespino <toespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/18 12:59:48 by toespino          #+#    #+#             */
-/*   Updated: 2026/10/13 05:54:44 by toespino         ###   ########.fr       */
+/*   Updated: 2026/10/19 07:41:55 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
+
+// this func is pure pseudocode 
+t_color	render_point(t_coord point, t_data)
+{
+	t_color	res;
+
+	ratio = vector_dot(-ray, normal); // for every light sources
+	res = color * ratio;
+	return (res);
+}
 
 static bool	process_pixel(t_vector ray, int32_t index, t_data scene,
 		t_color *pixel)
