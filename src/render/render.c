@@ -6,18 +6,18 @@
 /*   By: toespino <toespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/18 12:59:48 by toespino          #+#    #+#             */
-/*   Updated: 2026/10/19 07:41:55 by toespino         ###   ########.fr       */
+/*   Updated: 2026/10/20 06:38:52 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-// this func is pure pseudocode 
-t_color	render_point(t_coord point, t_data)
+t_color	render_point(t_vector point, t_data scene, uint64_t index, t_vector normal)
 {
-	t_color	res;
+	t_color		res;
+	t_vector	normal;
 
-	ratio = vector_dot(-ray, normal); // for every light sources
+	ratio = ft_dmin(get_ratio(point, normal, scene, index), 1.0);
 	res = color * ratio;
 	return (res);
 }

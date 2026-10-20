@@ -6,7 +6,7 @@
 /*   By: toespino <toespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/25 13:52:35 by toespino          #+#    #+#             */
-/*   Updated: 2026/10/20 04:19:53 by toespino         ###   ########.fr       */
+/*   Updated: 2026/10/20 09:09:14 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,44 @@ t_vector	generate_ray(int32_t x, int32_t y, t_data scene)
 	ray.y = (1 - 2 * y_on_screen) * fov_tan;
 	ray.z = 1;
 	return (ray);
+}
+
+static bool	intersect_ray(t_vector ray, uint64_t index, t_data scene)
+{
+	uint64_t	i;
+
+	i = 0;
+	while (scene.obj)
+	{
+		if (i == index)
+			i++;
+		else if (scene.(t_plane)obj[i].type == 's')
+			res &= sphere_intersect(ray, scene.(t_sphere)obj[i]);
+		else if (scene.(t_plane)obj[i].type == 'c')
+			res &= cylinder_intersect(ray, scene.(t_cylinder)obj[i]);
+		else if (scene.(t_plane)obj[i].type == 'p')
+			res &= plane_intersect(ray, scene.(t_plane)obj[i]);
+	}
+	return (!res);
+}
+
+double	get_ratio(t_vector point, t_data scene, uint64_t index, t_vector normal)
+{
+	uint64_t	i;
+
+	i = 0;
+	while (scene.lights[i])
+	{
+		light_ray = vector_sub(scene.lights[i].coordinate, normal);
+		tmp = ft_dmax(0.0, vector_dot(normal, light_ray));
+		if (tmp != 0.0)
+		{
+			tmp *= scene.lights[i].brightness;
+			if (intersect_ray(light_ray, index, scene))
+				tmp = 0.0;
+		}
+		res += tmp;
+		i++;
+	}
+	return (res);
 }
