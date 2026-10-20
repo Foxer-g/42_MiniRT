@@ -6,7 +6,7 @@
 /*   By: toespino <toespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/14 10:47:17 by toespino          #+#    #+#             */
-/*   Updated: 2026/10/19 06:42:09 by toespino         ###   ########.fr       */
+/*   Updated: 2026/10/20 04:20:14 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 bool	render(t_data scene, t_mlx mlx);
 int64_t	get_ray_target(VEC ray, t_data scene);
 VEC		generate_ray(int32_t x, int32_t y, t_data scene);
-double	rt_max(double a, double b);
-double	rt_min(double a, double b);
 
 bool	render_sphere(VEC ray, int32_t i, t_data scene, t_color *pixel);
 double	sphere_distance(VEC ray, t_sphere obj);

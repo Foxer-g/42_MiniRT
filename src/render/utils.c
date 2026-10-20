@@ -6,7 +6,7 @@
 /*   By: toespino <toespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/25 13:52:35 by toespino          #+#    #+#             */
-/*   Updated: 2026/10/19 06:41:42 by toespino         ###   ########.fr       */
+/*   Updated: 2026/10/20 04:19:53 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,20 +50,4 @@ t_vector	generate_ray(int32_t x, int32_t y, t_data scene)
 	ray.y = (1 - 2 * y_on_screen) * fov_tan;
 	ray.z = 1;
 	return (ray);
-}
-
-double	rt_max(double a, double b)
-{
-	if (a > b)
-		return (a);
-	else
-		return (b);
-}
-
-double	rt_min(double a, double b)
-{
-	if (a < b)
-		return (a);
-	else
-		return (b);
 }
