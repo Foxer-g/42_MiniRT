@@ -6,16 +6,25 @@
 /*   By: toespino <toespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/25 13:52:35 by toespino          #+#    #+#             */
-/*   Updated: 2026/10/20 09:09:14 by toespino         ###   ########.fr       */
+/*   Updated: 2026/10/21 08:06:51 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-int64_t	get_ray_target(t_vector ray, t_data scene)
+t_color	process_color(t_color color, double ratio)
+{
+	t_color	res;
+
+	res.r = (uint8_t) (color.r * ratio);
+	res.g = (uint8_t) (color.g * ratio);
+	res.b = (uint8_t) (color.b * ratio);
+	return (res);
+}
+
+double	get_ray_target(t_vector ray, t_data scene)
 {
 	double	closest;
-	int64_t	closest_index;
 	int64_t	i;
 
 	closest = DBL_MAX;
@@ -30,12 +39,9 @@ int64_t	get_ray_target(t_vector ray, t_data scene)
 		else if (scene.(t_plane)obj[i].type == 'p')
 			res = plane_distance(ray, scene.(t_plane)obj[i]);
 		if (res > 0 && res < closest)
-		{
 			closest = res;
-			closest_index = i;
-		}
 	}
-	return (closest_index);
+	return (closest);
 }
 
 t_vector	generate_ray(int32_t x, int32_t y, t_data scene)
@@ -55,18 +61,22 @@ t_vector	generate_ray(int32_t x, int32_t y, t_data scene)
 static bool	intersect_ray(t_vector ray, uint64_t index, t_data scene)
 {
 	uint64_t	i;
+	bool		res;
 
 	i = 0;
+	res = true;
 	while (scene.obj)
 	{
 		if (i == index)
 			i++;
 		else if (scene.(t_plane)obj[i].type == 's')
-			res &= sphere_intersect(ray, scene.(t_sphere)obj[i]);
+			res = !(sphere_intersect(ray, scene.(t_sphere)obj[i]));
 		else if (scene.(t_plane)obj[i].type == 'c')
-			res &= cylinder_intersect(ray, scene.(t_cylinder)obj[i]);
+			res = !(cylinder_intersect(ray, scene.(t_cylinder)obj[i]));
 		else if (scene.(t_plane)obj[i].type == 'p')
-			res &= plane_intersect(ray, scene.(t_plane)obj[i]);
+			res = !(plane_intersect(ray, scene.(t_plane)obj[i]));
+		if (!res)
+			return (true);
 	}
 	return (!res);
 }
@@ -74,6 +84,8 @@ static bool	intersect_ray(t_vector ray, uint64_t index, t_data scene)
 double	get_ratio(t_vector point, t_data scene, uint64_t index, t_vector normal)
 {
 	uint64_t	i;
+	double		tmp;
+	double		res;
 
 	i = 0;
 	while (scene.lights[i])

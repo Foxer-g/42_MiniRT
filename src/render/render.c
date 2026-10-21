@@ -6,31 +6,32 @@
 /*   By: toespino <toespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/18 12:59:48 by toespino          #+#    #+#             */
-/*   Updated: 2026/10/20 06:38:52 by toespino         ###   ########.fr       */
+/*   Updated: 2026/10/21 08:09:01 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-t_color	render_point(t_vector point, t_data scene, uint64_t index, t_vector normal)
+t_color	render_point(t_vector point, t_data scene, uint64_t index,
+		t_vector normal)
 {
 	t_color		res;
 	t_vector	normal;
 
 	ratio = ft_dmin(get_ratio(point, normal, scene, index), 1.0);
-	res = color * ratio;
+	res = process_color(scene.objs[index].color, ratio);
 	return (res);
 }
 
-static bool	process_pixel(t_vector ray, int32_t index, t_data scene,
+static bool	process_pixel(t_vector point, int32_t index, t_data scene,
 		t_color *pixel)
 {
 	if (((t_plane) scene.objs[index].type == s))
-		return (render_sphere(ray, index, scene, pixel));
+		return (render_sphere(point, index, scene, pixel));
 	else if (((t_plane) scene.objs[index].type == c))
-		return (render_cylinder(ray, index, scene, pixel));
+		return (render_cylinder(point, index, scene, pixel));
 	else if (((t_plane) scene.objs[index].type == p))
-		return (render_plane(ray, index, scene, pixel));
+		return (render_plane(point, index, scene, pixel));
 	else
 		return (false);
 }
@@ -38,7 +39,7 @@ static bool	process_pixel(t_vector ray, int32_t index, t_data scene,
 static bool	calculate_pixel(int32_t x, int32_t y, t_color *pixel, t_data scene)
 {
 	t_vector	ray;
-	int32_t		to_render;
+	double		to_render;
 
 	ray = generate_ray(x, y, scene);
 	vector_normalize(&ray);
@@ -48,7 +49,8 @@ static bool	calculate_pixel(int32_t x, int32_t y, t_color *pixel, t_data scene)
 		*pixel = (t_color){0};
 		return (true);
 	}
-	if (!process_pixel(ray, to_render, scene))
+	point = vector_coordinate(ray, to_render);
+	if (!process_pixel(point, to_render, scene, pixel))
 		return (false);
 	return (true);
 }
