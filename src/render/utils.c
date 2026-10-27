@@ -6,21 +6,13 @@
 /*   By: toespino <toespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/25 13:52:35 by toespino          #+#    #+#             */
-/*   Updated: 2026/10/21 08:06:51 by toespino         ###   ########.fr       */
+/*   Updated: 2026/10/26 10:25:50 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
-
-t_color	process_color(t_color color, double ratio)
-{
-	t_color	res;
-
-	res.r = (uint8_t) (color.r * ratio);
-	res.g = (uint8_t) (color.g * ratio);
-	res.b = (uint8_t) (color.b * ratio);
-	return (res);
-}
+#define OBJ scene.(t_plane)obj[index]
+#define LIGHT scene.lights[i]
 
 double	get_ray_target(t_vector ray, t_data scene)
 {
@@ -81,22 +73,26 @@ static bool	intersect_ray(t_vector ray, uint64_t index, t_data scene)
 	return (!res);
 }
 
-double	get_ratio(t_vector point, t_data scene, uint64_t index, t_vector normal)
+t_nc	get_color(t_vector point, t_data scene, uint64_t index, t_vector normal)
 {
 	uint64_t	i;
 	double		tmp;
-	double		res;
+	t_color		new_color;
+	t_nc		res;
 
 	i = 0;
+	res = (t_nc){0};
 	while (scene.lights[i])
 	{
 		light_ray = vector_sub(scene.lights[i].coordinate, normal);
 		tmp = ft_dmax(0.0, vector_dot(normal, light_ray));
 		if (tmp != 0.0)
 		{
-			tmp *= scene.lights[i].brightness;
-			if (intersect_ray(light_ray, index, scene))
-				tmp = 0.0;
+			if (!intersect_ray(light_ray, index, scene))
+			{
+				new_color = color_in(OBJ.color, LIGHT.color, tmp, LIGHT.bright);
+				light_add(&res, new_color);
+			}
 		}
 		res += tmp;
 		i++;

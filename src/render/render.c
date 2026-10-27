@@ -6,7 +6,7 @@
 /*   By: toespino <toespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/18 12:59:48 by toespino          #+#    #+#             */
-/*   Updated: 2026/10/21 08:09:01 by toespino         ###   ########.fr       */
+/*   Updated: 2026/10/26 07:33:16 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ t_color	render_point(t_vector point, t_data scene, uint64_t index,
 		t_vector normal)
 {
 	t_color		res;
-	t_vector	normal;
+	t_nc		no_cap; 
 
-	ratio = ft_dmin(get_ratio(point, normal, scene, index), 1.0);
-	res = process_color(scene.objs[index].color, ratio);
+	no_cap = get_color(point, normal, scene, index);
+	res = color_cap(no_cap);
 	return (res);
 }
 
