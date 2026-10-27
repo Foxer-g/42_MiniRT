@@ -1,15 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2026/09/18 14:10:09 by ethutin-          #+#    #+#              #
-#    Updated: 2026/09/18 15:11:02 by toespino         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 include sources.mk
 
 CC          := cc
@@ -17,8 +5,6 @@ CFLAGS      := -Wall -Wextra -Werror -g
 
 NAME        := miniRT
 BUILDS_DIR  := builds
-
-MAKEFLAGS 	+= --no-print-directory //Remove this to view the directories
 
 LIBFT_DIR	:= libft/
 LIBFT_INCL	:= $(LIBFT_DIR)includes/
