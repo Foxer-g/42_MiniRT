@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/05 10:22:16 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/10/15 11:44:53 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/10/27 13:08:24 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,53 +15,17 @@
 
 //=====Color Reference To Use Everywhere=====//
 # define RESET   "\e[0m"//It's like set but in revese
-# define D_RED   "\e[1;38;2;187;6;6m"// You are my blueberries
+# define D_RED   "\e[1;38;2;187;6;6m"// You are my fluoroethylene methyl
 # define MAG     "\e[1;38;2;242;0;255m"// I love magenta  F200FF mmh delicious
 # define Z_BLUE  "\e[1;38;2;22;184;243m"// A life of work to know how to live
 # define ORANGE  "\e[1;38;2;255;128;0m"// Strawberrie juice is good
-//=====================================//
 
-//======<key_code>======//
-// to quit,rotate,set parameter and scale with the key
-# define KEY_ESCAPE 65307
-# define KEY_BACKSPACE 65288
-# define KEY_SPACE 32 
-# define KEY_A 97
-# define KEY_B 98
-# define KEY_C 99
-# define KEY_D 100
-# define KEY_E 101
-# define KEY_N 110
-# define KEY_Q 113
-# define KEY_R 114
-# define KEY_S 115
-# define KEY_V 118
-# define KEY_W 119
-# define KEY_Z 122
-# define KEY_SLASH 65455
-# define KEY_STAR 65450
-# define KEY_DELETE 65439
-// to move using arrow
-# define KEY_ARROW_L 65361
-# define KEY_ARROW_R 65363
-# define KEY_ARROW_U 65362
-# define KEY_ARROW_D 65364
-//to use the mouse
-# define M_CLK_L 1
-# define M_CLK_M 2
-# define M_CLK_R 3
-# define M_SCR_U 4
-# define M_SCR_D 5
-// to zoom on and zoom out by key
-# define KEY_0 65438
-# define KEY_1 65436
-# define KEY_2 65433
-# define KEY_3 65435
-# define K_NP_MIN 45
-# define K_NP_MIN_2 65453
-# define K_NP_PLU 61
-# define K_NP_PLU_2 65451
-//===================//
+# define RGBA_MAG 0xF200FFFF
+# define RGBA_D_RED 0xBA0606FF
+# define RGBA_L_BLUE 0x000FFFFFF
+# define RGBA_DK_RED 0x590000FF
+# define RGBA_BLACK 0x000000FF
+//=====================================//
 
 //=============<for general utility>=============//
 //--------CODE-------//
@@ -118,6 +82,7 @@ numerical betwen [0:180] caratere IN"
 # define ERR_RT_INCORECT_VECTOR "A vector is not in the correct format IN "
 # define ERR_RT_VOID_VECTOR "No vector as been provided IN "
 # define ERR_RT_FORMAT_VECTOR "Wrong format used, correct format x.x,x.x,x.x IN"
+# define ERR_RT_INVALID_ORIENT "The orientation must be betwen [-1.0:1.0] IN "
 
 /////DOUBLE/////
 # define ERR_RT_VOID_DOUBLE "No double as been provided IN "
@@ -132,16 +97,29 @@ the correct format IN "
 # define ERR_RT_FORMAT_BRIGHTNESS "Wrong format used, correct format x.x IN"
 
 /////RENDER/////
-# define ERR_REN_GEN_IMG "an error as happen IN " //semi placeholder
-
+# define ERR_REN_GEN_IMG "an error as happen IN "
+# define ERR_IMPOSSIBLE_IMG "it is impossible to generate any image IN "
+# define ERR_NEW_IMG "mlx_new_image as failed IN "
 # define ERR_PLACEHOLDER "PLACEHOLDER"
 /////////////////////////////////////
 
 # define LOCAL '.'
 # define SEP ','
-# define DEF_HEIGHT 15//160 // a voir si on les conserves
-# define DEF_WIDTH 20//240 //
+
+# define DEF_HEIGHT 120
+# define DEF_WIDTH 160
+# define POS_X 0
+# define POS_Y 0
+
+# define DEFAULT_ALPHA 0.5235987756
+# define DEFAULT_BETA 0.32
+# define FPS 60
 # define TITLE "Mongolian Rescue Therapy"
+# define SPACE 5
+# define PSCALE 1.03
+# define MSCALE 0.97
+# define Z_MAX 10.0
+# define Z_MIN 0.0 
 //================================================//
 
 #endif

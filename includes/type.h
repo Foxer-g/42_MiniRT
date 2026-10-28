@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/17 14:38:21 by toespino          #+#    #+#             */
-/*   Updated: 2026/10/15 19:05:31 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/10/28 10:39:26 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,38 @@
 # include "mlx.h"
 # include "mlx_extended.h"
 
-// @doc t_coord
-// @kind type
-// @desc Representation of coordinates in space.
-// @field x: double, Position on x axis.
-// @field y: double, Position on y axis.
-// @field z: double, Position on z axis.
-typedef struct s_coodinate
+//////////TEMPORAIRE_PEUX_CHANGER///////////
+
+typedef struct s_mouse
 {
-	double	x;
-	double	y;
-	double	z;
-}	t_coord;
+	bool	left_click;
+	bool	middle_click;
+	int		x;
+	int		y;
+	int		cop_x;
+	int		cop_y;
+}	t_mouse;
+
+typedef struct s_ren
+{
+	double			offset_x;
+	double			offset_y;
+	double			scale;
+	double			z_scale;
+	double			alpha;
+	double			beta;
+	double			gamma;
+
+	int32_t			center_x;	
+	int32_t			center_y;
+
+	bool			click_space;
+	bool			full;
+
+	t_mouse			*mouse;
+}	t_ren;
+
+///////////////////////////////////////////////////
 
 // @doc t_vector
 // @kind type
@@ -61,13 +81,13 @@ typedef struct s_color
 // @kind type
 // @desc Plane representation in an environement.
 // @field type: char *, Object indentification field.
-// @field coordinate: [[t_coord]], Coordinates of a point in the plane.
+// @field coordinate: [[t_vector]], Coordinates of a point in the plane.
 // @field color: [[t_color]], Plane color.
 // @field normal: [[t_vector]], Plane normal vector.
 typedef struct s_plane
 {
 	uint8_t			type;	
-	t_coord			coordinate;
+	t_vector		coordinate;
 	t_color			color;
 	t_vector		normal;
 }	t_plane;
@@ -76,13 +96,13 @@ typedef struct s_plane
 // @kind type
 // @desc Sphere representation in an environement.
 // @field type: char *, Object indentification field.
-// @field coordinate: [[t_coord]], Sphere center coordinates.
+// @field coordinate: [[t_vector]], Sphere center coordinates.
 // @field color: [[t_color]], Sphere color.
 // @field radius: double, Sphere radius.
 typedef struct s_sphere
 {
 	uint8_t			type;	
-	t_coord			coordinate;
+	t_vector		coordinate;
 	t_color			color;
 	double			radius;
 }	t_sphere;
@@ -91,30 +111,30 @@ typedef struct s_sphere
 // @kind type
 // @desc Cylinder representation in an environement.
 // @field type: char *, Object indentification field.
-// @field coordinate: [[t_coord]], Cylinder center coordinates.
+// @field coordinate: [[t_vector]], Cylinder center coordinates.
 // @field color: [[t_color]], Cylinder color.
-// @field diameter: double, Cylinder diameter.
 // @field height: double, Cylinder height.
+// @field diameter: double, Cylinder diameter.
 // @field normal: [[t_vector]], Cylinder normal vector.
 typedef struct s_cylinder
 {
 	uint8_t			type;	
-	t_coord			coordinate;
+	t_vector		coordinate;
 	t_color			color;
-	double			diameter;
 	double			height;
+	double			diameter;
 	t_vector		normal;
 }	t_cylinder;
 
 // @doc t_light
 // @kind type
 // @desc Sketchy light representation.
-// @field coordinate: [[t_coord]], Light coordinates.
+// @field coordinate: [[t_vector]], Light coordinates.
 // @field color: [[t_color]], Light color.
 // @field brightness: double, Light brightness.
 typedef struct s_light
 {
-	t_coord			coordinate;
+	t_vector		coordinate;
 	t_color			color;
 	double			brightness;
 }	t_light;
@@ -155,12 +175,12 @@ typedef struct s_parse
 // @doc t_cam
 // @kind type
 // @field vector: [[t_vector]], Normalized orientation vector.
-// @field coordinate: [[t_coord]], Coordinates of the viewpoint.
+// @field coordinate: [[t_vector]], Coordinates of the viewpoint.
 // @field fov: int32_t, Field of view of the cmera.
 typedef struct s_cam
 {
-	t_vector	vector;
-	t_coord		coordinate;
+	t_vector	orient_vector;
+	t_vector	coordinate;
 
 	int32_t		fov;
 }	t_cam;
@@ -177,13 +197,6 @@ typedef struct s_mlx
 	mlx_window	win;
 	mlx_image	img;
 }	t_mlx;
-
-typedef enum st_type
-{
-	SPH,
-	PLA,
-	CYL
-}	t_st_type;
 
 typedef enum s_kind
 {
@@ -204,19 +217,20 @@ typedef enum s_kind
 // @field width: int32_t, Window width in pixels.
 typedef struct s_data
 {
+	char	*to_image;
+
 	void	*objs;
-	void	*scene_objs;
 
 	t_parse	*p;
-	t_light	*lights;
 	t_amb	ambient;
-	t_cam	*camera;
-	t_mlx	*mlx_st;
+	t_cam	camera;
+	t_light	lights;
+	t_mlx	*m_st;
+	t_ren	*ren;
+	t_color	*img_c;
 
 	int32_t	height;
 	int32_t	width;
-
-	char	*to_img;
 }	t_data;
 
 typedef struct s_strtod

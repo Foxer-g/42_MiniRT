@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maldavid <contact@kbz8.me>                 +#+  +:+       +#+        */
+/*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 16:56:35 by maldavid          #+#    #+#             */
-/*   Updated: 2025/10/22 16:59:21 by maldavid         ###   ########.fr       */
+/*   Updated: 2026/10/27 09:04:34 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ extern "C" {
 
         /* MLX types */
 
-/**
+/**c
  * @brief           Opaque handle that represents the MLX context
  */
 MLX_DEFINE_HANDLE(mlx_context);

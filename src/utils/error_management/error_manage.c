@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 09:51:16 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/10/14 18:12:08 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/10/28 09:48:20 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,26 @@ void	data_malloc_error\
 	exit (EXIT_FAILURE);
 }
 
-int	malloc_error(const char *location, int exit_code, int fd)
+bool	error_generic_rt(t_parse *p, char *error_message, const char *loc)
 {
-	if (fd >= 0)
-		close(fd);
-	ft_putstr_fd(D_RED "[Error] " ORANGE \
-"a malloc as failed " ORANGE "IN " Z_BLUE, 2);
-	ft_putstr_fd(location, 2);
-	ft_putstr_fd(RESET "\n", 2);
-	exit (exit_code);
+	ft_putstr_fd(D_RED "Error\n" ORANGE, 2);
+	ft_putstr_fd(error_message, 2);
+	ft_putstr_fd(Z_BLUE, 2);
+	ft_putstr_fd(loc, 2);
+	ft_putstr_fd(RESET"\n", 2);
+	p->error = true;
+	return (true);
+}
+
+bool	error_generic(char *error_message, const char *loc, bool operator)
+{
+	if (error_message && loc)
+	{
+		ft_putstr_fd(D_RED "[Error] " ORANGE, 2);
+		ft_putstr_fd(error_message, 2);
+		ft_putstr_fd(Z_BLUE, 2);
+		ft_putstr_fd(loc, 2);
+		ft_putstr_fd(RESET"\n", 2);
+	}
+	return (operator);
 }

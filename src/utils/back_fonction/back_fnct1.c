@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 11:53:33 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/10/12 10:30:50 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/10/21 15:24:59 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,18 @@ bool	ft_isvoid(char *line)
 	if (!line[i])
 		return (true);
 	return (false);
+}
+
+int	get_sign(const char *line, int *index)
+{
+	int	sign;
+
+	sign = 1;
+	while (line[*index] == '+' || line[*index] == '-')
+	{
+		if (line[*index] == '-')
+			sign *= -1;
+		(*index)++;
+	}
+	return (sign);
 }

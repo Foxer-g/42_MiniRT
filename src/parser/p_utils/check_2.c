@@ -6,44 +6,38 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/07 17:08:09 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/10/14 17:44:10 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/10/27 10:46:35 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-static bool	check_double(t_data *s, char *str, char *end)
+bool	get_double(t_data *s, double *data, char *str)
 {
-	if (str == end)
-		return (error_generic_rt(s->p, ERR_RT_VOID_DOUBLE, __func__));
-	if (*end && !ft_isspace(*end))
-		return (error_generic_rt(s->p, ERR_RT_INCORECT_DOUBLE, __func__));
-	return (false);
-}
-
-bool	valid_double(t_data *s, char *str)
-{
-	char	**data;
+	char	**arr;
 	char	*end;
-	double	valid;
 
-	data = ft_split(str, SEP);
-	if (!data)
+	*data = 0.0;
+	arr = ft_split(str, SEP);
+	if (!arr)
 		data_malloc_error_parse(s, __func__, true, NULL);
-	if (nb_arg(data) != 1)
+	if (nb_arg(arr) != 1)
 	{
-		free_nt_arr(data);
+		free_nt_arr(arr);
 		return (error_generic_rt(s->p, ERR_RT_FORMAT_DOUBLE, __func__));
 	}
-	valid = ft_strtod(str, &end);
-	if (check_double(s, str, end))
+	*data = ft_strtod(str, &end);
+	if (str == end)
 	{
-		free_nt_arr(data);
-		return (true);
+		free_nt_arr(arr);
+		return (error_generic_rt(s->p, ERR_RT_VOID_DOUBLE, __func__));
 	}
-	if (ad_data_to_objs(&s->objs, &data, DOUBLE, 0))
-		data_malloc_error_parse(s, __func__, true, data);
-	free_nt_arr(data);
+	if (*end && !ft_isspace(*end))
+	{
+		free_nt_arr(arr);
+		return (error_generic_rt(s->p, ERR_RT_INCORECT_DOUBLE, __func__));
+	}
+	free_nt_arr(arr);
 	return (false);
 }
 
@@ -78,8 +72,7 @@ bool	valid_brightness(t_data *s, char *str)
 		free_nt_arr(brightness);
 		return (true);
 	}
-	if (ad_data_to_objs(&s->objs, &brgh, DOUBLE, 0))
-		data_malloc_error_parse(s, __func__, true, brightness);
+	s->lights.brightness = brgh;
 	free_nt_arr(brightness);
 	return (false);
 }

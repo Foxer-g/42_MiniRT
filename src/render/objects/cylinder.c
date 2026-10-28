@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/14 13:30:22 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/10/15 11:30:33 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/10/21 14:40:48 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,12 @@ t_data *scene, t_color *pixel)
 	(void)index;
 	(void)scene;
 	(void)pixel;
+	return (true);
+}
+
+bool	cylinder_intersect(t_vector ray, t_cylinder obj)
+{
+	(void)ray;
+	(void)obj;
 	return (true);
 }

@@ -6,13 +6,13 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 11:20:04 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/10/15 18:57:11 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/10/28 10:06:32 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-t_parse	*init_parse(t_data *data)
+void	init_parse(t_data *data)
 {
 	t_parse	*parse;
 
@@ -25,54 +25,33 @@ t_parse	*init_parse(t_data *data)
 	parse->al = false;
 	parse->c = false;
 	parse->l = false;
-	return (parse);
+	data->p = parse;
 }
 
-// t_mlx	*init_mlx_st(t_data *data)
-// {
-// 	mlx_window_create_info	info;
-// 	t_mlx					*mlx_st;
-
-// 	mlx_st = ft_calloc(sizeof(t_mlx), 1);
-// 	if (!mlx_st)
-// 		data_malloc_error(data, ERR_MALOC, __func__);
-// 	mlx_st->mlx = mlx_init();
-// 	if (!mlx_st->mlx)
-// 		data_malloc_error(data, ERR_MLX, __func__);
-// 	info.render_target = NULL;
-// 	info.title = TITLE;
-// 	info.width = data->width;
-// 	info.height = data->height;
-// 	info.is_fullscreen = false;
-// 	info.is_resizable =false;
-// 	mlx_st->win = mlx_new_window(mlx_st->mlx, &info);
-// 	if (!mlx_st->win)
-// 		data_malloc_error(data, ERR_WIN, __func__);
-// 	return (mlx_st);
-// }
-
-// typedef struct mlx_window_create_info
-// {
-//     mlx_image render_target;
-//     const char* title;
-//     int width;
-//     int height;
-//     bool is_fullscreen;
-//     bool is_resizable;
-// } mlx_window_create_info;
-
-void	*init_scene_objs(t_data *data)
+void	init_m_st(t_data *data)
 {
-	t_elem	elem;
+	mlx_window_create_info	info;
+	t_mlx					*m_st;
 
-	elem.type = PTR;
-	data->scene_objs = ft_init_array_back(elem);
-	if (!data->scene_objs)
+	m_st = ft_calloc(sizeof(t_mlx), 1);
+	if (!m_st)
 		data_malloc_error(data, ERR_MALOC, __func__);
-	return (data->scene_objs);
+	m_st->mlx = mlx_init();
+	if (!m_st->mlx)
+		data_malloc_error(data, ERR_MLX, __func__);
+	info.title = TITLE;
+	info.width = data->width;
+	info.height = data->height;
+	info.render_target = NULL;
+	info.is_fullscreen = false;
+	info.is_resizable = false;
+	m_st->win = mlx_new_window(m_st->mlx, &info);
+	if (!m_st->win)
+		data_malloc_error(data, ERR_WIN, __func__);
+	data->m_st = m_st;
 }
 
-void	*init_objs(t_data *data)
+void	init_objs(t_data *data)
 {
 	t_elem	elem;
 
@@ -80,7 +59,25 @@ void	*init_objs(t_data *data)
 	data->objs = ft_init_array_back(elem);
 	if (!data->objs)
 		data_malloc_error(data, ERR_MALOC, __func__);
-	return (data->objs);
+}
+
+void	init_ren(t_data *data)
+{
+	t_ren	*ren;
+
+	ren = ft_calloc(sizeof(t_ren), 1);
+	if (!ren)
+		data_malloc_error(data, ERR_MALOC, __func__);
+	ren->offset_x = 0;//
+	ren->offset_y = 0;//
+	ren->scale = 1;
+	ren->z_scale = 1;
+	ren->alpha = DEFAULT_ALPHA;//
+	ren->beta = DEFAULT_BETA;//
+	ren->gamma = 0.0;
+	ren->click_space = false;
+	ren->full = false;
+	data->ren = ren;
 }
 
 t_data	*init_data(void)
@@ -90,14 +87,13 @@ t_data	*init_data(void)
 	data = ft_calloc(sizeof(t_data), 1);
 	if (!data)
 		data_malloc_error(data, ERR_MALOC, __func__);
+	init_parse(data);
+	init_objs(data);
+	init_ren(data);
+	data->img_c = NULL;
+	data->m_st = NULL;
 	data->height = DEF_HEIGHT;
 	data->width = DEF_WIDTH;
-	data->to_img = NULL;
-	data->p = init_parse(data);
-	init_objs(data);
-	init_scene_objs(data);
-	data->lights = NULL;
-	data->camera = NULL;
-	data->mlx_st = NULL;//init_mlx_st(data);
+	data->to_image = NULL;
 	return (data);
 }

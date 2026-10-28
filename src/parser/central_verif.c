@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/16 18:00:37 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/10/15 18:51:46 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/10/28 09:55:14 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ bool	check_line(t_data *s)
 	if (!ft_strncmp(s->p->obj[0], "A", 2))
 		fill_ambient_lighting(s, s->p, s->p->obj);
 	else if (!ft_strncmp(s->p->obj[0], "C", 2))
-		fill_camera(s, s->p->obj);
+		fill_camera(s, s->p, s->p->obj);
 	else if (!ft_strncmp(s->p->obj[0], "L", 2))
 		fill_light(s, s->p, s->p->obj);
 	else if (!ft_strncmp(s->p->obj[0], "sp", 3))
@@ -31,8 +31,8 @@ bool	check_line(t_data *s)
 		fill_plane(s, s->p->obj);
 	else if (!ft_strncmp(s->p->obj[0], "cy", 3))
 		fill_cylinder(s, s->p->obj);
-	else if (!ft_strncmp(s->p->obj[0], "tr", 3))
-		fill_triangle(s, s->p->obj);
+	// else if (!ft_strncmp(s->p->obj[0], "tr", 3))
+	// 	fill_triangle(s, s->p->obj);
 	else
 		error_generic_rt(s->p, ERR_NOT_IDENTIFIER, __func__);
 	return (s->p->error);
@@ -83,7 +83,5 @@ bool	central_verif(t_data *s, char **av)
 		return (true);
 	if (s->p->fd >= 0)
 		close(s->p->fd);
-	init_scene(s);
-	init_scene_object(s, -1);
 	return (false);
 }

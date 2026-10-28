@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/13 04:55:00 by toespino          #+#    #+#             */
-/*   Updated: 2026/10/15 09:09:10 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/10/21 13:04:14 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,21 @@ void	vector_normalize(t_vector *vec)
 	vec->x /= norm;
 	vec->y /= norm;
 	vec->z /= norm;
+}
+
+void	vector_inv(t_vector *vec)
+{
+	vec->x = -vec->x;
+	vec->y = -vec->y;
+	vec->z = -vec->z;
+}
+
+t_vector	vector_coordinate(t_vector vec, double t)
+{
+	t_vector	res;
+
+	res.x = vec.x * t;
+	res.y = vec.y * t;
+	res.z = vec.z * t;
+	return (res);
 }
