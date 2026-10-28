@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 11:20:04 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/10/28 10:06:32 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/10/28 15:57:51 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,13 @@ void	init_ren(t_data *data)
 	ren = ft_calloc(sizeof(t_ren), 1);
 	if (!ren)
 		data_malloc_error(data, ERR_MALOC, __func__);
-	ren->offset_x = 0;//
-	ren->offset_y = 0;//
+	ren->offset_x = 0;
+	ren->offset_y = 0;
+	ren->offset_z = 0;
 	ren->scale = 1;
 	ren->z_scale = 1;
-	ren->alpha = DEFAULT_ALPHA;//
-	ren->beta = DEFAULT_BETA;//
+	ren->alpha = DEFAULT_ALPHA;
+	ren->beta = DEFAULT_BETA;
 	ren->gamma = 0.0;
 	ren->click_space = false;
 	ren->full = false;

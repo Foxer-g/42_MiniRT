@@ -6,44 +6,48 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/18 12:59:48 by toespino          #+#    #+#             */
-/*   Updated: 2026/10/28 11:04:15 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/10/28 17:05:07 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-t_color	render_point(t_vector point, t_data scene, uint64_t index,
-		t_vector normal)
+t_color	render_point(t_vector point, t_data *scene, \
+uint64_t index, t_vector normal)
 {
 	t_color		res;
 	t_nc		no_cap;
 
-	no_cap = get_color(point, normal, scene, index);
+	no_cap = get_color(point, scene, index, normal);
 	res = color_cap(no_cap);
 	return (res);
 }
 
-static bool	process_pixel(t_vector point, int32_t index, t_data scene,
+static bool	process_pixel(t_vector point, int32_t index, t_data *scene,
 		t_color *pixel)
 {
-	if (((t_plane) scene.objs[index].type == s))
+	void	**objs;
+
+	objs = (void **)scene->objs;
+	if (OBJECT->type == OBJ_SPHERE)
 		return (render_sphere(point, index, scene, pixel));
-	else if (((t_plane) scene.objs[index].type == c))
+	else if (OBJECT->type == OBJ_CYLINDER)
 		return (render_cylinder(point, index, scene, pixel));
-	else if (((t_plane) scene.objs[index].type == p))
+	else if (OBJECT->type == OBJ_PLANE)
 		return (render_plane(point, index, scene, pixel));
 	else
 		return (false);
 }
 
-static bool	calculate_pixel(int32_t x, int32_t y, t_color *pixel, t_data scene)
+static bool	calculate_pixel(int32_t x, int32_t y, t_color *pixel, t_data *scene)
 {
 	t_vector	ray;
+	t_vector	point;
 	double		to_render;
 
 	ray = generate_ray(x, y, scene);
 	vector_normalize(&ray);
-	to_render = get_ray_target(ray, scene);
+	to_render = get_ray_target(ray, scene, -1);
 	if (to_render == -1)
 	{
 		*pixel = (t_color){0};
@@ -66,9 +70,9 @@ bool	renderer(t_data *s)
 		j = 0;
 		while (j < s->width)
 		{
-			//( j, i, &img[i * s->width + j], s)?
+			//if (!calculate_pixel( j, i, &img[i * s->width + j], s))?
 			if (!calculate_pixel(i, j, &s->img_c[(i + 1) * j], s))
-				return (error_generic(ERR_PLACEHOLDER, NULL, true));
+				return (error_generic(ERR_UNKNOW_OBJECT, __func__, true));
 			j++;
 		}
 		i++;

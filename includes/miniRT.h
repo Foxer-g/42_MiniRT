@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/08 17:06:35 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/10/28 11:00:24 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/10/28 16:12:51 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,11 @@
 # include <stdio.h>
 
 // a degager a la fin
-void	print_param(t_data *data);
-void	print_struct(t_data *data);
+
 void	display_head(void *objs);
+void	print_cylinder(t_cylinder cylinder);
+void	print_sphere(t_sphere sphere);
+void	print_plane(t_plane plane);
 ///////////////
 
 //==========Generic Fonction==========//
@@ -36,6 +38,8 @@ void	*ft_init_array_back(t_elem elem);
 void	*ft_realloc_back(void *ptr, uintmax_t old_size, uintmax_t new_size);
 void	*ft_extend_array_back(void **arr);
 void	free_nt_arr(char **tab);
+void	print_param(t_data *data);
+void	print_struct(t_data *data);
 
 int		get_sign(const char *line, int *index);
 int		nb_arg(char **ar);
@@ -47,6 +51,7 @@ double	ft_dmin(double d1, double d2);
 
 bool	ad_data_scene_objects(void **arr, void *value, t_kind type);
 bool	ft_isvoid(char *line);
+bool	is_k_arrow(int64_t key);
 //===================================//
 
 //====For Initialization And Free====//

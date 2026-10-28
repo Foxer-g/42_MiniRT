@@ -3,14 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: toespino <toespino@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/26 06:03:03 by toespino          #+#    #+#             */
-/*   Updated: 2026/10/27 06:05:08 by toespino         ###   ########.fr       */
+/*   Updated: 2026/10/28 11:53:57 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-t_color	color_incident(t_color base, t_color to_add, double r, double bright)
+#include "miniRT.h"
+
+t_color	color_incident(t_color base, t_color to_add, \
+double ratio, double bright)
 {
 	t_color	res;
 
@@ -22,9 +25,9 @@ t_color	color_incident(t_color base, t_color to_add, double r, double bright)
 
 void	light_add(t_nc *base, t_color to_add)
 {
-	*base.r += (uint64_t) to_add.r;
-	*base.g += (uint64_t) to_add.g;
-	*base.b += (uint64_t) to_add.b;
+	base->r += (uint64_t) to_add.r;
+	base->g += (uint64_t) to_add.g;
+	base->b += (uint64_t) to_add.b;
 }
 
 t_color	color_cap(t_nc to_cap)

@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/05 10:22:16 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/10/27 13:08:24 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/10/28 16:41:52 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,14 +100,14 @@ the correct format IN "
 # define ERR_REN_GEN_IMG "an error as happen IN "
 # define ERR_IMPOSSIBLE_IMG "it is impossible to generate any image IN "
 # define ERR_NEW_IMG "mlx_new_image as failed IN "
-# define ERR_PLACEHOLDER "PLACEHOLDER"
+# define ERR_UNKNOW_OBJECT "A object provide to render is unknown IN "
 /////////////////////////////////////
 
 # define LOCAL '.'
 # define SEP ','
 
-# define DEF_HEIGHT 120
-# define DEF_WIDTH 160
+# define DEF_HEIGHT 240
+# define DEF_WIDTH 320
 # define POS_X 0
 # define POS_Y 0
 
@@ -116,8 +116,8 @@ the correct format IN "
 # define FPS 60
 # define TITLE "Mongolian Rescue Therapy"
 # define SPACE 5
-# define PSCALE 1.03
-# define MSCALE 0.97
+# define PLUS_SCALE 1.03
+# define MINUS_SCALE 0.97
 # define Z_MAX 10.0
 # define Z_MIN 0.0 
 //================================================//

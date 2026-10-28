@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 13:47:02 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/10/28 10:21:47 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/10/28 17:12:25 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,37 +24,37 @@ void	drag_cursor(t_data *data)
 
 void	zoom_mouse(t_data *data, t_ren *r, int key)//non fonctionnelle attendre que les champs calculatoire soit remplis
 {
-	if (key == MLX_MOUSE_SCROLL_DOWN)
+	if (key == M_SCROLL_DOWN)
 	{
 		r->offset_x = r->mouse->x - (r->mouse->x - r->offset_x)
-			* ((r->scale * MSCALE) / r->scale);
+			* ((r->scale * MINUS_SCALE) / r->scale);
 		r->offset_y = r->mouse->y - (r->mouse->y - r->offset_y)
-			* ((r->scale * MSCALE) / r->scale);
-		r->scale *= MSCALE;
+			* ((r->scale * MINUS_SCALE) / r->scale);
+		r->scale *= MINUS_SCALE;
 	}
-	else if (key == MLX_MOUSE_SCROLL_UP)
+	else if (key == M_SCROLL_UP)
 	{
 		r->offset_x = r->mouse->x - (r->mouse->x - r->offset_x)
-			* ((r->scale * PSCALE) / r->scale);
+			* ((r->scale * PLUS_SCALE) / r->scale);
 		r->offset_y = r->mouse->y - (r->mouse->y - r->offset_y)
-			* ((r->scale * PSCALE) / r->scale);
-		r->scale *= PSCALE;
+			* ((r->scale * PLUS_SCALE) / r->scale);
+		r->scale *= PLUS_SCALE;
 	}
-	printf(ORANGE"ZOOM_MOUSE"RESET"\n");
+	// printf(ORANGE"ZOOM_MOUSE"RESET"\n");
 	renderer(data);
 }
 
 void	z_scale_mouse(t_data *data, int key)//non fonctionnelle attendre que les champs calculatoire soit remplis
 {
-	if (key == MLX_MOUSE_SCROLL_DOWN)
+	if (key == M_SCROLL_DOWN)
 	{
-		data->ren->z_scale *= MSCALE;
+		data->ren->z_scale *= MINUS_SCALE;
 		if (data->ren->z_scale <= Z_MIN)
 			data->ren->z_scale = Z_MIN;
 	}
-	else if (key == MLX_MOUSE_SCROLL_UP)
+	else if (key == M_SCROLL_UP)
 	{
-		data->ren->z_scale /= MSCALE;
+		data->ren->z_scale /= MINUS_SCALE;
 		if (data->ren->z_scale >= Z_MAX)
 			data->ren->z_scale = Z_MAX;
 	}
@@ -67,9 +67,9 @@ void	central_mouse_up(int key, void *param)
 	t_data	*data;
 
 	data = (t_data *)param;
-	if (key == MLX_MOUSE_LEFT)
+	if (key == M_LEFT)
 		data->ren->mouse->left_click = 0;
-	if (key == MLX_MOUSE_MIDDLE)
+	if (key == M_MIDDLE)
 		data->ren->mouse->middle_click = 0;
 }
 
@@ -78,18 +78,19 @@ void	central_mouse(int key, void *param)
 	t_data	*data;
 
 	data = (t_data *)param;
-	mlx_mouse_get_pos(data->m_st->mlx, &data->ren->mouse->x, &data->ren->mouse->y);
-	if ((key == MLX_MOUSE_SCROLL_DOWN || key == MLX_MOUSE_SCROLL_UP)
+	mlx_mouse_get_pos(data->m_st->mlx, &data->ren->mouse->x, \
+&data->ren->mouse->y);
+	if ((key == M_SCROLL_DOWN || key == M_SCROLL_UP)
 		&& data->ren->click_space)
 		z_scale_mouse(data, key);
-	else if (key == MLX_MOUSE_SCROLL_DOWN || key == MLX_MOUSE_SCROLL_UP)
+	else if (key == M_SCROLL_DOWN || key == M_SCROLL_UP)
 		zoom_mouse(data, data->ren, key);
-	else if (key == MLX_MOUSE_LEFT && !data->ren->mouse->left_click)
+	else if (key == M_LEFT && !data->ren->mouse->left_click)
 	{
 		data->ren->mouse->left_click = true;
 		data->ren->mouse->cop_x = data->ren->mouse->x;
 		data->ren->mouse->cop_y = data->ren->mouse->y;
 	}
-	else if (key == MLX_MOUSE_LEFT && data->ren->mouse->left_click)
+	else if (key == M_LEFT && data->ren->mouse->left_click)
 		drag_cursor(data);
 }

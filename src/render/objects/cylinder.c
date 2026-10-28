@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/14 09:55:23 by toespino          #+#    #+#             */
-/*   Updated: 2026/10/28 11:04:30 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/10/28 17:12:57 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,15 @@ double	cylinder_distance(t_vector ray, t_cylinder obj)
 	return (DBL_MAX);
 }
 
-bool	render_cylinder(t_vector ray, int32_t i, t_data scene, t_color *pixel)
+bool	cylinder_intersect(t_vector ray, t_cylinder obj)
+{
+	(void)ray;
+	(void)obj;
+	return (true);
+}
+
+bool	render_cylinder(t_vector ray, int32_t index, \
+t_data *scene, t_color *pixel)
 {
 	(void) ray;
 	(void) index;

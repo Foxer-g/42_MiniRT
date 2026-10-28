@@ -22,7 +22,7 @@ MLX_DIR				= macrolibx/
 
 ###########FILES###########
 MAIN_FILES 			= miniRT.c
-RENDER_FILES		= render.c render_utils.c
+RENDER_FILES		= render.c render_utils_1.c render_utils_2.c color.c
 DRAW_FILES			= central_draw.c
 OBJECT_FILES		= sphere.c cylinder.c plane.c
 HANDLE_FILES		= key1.c key2.c mouse1.c window1.c handle_utils.c
@@ -31,7 +31,7 @@ PARSING_FILES		= central_verif.c
 P_UTILS_FILES		= check_1.c check_2.c check_3.c
 FILLER_FILES		= fill_objs.c fill_param.c
 ERROR_FILES			= error_manage.c
-BACK_FONCK_FILES	= back_fnct1.c back_fnct2.c back_fnct3.c ft_strtod.c
+BACK_FONCK_FILES	= back_fnct1.c back_fnct2.c back_fnct3.c back_fnct4.c back_fnct5.c ft_strtod.c
 INIT_FREE_FILES		= init_majoris.c free1.c
 ###########################
 

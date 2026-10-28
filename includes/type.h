@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/17 14:38:21 by toespino          #+#    #+#             */
-/*   Updated: 2026/10/28 11:02:36 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/10/28 15:57:11 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_ren
 {
 	double			offset_x;
 	double			offset_y;
+	double			offset_z;
 	double			scale;
 	double			z_scale;
 	double			alpha;
@@ -231,6 +232,7 @@ typedef struct s_data
 
 	int32_t	height;
 	int32_t	width;
+	int64_t count;//tmp a degager, utiliser dans generate_img
 }	t_data;
 
 typedef struct s_strtod

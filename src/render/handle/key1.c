@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   .key1.c                                            :+:      :+:    :+:   */
+/*   key1.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 11:52:38 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/10/28 10:13:48 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/10/28 17:11:36 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,33 @@
 
 void	arrow_move(t_data *data, int key)
 {
-	if (key == MLX_KEY_RIGHT)
+	if (key == K_RIGHT || key == K_6)
 		update_pos(data, 0, -SPACE);
-	else if (key == MLX_KEY_LEFT)
+	else if (key == K_LEFT || key == K_4)
 		update_pos(data, 0, SPACE);
-	else if (key == MLX_KEY_UP)
+	else if (key == K_UP || key == K_8)
 		update_pos(data, 1, -SPACE);
-	else if (key == MLX_KEY_DOWN)
+	else if (key == K_DOWN || key == K_5)
 		update_pos(data, 1, SPACE);
-	printf(ORANGE"RESET_SIM"RESET"\n");
+	else if (key == K_7)
+		update_pos(data, 2, SPACE);
+	else if (key == K_9)
+		update_pos(data, 2, -SPACE);
+	printf(ORANGE"ARROW_MOVE"RESET"\n");
 	renderer(data);
 }
 
 void	z_scale(t_data *data, int key)//non fonctionnelle atendre les champs calculatoire soit complet 
 {
-	if (key == MLX_KEY_KP_DIVIDE)
+	if (key == K_KP_DIVIDE)
 	{
-		data->ren->z_scale *= MSCALE;
+		data->ren->z_scale *= MINUS_SCALE;
 		if (data->ren->z_scale <= Z_MIN)
 			data->ren->z_scale = Z_MIN;
 	}
-	else if (key == MLX_KEY_KP_MULTIPLY)
+	else if (key == K_KP_MULTIPLY)
 	{
-		data->ren->z_scale *= PSCALE;
+		data->ren->z_scale *= PLUS_SCALE;
 		if (data->ren->z_scale >= Z_MAX)
 			data->ren->z_scale = Z_MAX;
 	}
@@ -44,23 +48,22 @@ void	z_scale(t_data *data, int key)//non fonctionnelle atendre les champs calcul
 	renderer(data);
 }
 
-// static void	full_screen(t_data *data)
-// {
-// 	if (data->ren->full)
-// 		data->ren->full = false;
-// 	else
-// 		data->ren->full = true;
-// 	//mlx_set_window_fullscreen(data->m_st->mlx, data->m_st->win, data->full);
-// 	printf(ORANGE"FULL_SCREEN : %d"RESET"\n", data->ren->full);
+static void	full_screen(t_data *data)
+{
+	if (data->ren->full)
+		data->ren->full = false;
+	else
+		data->ren->full = true;
+	mlx_set_window_fullscreen(data->m_st->mlx, data->m_st->win, data->ren->full);
+	printf(ORANGE"FULL_SCREEN : %d"RESET"\n", data->ren->full);
+}
 
-// }
-
-void central_keyup(int key, void *param)
+void	central_keyup(int key, void *param)
 {
 	t_data	*data;
 
 	data = (t_data *)param;
-	if (key == MLX_KEY_SPACE)
+	if (key == K_SPACE)
 		data->ren->click_space = false;
 }
 
@@ -69,24 +72,25 @@ void	central_keypress(int key, void *param)
 	t_data	*data;
 
 	data = (t_data *)param;
-	if (key == MLX_KEY_ESCAPE)
+	printf(ORANGE"key = %d"RESET"\n", key);
+	if (key == K_ESCAPE)
 		mlx_loop_end(data->m_st->mlx);
-	// else if (key == MLX_KEY_SPACE)
-	// 	data->ren->click_space = true;
-	// else if (key == MLX_KEY_W || key == MLX_KEY_S
-	// 	|| key == MLX_KEY_A || key == MLX_KEY_D
-	// 	|| key == MLX_KEY_Q || key == MLX_KEY_E)
-	// 	key_rotate(data, key);
-	// else if (key == MLX_KEY_MINUS || key == MLX_KEY_KP_MINUS
-	// 	|| key == MLX_KEY_KP_PLUS)
-	// 	zoom(data, key);
-	// else if (key == MLX_KEY_F)
-	// 	full_screen(data);
-	// else if (key == MLX_KEY_0 || key == MLX_KEY_R)
-	// 	reset_sim(data);
-	// else if (key == MLX_KEY_RIGHT || key == MLX_KEY_LEFT
-	// 	|| key == MLX_KEY_UP || key == MLX_KEY_DOWN)
-	// 	arrow_move(data, key);
-	// else if (key == MLX_KEY_KP_DIVIDE || key == MLX_KEY_KP_MULTIPLY)
-	// 	z_scale(data, key);
+	else if (key == K_SPACE)
+		data->ren->click_space = true;
+	else if (key == K_W || key == K_S || key == K_A || key == K_D
+		|| key == K_Q || key == K_E)
+		key_rotate(data, key);
+	else if (key == K_MINUS || key == K_KP_MINUS
+		|| key == K_KP_PLUS)
+		zoom(data, key);
+	else if (key == K_F)
+		full_screen(data);
+	else if (key == K_KP_0 || key == K_R)
+		reset_sim(data);
+	else if (is_k_arrow(key))
+		arrow_move(data, key);
+	else if (key == K_KP_DIVIDE || key == K_KP_MULTIPLY)
+		z_scale(data, key);
+	else if (key == K_KP_1 || key == K_KP_2) //non obligatoire
+		key_print(data, key);
 }

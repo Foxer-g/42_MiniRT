@@ -6,13 +6,13 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/07 17:08:09 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/10/27 10:46:35 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/10/28 11:23:38 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-bool	get_double(t_data *s, double *data, char *str)
+bool	valid_double(t_data *s, double *data, char *str)
 {
 	char	**arr;
 	char	*end;

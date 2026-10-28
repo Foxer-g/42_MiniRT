@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/07 15:32:24 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/10/28 10:09:15 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/10/28 17:14:33 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static bool	check_vector(t_data *s, t_vector *vector, char **arr)
 	return (false);
 }
 
-bool	get_vector(t_data *s, t_vector *vector, char *str, bool type)
+bool	valid_vector(t_data *s, t_vector *vector, char *str, bool type)
 {
 	char		**arr;
 
@@ -76,7 +76,7 @@ bool	get_vector(t_data *s, t_vector *vector, char *str, bool type)
 	else if (check_vector(s, vector, arr))
 	{
 		free_nt_arr(arr);
-		return (true);		
+		return (true);
 	}
 	free_nt_arr(arr);
 	return (false);
@@ -107,7 +107,7 @@ static bool	check_get_color(t_data *s, t_color *color, char **arr)
 	return (false);
 }
 
-bool	get_color(t_data *s, t_color *color, char *str)
+bool	valid_color(t_data *s, t_color *color, char *str)
 {
 	char	**arr;
 

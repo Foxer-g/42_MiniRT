@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/14 10:47:17 by toespino          #+#    #+#             */
-/*   Updated: 2026/10/28 11:01:00 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/10/28 13:43:22 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 # define RENDER_H
 
 # define VECTOR t_vector
+# define OBJ ((t_plane *)scene->objs)[index]
+# define OBJECT ((t_plane *)objs[index])
+# define LIGHT scene->lights
 
 // @doc t_nc
 // @kind type
@@ -28,22 +31,23 @@ typedef struct	s_nc
 	uint64_t	b;
 }	t_nc;
 
-bool	render(t_data scene, t_mlx mlx);
-t_color	render_point(VECTOR point, t_data scene, uint64_t index, VECTOR normal);
+bool	render(t_data *scene);
+bool	renderer(t_data *s);
+t_color	render_point(VECTOR point, t_data *scene, uint64_t index, VECTOR normal);
 
-int64_t	get_ray_target(VECTOR ray, t_data scene);
-VECTOR	generate_ray(int32_t x, int32_t y, t_data scene);
-t_nc	get_color(VECTOR point, t_data scene, uint64_t index, VECTOR normal);
+double	get_ray_target(VECTOR ray, t_data *scene, int64_t i);
+VECTOR	generate_ray(int32_t x, int32_t y, t_data *scene);
+t_nc	get_color(VECTOR point, t_data *scene, uint64_t index, VECTOR normal);
 
-bool	render_sphere(VECTOR ray, int32_t i, t_data scene, t_color *pixel);
-bool	sphere_intersect(VECTOR ray, t_plane obj);
+bool	render_sphere(VECTOR ray, int32_t i, t_data *scene, t_color *pixel);
+bool	sphere_intersect(VECTOR ray, t_sphere obj);
 double	sphere_distance(VECTOR ray, t_sphere obj);
 
-bool	render_cylinder(VECTOR ray, int32_t i, t_data scene, t_color *pixel);
-bool	cylinder_intersect(VECTOR ray, t_plane obj);
+bool	render_cylinder(VECTOR ray, int32_t i, t_data *scene, t_color *pixel);
+bool	cylinder_intersect(VECTOR ray, t_cylinder obj);
 double	cylinder_distance(VECTOR ray, t_cylinder obj);
 
-bool	render_plane(VECTOR ray, int32_t i, t_data scene, t_color *pixel);
+bool	render_plane(VECTOR ray, int32_t i, t_data *scene, t_color *pixel);
 bool	plane_intersect(VECTOR ray, t_plane obj);
 double	plane_distance(VECTOR ray, t_plane obj);
 
@@ -58,4 +62,5 @@ VECTOR	vector_sub(VECTOR vec1, VECTOR vec2);
 VECTOR	vector_add(VECTOR vec1, VECTOR vec2);
 double	vector_dot(VECTOR vec1, VECTOR vec2);
 VECTOR	vector_coordinate(VECTOR vec, double t);
+bool	intersect_ray(t_vector ray, uint64_t index, t_data *scene);
 #endif
