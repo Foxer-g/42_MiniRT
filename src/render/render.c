@@ -6,53 +6,51 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/18 12:59:48 by toespino          #+#    #+#             */
-/*   Updated: 2026/10/28 10:12:26 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/10/28 11:04:15 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-t_color	render_point(t_vector point, t_data *scene, uint64_t index,
+t_color	render_point(t_vector point, t_data scene, uint64_t index,
 		t_vector normal)
 {
-	double		ratio;
 	t_color		res;
+	t_nc		no_cap;
 
-	ratio = ft_dmin(get_ratio(point, scene, index, normal), 1.0);
-	res = process_color(((t_plane *)scene->objs)[index].color, ratio);
+	no_cap = get_color(point, normal, scene, index);
+	res = color_cap(no_cap);
 	return (res);
 }
 
-static bool	process_pixel(t_vector point, int32_t index,
-		t_data *s, t_color *pixel)
+static bool	process_pixel(t_vector point, int32_t index, t_data scene,
+		t_color *pixel)
 {
-	void	**objs;
-
-	objs = (void **)s->objs;
-	if (((t_plane *)objs[index])->type == OBJ_SPHERE)
-		return (render_sphere(point, index, s, pixel));
-	else if (((t_plane *)objs[index])->type == OBJ_CYLINDER)
-		return (render_cylinder(point, index, s, pixel));
-	else if (((t_plane *)objs[index])->type == OBJ_PLANE)
-		return (render_plane(point, index, s, pixel));
-	return (false);
+	if (((t_plane) scene.objs[index].type == s))
+		return (render_sphere(point, index, scene, pixel));
+	else if (((t_plane) scene.objs[index].type == c))
+		return (render_cylinder(point, index, scene, pixel));
+	else if (((t_plane) scene.objs[index].type == p))
+		return (render_plane(point, index, scene, pixel));
+	else
+		return (false);
 }
 
-static bool	calculate_pixel(int32_t x, int32_t y, t_color *pixel, t_data *s)
+static bool	calculate_pixel(int32_t x, int32_t y, t_color *pixel, t_data scene)
 {
-	t_vector	point;
+	t_vector	ray;
 	double		to_render;
 
-	point = generate_ray(x, y, s);
-	vector_normalize(&point);
-	to_render = get_ray_target(point, s);
+	ray = generate_ray(x, y, scene);
+	vector_normalize(&ray);
+	to_render = get_ray_target(ray, scene);
 	if (to_render == -1)
 	{
 		*pixel = (t_color){0};
 		return (true);
 	}
-	point = vector_coordinate(point, to_render);
-	if (!process_pixel(point, to_render, s, pixel))
+	point = vector_coordinate(ray, to_render);
+	if (!process_pixel(point, to_render, scene, pixel))
 		return (false);
 	return (true);
 }
