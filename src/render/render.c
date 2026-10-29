@@ -6,7 +6,7 @@
 /*   By: toespino <toespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/18 12:59:48 by toespino          #+#    #+#             */
-/*   Updated: 2026/10/29 21:09:36 by toespino         ###   ########.fr       */
+/*   Updated: 2026/10/29 21:19:30 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ t_color	render_point(t_vector point, t_data scene, uint64_t index,
 static bool	process_pixel(t_vector point, int32_t index, t_data scene,
 		t_color *pixel)
 {
-	if (((t_plane) scene.objs[index].type == s))
+	if (((t_plane) scene.objs[index].type == 's'))
 		return (render_sphere(point, index, scene, pixel));
-	else if (((t_plane) scene.objs[index].type == c))
+	else if (((t_plane) scene.objs[index].type == 'c'))
 		return (render_cylinder(point, index, scene, pixel));
-	else if (((t_plane) scene.objs[index].type == p))
+	else if (((t_plane) scene.objs[index].type == 'p'))
 		return (render_plane(point, index, scene, pixel));
 	return (false);
 }
@@ -38,6 +38,7 @@ static bool	process_pixel(t_vector point, int32_t index, t_data scene,
 static bool	calculate_pixel(int32_t x, int32_t y, t_color *pixel, t_data scene)
 {
 	t_vector	ray;
+	t_vector	point;
 	double		to_render;
 
 	ray = generate_ray(x, y, scene);
@@ -57,6 +58,8 @@ static bool	calculate_pixel(int32_t x, int32_t y, t_color *pixel, t_data scene)
 bool	render(t_data scene, t_mlx mlx)
 {
 	t_color	*img;
+	int32_t	i;
+	int32_t	j;
 
 	img = ft_calloc(scene.height * scene.width + 1, sizeof(t_color));
 	if (!img)
