@@ -6,13 +6,27 @@
 /*   By: toespino <toespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/25 13:52:35 by toespino          #+#    #+#             */
-/*   Updated: 2026/10/26 10:25:50 by toespino         ###   ########.fr       */
+/*   Updated: 2026/10/29 21:11:49 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
-#define OBJ scene.(t_plane)obj[index]
-#define LIGHT scene.lights[i]
+
+void	generate_img(t_color *img, int32_t height, int32_t width, t_mlx *mlx)
+{
+	int64_t		i;
+	int64_t		j;
+
+	i = 0;
+	while (i < height)
+	{
+		j = -1;
+		while (++j < width)
+			mlx_set_image_pixel(mlx->mlx, mlx->img, i, j,
+					(mlx_color) img[(i + 1) * j]);
+		i++;
+	}
+}
 
 double	get_ray_target(t_vector ray, t_data scene)
 {
@@ -87,13 +101,11 @@ t_nc	get_color(t_vector point, t_data scene, uint64_t index, t_vector normal)
 		light_ray = vector_sub(scene.lights[i].coordinate, normal);
 		tmp = ft_dmax(0.0, vector_dot(normal, light_ray));
 		if (tmp != 0.0)
-		{
 			if (!intersect_ray(light_ray, index, scene))
-			{
-				new_color = color_in(OBJ.color, LIGHT.color, tmp, LIGHT.bright);
-				light_add(&res, new_color);
-			}
-		}
+				new_color = light_add(&res, color_inicident((t_plane)
+							(scene.objs[index]).color,
+							scene.lights[i].color, tmp,
+							scene.lights[i].bright));
 		res += tmp;
 		i++;
 	}

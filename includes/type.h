@@ -6,7 +6,7 @@
 /*   By: toespino <toespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/17 14:38:21 by toespino          #+#    #+#             */
-/*   Updated: 2026/09/22 16:30:03 by toespino         ###   ########.fr       */
+/*   Updated: 2026/10/29 20:49:18 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,5 +159,6 @@ typedef struct s_mlx
 {
 	mlx_context	mlx;
 	mlx_window	win;
+	mlx_image	img;
 }	t_mlx;
 #endif

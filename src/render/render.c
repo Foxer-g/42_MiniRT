@@ -6,7 +6,7 @@
 /*   By: toespino <toespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/18 12:59:48 by toespino          #+#    #+#             */
-/*   Updated: 2026/10/27 07:11:48 by toespino         ###   ########.fr       */
+/*   Updated: 2026/10/29 21:09:36 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@ static bool	process_pixel(t_vector point, int32_t index, t_data scene,
 		return (render_cylinder(point, index, scene, pixel));
 	else if (((t_plane) scene.objs[index].type == p))
 		return (render_plane(point, index, scene, pixel));
-	else
-		return (false);
+	return (false);
 }
 
 static bool	calculate_pixel(int32_t x, int32_t y, t_color *pixel, t_data scene)
@@ -70,14 +69,11 @@ bool	render(t_data scene, t_mlx mlx)
 			if (!calculate_pixel(i, j, &img[(i + 1) * j], scene))
 				return (ff_free(img));
 	}
-	mlx.img = generate_img(img, scene.height, scene.width);
+	generate_img(img, scene.height, scene.width, &mlx);
 	if (!mlx.img)
 		return (ff_free(img));
-	if (scene.to_image)
-		mlx_save_image_to_file(mlx.mlx, mlx.img, scene.to_img);
-	else
-		mlx_put_image_to_window(mlx.mlx, mlx.win, mlx.img, 0, 0);
+	mlx_put_image_to_window(mlx.mlx, mlx.win, mlx.img, 0, 0);
 	free(img);
-	mlx_dextroy_image(mlx.mlx, mlx.img);
+	mlx_destroy_image(mlx.mlx, mlx.img);
 	return (true);
 }
