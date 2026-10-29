@@ -1,55 +1,41 @@
 include sources.mk
 
-CC          := cc
-CFLAGS      := -Wall -Wextra -Werror -g
-
-NAME        := miniRT
-BUILDS_DIR  := builds
-
-LIBFT_DIR	:= libft/
-LIBFT_INCL	:= $(LIBFT_DIR)includes/
-MLX_DIR		:= macrolibx/
-
-LIBFT		:= $(LIBFT_DIR)libft.a
-MLX         := $(MLX_DIR)libmlx.so
-
-INCLUDES    := -Iincludes -I$(LIBFT_INCL) -I$(MLX_DIR)
-LIBS        := $(LIBFT) $(MLX) -lSDL2
-
-Q			:= @
-
-OBJS        := $(patsubst %.c,$(BUILDS_DIR)/%.o,$(SOURCES))
-DEPS        := $(OBJS:.o=.d)
+NAME = miniRT
+BUILD_DIR = build/
+INCLUDES = includes
+OBJECTS = $(SOURCES:src/%.c=$(BUILD_DIR)%.o)
+CFLAGS = -Wall -Wextra -Werror -ggdb
+LDFLAGS = libft/libft.a macrolibx/libmlx.so -lSDL2
+CC = cc
 
 all: $(NAME)
 
--include $(DEPS)
+$(BUILD_DIR):
+	mkdir -p $(BUILD_DIR)
 
-$(NAME): $(OBJS) $(LIBFT) $(MLX)
-	$(Q)$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $@
-	$(Q)echo "\033[1;38;2;187;6;6m[\033[1;38;2;242;0;255mminiRT\033[1;38;2;187;6;6m] \033[1;38;2;255;128;0mCompiled successfully!\033[0m"
+$(BUILD_DIR)%.o: src/%.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -I $(INCLUDES) -c $< -o $@
 
-$(LIBFT):
-	$(Q)$(MAKE) -C $(LIBFT_DIR)
+libft/libft.a:
+	make -C libft
 
-$(MLX):
-	$(Q)$(MAKE) -C $(MLX_DIR)
+macrolibx/libmlx.so:
+	make -j -C macrolibx
 
-$(BUILDS_DIR)/%.o: %.c
-	$(Q)mkdir -p $(dir $@)
-	$(Q)$(CC) $(CFLAGS) $(INCLUDES) -MMD -MP -c $< -o $@
+$(NAME): libft/libft.a macrolibx/libmlx.so $(BUILD_DIR) $(OBJECTS)
+	$(CC) $(OBJECTS) -o $@ $(LDFLAGS)
 
 clean:
-	$(Q)echo "\033[1;38;2;255;128;0m[CLEAN]\033[0m"
-	$(Q)rm -rf $(BUILDS_DIR)
-	$(Q)$(MAKE) -C $(LIBFT_DIR) clean
+	-rm -f $(OBJECTS)
+	make clean -C libft
+	make clean -C macrolibx
 
 fclean: clean
-	$(Q)echo "\033[1;38;2;255;128;0m[FCLEAN]\033[0m"
-	$(Q)$(MAKE) -C $(LIBFT_DIR) fclean
-	$(Q)$(MAKE) -C $(MLX_DIR) fclean
-	$(Q)rm -f $(NAME)
+	-rm -f $(NAME)
+	-rm -fr $(BUILD_DIR)
+	make fclean -C libft
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all re fclean clean
