@@ -6,11 +6,17 @@
 /*   By: toespino <toespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/25 13:52:35 by toespino          #+#    #+#             */
-/*   Updated: 2026/10/29 21:11:49 by toespino         ###   ########.fr       */
+/*   Updated: 2026/11/07 13:09:56 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
+
+bool	ff_free(void *input)
+{
+	free(input);
+	return (false);
+}
 
 void	generate_img(t_color *img, int32_t height, int32_t width, t_mlx *mlx)
 {
@@ -23,7 +29,7 @@ void	generate_img(t_color *img, int32_t height, int32_t width, t_mlx *mlx)
 		j = -1;
 		while (++j < width)
 			mlx_set_image_pixel(mlx->mlx, mlx->img, i, j,
-					(mlx_color) img[(i + 1) * j]);
+				to_mlx(img[(i + 1) * j]));
 		i++;
 	}
 }
@@ -31,37 +37,23 @@ void	generate_img(t_color *img, int32_t height, int32_t width, t_mlx *mlx)
 double	get_ray_target(t_vector ray, t_data scene)
 {
 	double	closest;
+	double	res;
 	int64_t	i;
 
 	closest = DBL_MAX;
-	closest_index = -1;
 	i = -1;
-	while (scene.(t_plane)obj[++i].type)
+	while (((t_plane *)(scene.objs))[++i].type)
 	{
-		if (scene.(t_plane)obj[i].type == 's')
-			res = sphere_distance(ray, scene.(t_sphere)obj[i]);
-		else if (scene.(t_plane)obj[i].type == 'c')
-			res = cylinder_distance(ray, scene.(t_cylinder)obj[i]);
-		else if (scene.(t_plane)obj[i].type == 'p')
-			res = plane_distance(ray, scene.(t_plane)obj[i]);
+		if (((t_plane *)(scene.objs))[i].type == 's')
+			res = sphere_distance(ray, ((t_sphere *)(scene.objs))[i]);
+		else if (((t_plane *)(scene.objs))[i].type == 'c')
+			res = cylinder_distance(ray, ((t_cylinder *)(scene.objs))[i]);
+		else if (((t_plane *)(scene.objs))[i].type == 'p')
+			res = plane_distance(ray, ((t_plane *)(scene.objs))[i]);
 		if (res > 0 && res < closest)
 			closest = res;
 	}
 	return (closest);
-}
-
-t_vector	generate_ray(int32_t x, int32_t y, t_data scene)
-{
-	const double	aspect_ratio = (scene.width / scene.height);
-	const double	fov_tan = tan((scene.fov * (M_PI / 180)) / 2);
-	const double	x_on_screen = (((double)x + 0.5) / scene.width);
-	const double	y_on_screen = (((double)y + 0.5) / scene.height);
-	t_vector		ray;
-
-	ray.x = (2 * x_on_screen - 1) * aspect_ratio * fov_tan;
-	ray.y = (1 - 2 * y_on_screen) * fov_tan;
-	ray.z = 1;
-	return (ray);
 }
 
 static bool	intersect_ray(t_vector ray, uint64_t index, t_data scene)
@@ -71,16 +63,16 @@ static bool	intersect_ray(t_vector ray, uint64_t index, t_data scene)
 
 	i = 0;
 	res = true;
-	while (scene.obj)
+	while (scene.objs)
 	{
 		if (i == index)
 			i++;
-		else if (scene.(t_plane)obj[i].type == 's')
-			res = !(sphere_intersect(ray, scene.(t_sphere)obj[i]));
-		else if (scene.(t_plane)obj[i].type == 'c')
-			res = !(cylinder_intersect(ray, scene.(t_cylinder)obj[i]));
-		else if (scene.(t_plane)obj[i].type == 'p')
-			res = !(plane_intersect(ray, scene.(t_plane)obj[i]));
+		else if (((t_plane *)(scene.objs))[i].type == 's')
+			res = !(sphere_intersect(ray, ((t_sphere *)(scene.objs))[i]));
+		else if (((t_plane *)(scene.objs))[i].type == 'c')
+			res = !(cylinder_intersect(ray, ((t_cylinder *)(scene.objs))[i]));
+		else if (((t_plane *)(scene.objs))[i].type == 'p')
+			res = !(plane_intersect(ray, ((t_plane *)(scene.objs))[i]));
 		if (!res)
 			return (true);
 	}
@@ -90,23 +82,25 @@ static bool	intersect_ray(t_vector ray, uint64_t index, t_data scene)
 t_nc	get_color(t_vector point, t_data scene, uint64_t index, t_vector normal)
 {
 	uint64_t	i;
-	double		tmp;
+	double		incidence;
+	t_vector	light_ray;
 	t_color		new_color;
 	t_nc		res;
 
 	i = 0;
 	res = (t_nc){0};
-	while (scene.lights[i])
+	while (scene.lights[i].brightness >= 0.0)
 	{
-		light_ray = vector_sub(scene.lights[i].coordinate, normal);
-		tmp = ft_dmax(0.0, vector_dot(normal, light_ray));
-		if (tmp != 0.0)
-			if (!intersect_ray(light_ray, index, scene))
-				new_color = light_add(&res, color_inicident((t_plane)
-							(scene.objs[index]).color,
-							scene.lights[i].color, tmp,
-							scene.lights[i].bright));
-		res += tmp;
+		light_ray = vector_sub((t_vector) scene.lights[i].coordinate, point);
+		incidence = vector_dot(normal, light_ray);
+		if (incidence > 0.0 && !intersect_ray(light_ray, index, scene))
+		{
+			incidence /= sqrt(vector_dot(light_ray, light_ray));
+			new_color = color_incident(((t_plane **)(scene.objs))[index]->color,
+					scene.lights[i].color, incidence,
+					scene.lights[i].brightness);
+			light_add(&res, new_color);
+		}
 		i++;
 	}
 	return (res);

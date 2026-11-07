@@ -6,11 +6,25 @@
 /*   By: toespino <toespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/18 12:59:48 by toespino          #+#    #+#             */
-/*   Updated: 2026/10/29 21:19:30 by toespino         ###   ########.fr       */
+/*   Updated: 2026/11/07 12:24:52 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
+
+static t_vector	generate_ray(int32_t x, int32_t y, t_data scene)
+{
+	const double	aspect_ratio = (scene.width / scene.height);
+	const double	fov_tan = tan((scene.fov * (M_PI / 180)) / 2);
+	const double	x_on_screen = (((double)x + 0.5) / scene.width);
+	const double	y_on_screen = (((double)y + 0.5) / scene.height);
+	t_vector		ray;
+
+	ray.x = (2 * x_on_screen - 1) * aspect_ratio * fov_tan;
+	ray.y = (1 - 2 * y_on_screen) * fov_tan;
+	ray.z = 1;
+	return (ray);
+}
 
 t_color	render_point(t_vector point, t_data scene, uint64_t index,
 		t_vector normal)
@@ -18,7 +32,7 @@ t_color	render_point(t_vector point, t_data scene, uint64_t index,
 	t_color		res;
 	t_nc		no_cap;
 
-	no_cap = get_color(point, normal, scene, index);
+	no_cap = get_color(point, scene, index, normal);
 	res = color_cap(no_cap);
 	return (res);
 }
@@ -26,11 +40,11 @@ t_color	render_point(t_vector point, t_data scene, uint64_t index,
 static bool	process_pixel(t_vector point, int32_t index, t_data scene,
 		t_color *pixel)
 {
-	if (((t_plane) scene.objs[index].type == 's'))
+	if (((t_plane **)(scene.objs))[index]->type == 's')
 		return (render_sphere(point, index, scene, pixel));
-	else if (((t_plane) scene.objs[index].type == 'c'))
+	else if (((t_plane **)(scene.objs))[index]->type == 'c')
 		return (render_cylinder(point, index, scene, pixel));
-	else if (((t_plane) scene.objs[index].type == 'p'))
+	else if (((t_plane **)(scene.objs))[index]->type == 'p')
 		return (render_plane(point, index, scene, pixel));
 	return (false);
 }

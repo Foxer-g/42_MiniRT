@@ -6,7 +6,7 @@
 /*   By: toespino <toespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/17 14:38:21 by toespino          #+#    #+#             */
-/*   Updated: 2026/10/29 20:49:18 by toespino         ###   ########.fr       */
+/*   Updated: 2026/11/07 12:50:49 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,9 +114,9 @@ typedef struct	s_cylinder
 // @field brightness: double, Light brightness.
 typedef struct	s_light
 {
-	t_coordinate	coordinate;
-	t_color			color;
-	double			brightness;
+	t_vector	coordinate;
+	t_color		color;
+	double		brightness;
 }	t_light;
 
 // @doc t_amb
