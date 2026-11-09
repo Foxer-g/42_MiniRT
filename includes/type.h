@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/17 14:38:21 by toespino          #+#    #+#             */
-/*   Updated: 2026/11/09 13:19:22 by toespino         ###   ########.fr       */
+/*   Updated: 2026/11/09 14:40:13 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,40 @@
 # include <stdbool.h>
 # include "mlx.h"
 # include "mlx_extended.h"
+
+//////////TEMPORAIRE_PEUX_CHANGER///////////
+
+typedef struct s_mouse
+{
+	bool	left_click;
+	bool	middle_click;
+	int		x;
+	int		y;
+	int		cop_x;
+	int		cop_y;
+}	t_mouse;
+
+typedef struct s_ren
+{
+	double			offset_x;
+	double			offset_y;
+	double			offset_z;
+	double			scale;
+	double			z_scale;
+	double			alpha;
+	double			beta;
+	double			gamma;
+
+	int32_t			center_x;	
+	int32_t			center_y;
+
+	bool			click_space;
+	bool			full;
+
+	t_mouse			*mouse;
+}	t_ren;
+
+///////////////////////////////////////////////////
 
 // @doc t_vector
 // @kind type
@@ -47,50 +81,50 @@ typedef struct s_color
 // @doc t_plane
 // @kind type
 // @desc Plane representation in an environement.
-// @field type: char , Object indentification field.
+// @field type: uint8_t, Object indentification field.
 // @field coordinate: [[t_vector]], Coordinates of a point in the plane.
 // @field color: [[t_color]], Plane color.
 // @field normal: [[t_vector]], Plane normal vector.
 typedef struct s_plane
 {
-	char		type;
-	t_vector	coordinate;
-	t_color		color;
-	t_vector	normal;
+	uint8_t			type;	
+	t_vector		coordinate;
+	t_color			color;
+	t_vector		normal;
 }	t_plane;
 
 // @doc t_sphere
 // @kind type
 // @desc Sphere representation in an environement.
-// @field type: char , Object indentification field.
+// @field type: uint8_t, Object indentification field.
 // @field coordinate: [[t_vector]], Sphere center coordinates.
 // @field color: [[t_color]], Sphere color.
 // @field radius: double, Sphere radius.
 typedef struct s_sphere
 {
-	char		type;
-	t_vector	coordinate;
-	t_color		color;
-	double		radius;
+	uint8_t			type;	
+	t_vector		coordinate;
+	t_color			color;
+	double			radius;
 }	t_sphere;
 
 // @doc t_cylinder
 // @kind type
 // @desc Cylinder representation in an environement.
-// @field type: char , Object indentification field.
+// @field type: uint8_t, Object indentification field.
 // @field coordinate: [[t_vector]], Cylinder center coordinates.
 // @field color: [[t_color]], Cylinder color.
-// @field diameter: double, Cylinder diameter.
 // @field height: double, Cylinder height.
+// @field diameter: double, Cylinder diameter.
 // @field normal: [[t_vector]], Cylinder normal vector.
 typedef struct s_cylinder
 {
-	char		type;
-	t_vector	coordinate;
-	t_color		color;
-	double		diameter;
-	double		height;
-	t_vector	normal;
+	uint8_t			type;	
+	t_vector		coordinate;
+	t_color			color;
+	double			height;
+	double			diameter;
+	t_vector		normal;
 }	t_cylinder;
 
 // @doc t_light
@@ -117,6 +151,62 @@ typedef struct s_amb
 	double	brightness;
 }	t_amb;
 
+// @doc t_parse
+// @kind type
+// @field obj: char **, the decomposition of line.
+// @field line: char *, line extract from the file provided.
+// @field fd: int32_t, the file descriptor use to open the file provided.
+// @field error: bool, identifier use in the parsing to stop the program.
+// @field al: bool, identifier use in the parsing to block replication of data.
+// @field c: bool, identifier use in the parsing to block replication of data.
+// @field l: bool, identifier use in the parsing to block replication of data.
+typedef struct s_parse
+{
+	char	**obj;
+	char	*line;
+
+	int32_t	fd;
+
+	bool	error;
+	bool	al;
+	bool	c;
+	bool	l;
+}	t_parse;
+
+// @doc t_cam
+// @kind type
+// @field vector: [[t_vector]], Normalized orientation vector.
+// @field coordinate: [[t_vector]], Coordinates of the viewpoint.
+// @field fov: int32_t, Field of view of the cmera.
+typedef struct s_cam
+{
+	t_vector	orient_vector;
+	t_vector	coordinate;
+
+	int32_t		fov;
+}	t_cam;
+
+// @doc t_mlx
+// @kind type
+// @desc Basics ressources to work with MacrolibX.
+// @field mlx: mlx_content, MacrolibX data.
+// @filed win: mlx_window, MacrolibX window data.
+// @filed img: mlx_image, MacrolibX image data.
+typedef struct s_mlx
+{
+	mlx_context	mlx;
+	mlx_window	win;
+	mlx_image	img;
+}	t_mlx;
+
+typedef enum s_kind
+{
+	OBJ_PLANE,
+	OBJ_SPHERE,
+	OBJ_CYLINDER,
+	OBJ_DEFAULT
+}	t_kind;
+
 // @doc t_data
 // @kind type
 // @desc Scene representation in a struct, isn't it beatiful ?
@@ -128,20 +218,36 @@ typedef struct s_amb
 // @field width: int32_t, Window width in pixels.
 typedef struct s_data
 {
-	void	*objs;
-	t_light	*lights;
-	t_amb	ambient;
+	char	*to_image;
 
-	int32_t	fov;
+	void	*objs;
+
+	t_parse	*p;
+	t_amb	ambient;
+	t_cam	camera;
+	t_light	lights;
+	t_mlx	*mlx;
+	t_ren	*ren;
+	t_color	*img_c;
+
 	int32_t	height;
 	int32_t	width;
+	int64_t	count;
 }	t_data;
 
-// @doc t_mlx
-// @kind type
-// @desc Basics ressources to work with MacrolibX.
-// @field mlx: mlx_content, MacrolibX data.
-// @filed win: mlx_window, MacrolibX window data.
+typedef struct s_strtod
+{
+	const char	*start;
+	const char	*end;
+
+	int			i;
+	int			sign;
+	int			decimal;
+	int			expo;
+
+	double		mantis;
+}	t_strtod;
+
 typedef struct s_mlx
 {
 	mlx_context	mlx;

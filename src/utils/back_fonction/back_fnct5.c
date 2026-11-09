@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   back_fnct5.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/17 11:20:04 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/09/18 10:59:20 by ethutin-         ###   ########.fr       */
+/*   Created: 2026/10/28 16:11:01 by ethutin-          #+#    #+#             */
+/*   Updated: 2026/10/28 17:04:51 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-t_data	*init_data(int ac, char **av)
+bool	is_k_arrow(int64_t key)
 {
-	(void)ac;
-	(void)av;
-	return (NULL);
+	return (key == K_RIGHT || key == K_LEFT || key == K_UP
+		|| key == K_DOWN || key == K_KP_4 || key == K_KP_5 || key == K_KP_6
+		|| key == K_KP_7 || key == K_KP_8 || key == K_KP_9);
 }

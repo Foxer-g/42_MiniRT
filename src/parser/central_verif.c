@@ -6,172 +6,82 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/16 18:00:37 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/09/21 17:45:58 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/10/28 09:55:14 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-// void    *fill_tmp_data(void) // a deplacer et comleter
-// {
-// 	return ;
-// }
+bool	check_line(t_data *s)
+{
+	if (ft_isvoid(s->p->line))
+		return (false);
+	s->p->obj = ft_split(s->p->line + leap_space(s->p->line), ' ');
+	if (!s->p->obj)
+		data_malloc_error_parse(s, __func__, true, NULL);
+	if (!ft_strncmp(s->p->obj[0], "A", 2))
+		fill_ambient_lighting(s, s->p, s->p->obj);
+	else if (!ft_strncmp(s->p->obj[0], "C", 2))
+		fill_camera(s, s->p, s->p->obj);
+	else if (!ft_strncmp(s->p->obj[0], "L", 2))
+		fill_light(s, s->p, s->p->obj);
+	else if (!ft_strncmp(s->p->obj[0], "sp", 3))
+		fill_sphere(s, s->p->obj);
+	else if (!ft_strncmp(s->p->obj[0], "pl", 3))
+		fill_plane(s, s->p->obj);
+	else if (!ft_strncmp(s->p->obj[0], "cy", 3))
+		fill_cylinder(s, s->p->obj);
+	// else if (!ft_strncmp(s->p->obj[0], "tr", 3))
+	// 	fill_triangle(s, s->p->obj);
+	else
+		error_generic_rt(s->p, ERR_NOT_IDENTIFIER, __func__);
+	return (s->p->error);
+}
 
-// bool	check_filename(const char *filename)
-// {
-// 	int	len;
+bool	check_scene(t_data *s)
+{
+	char	*tmp;
 
-// 	len = ft_strlen(filename);
-// 	if (len <= 3)
-// 		return (false);
-// 	filename += len - 3;
-// 	if (!ft_strncmp(filename, ".rt", 3))
-// 		return (false);
-// 	return (true);
-// }
+	while (1)
+	{
+		tmp = get_next_line(s->p->fd);
+		if (!tmp)
+			break ;
+		s->p->line = ft_strtrim(tmp, " \n");
+		free (tmp);
+		if (!s->p->line)
+			data_malloc_error_parse(s, __func__, true, NULL);
+		if (check_line(s))
+		{
+			get_next_line(-1);
+			return (true);
+		}
+		free_parse(s->p, false);
+	}
+	get_next_line(-1);
+	return (false);
+}
 
-// int	color_parse(char *line, int j) //on fait pas l'hexa
-// {
-// 	int	max;
+bool	check_filename(const char *filename)
+{
+	int	len;
 
-// 	if (line[j] == '\0' || line[j] == '\n')
-// 		return (1);
-// 	max = 0;
-// 	line += j;
-// 	if (ft_strncmp(line, ",0x", 3))
-// 		return (0);
-// 	j = 3;
-// 	if (!ft_ishexa(line[j]))
-// 		return (0);
-// 	while (ft_ishexa(line[j]))
-// 	{
-// 		max++;
-// 		j++;
-// 	}
-// 	if ((line[j] != '\0' && line[j] != '\n') || max > 8)
-// 		return (0);
-// 	return (1);
-// }
+	len = ft_strlen(filename);
+	if (!ft_strncmp(&filename[len - 3], ".rt", 4))
+		return (false);
+	return (true);
+}
 
-// int	verif_data(char *line, int i, int j)
-// {
-// 	char	**tab;
-
-// 	tab = ft_split(line, ' ');
-// 	if (!tab)
-// 		return (0);
-// 	while (tab[++i])
-// 	{
-// 		j = 0;
-// 		if (tab[i][0] == '\0')
-// 			continue ;
-// 		if (!ft_isoperator(tab[i][j]) && !ft_isdigit(tab[i][j]))
-// 			return (error_verif(tab));
-// 		if (ft_isoperator(tab[i][j]))
-// 			j++;
-// 		if (ft_isoperator(tab[i][j]))
-// 			return (error_verif(tab));
-// 		if (!ft_isdigit(tab[i][j]))
-// 			return (error_verif(tab));
-// 		while (ft_isdigit(tab[i][j]))
-// 			j++;
-// 		if (!color_parse(tab[i], j))
-// 			return (error_verif(tab));
-// 	}
-// 	free_tab((void **)tab, i);
-// 	return (1);
-// }
-
-// bool	verif_line (char *line)
-// {
-	
-// }
-
-// bool	verif_file(int fd)
-// {
-// 	char	*tmp;
-// 	char	*line;
-
-// 	while (1)
-// 	{
-// 		tmp = get_next_line(fd);
-// 		if (!tmp)
-// 			break ;
-// 		line = ft_strtrim(tmp, "  \n");
-// 		free(tmp);
-// 		if (!line)
-// 			return (0);
-// 		if (!verif_atoi(line, -1, 0))
-// 		{
-// 			free(line);
-// 			return (0);
-// 		}
-// 		free(line);
-// 	}
-// 	return (1);
-// }
-
-
-// bool	central_verif(int ac, char **av)
-// {
-// 	char	*tmp;
-// 	char	*line;
-// 	int		fd;
-
-// 	if (ac != 2)
-// 		return (error_perror_b(ERR_AC, P_ERROR, 2, true));
-// 	else if (!check_filename(av[1]))
-// 		error_perror_b(ERR_FILNAM, P_ERROR, 2, true);
-// 	fd = open(av[1], O_RDWR);
-// 	if (fd < 0)
-// 		return ((ERR_OPEN, P_ERROR, 2, true));
-// 	if ()
-// 		return ((ERR_OPEN, P_ERROR, 2, true));
-
-// 	tmp = get_next_line(fd);
-// 	if (!tmp)
-// 		malloc_error(EXIT_FAILURE);	
-	
-// 		line = ft_strtrim(tmp, "  \n");
-// 	free(tmp);
-// 	if (!line)
-// 		malloc_error(EXIT_FAILURE);	
-	
-// 		if (!verif_atoi(line, -1, 0))
-// 		malloc_open_map_error(-3, line, fd, NULL);
-// 	free(line);
-	
-// 	if (!verif_line(fd))
-// 		malloc_open_map_error(-3, NULL, fd, NULL);
-// 	close(fd);
-// 	return (false);
-// }
-
-// int	central_verif(int ac, char **av)
-// {
-// 	char	*tmp;
-// 	char	*line;
-// 	int		fd;
-
-// 	if (ac != 2)
-// 		return (ac_error());
-// 	if (!filename(av[1]))
-// 		return (file_name_error());
-// 	fd = open(av[1], O_RDWR);
-// 	if (fd < 0)
-// 		not_open_error(fd, NULL);
-// 	tmp = get_next_line(fd, 0);
-// 	if (!tmp)
-// 		malloc_open_map_error(-1, tmp, fd, NULL);
-// 	line = ft_strtrim(tmp, "  \n");
-// 	free(tmp);
-// 	if (!line)
-// 		malloc_open_map_error(-1, line, fd, NULL);
-// 	if (!verif_atoi(line, -1, 0))
-// 		malloc_open_map_error(-3, line, fd, NULL);
-// 	free(line);
-// 	if (!verif_line(fd))
-// 		malloc_open_map_error(-3, NULL, fd, NULL);
-// 	close(fd);
-// 	return (1);
-// }
+bool	central_verif(t_data *s, char **av)
+{
+	if (check_filename(av[1]))
+		return (error_perror_b(ERR_FILNAME, __func__, P_ERROR, 2));
+	s->p->fd = open(av[1], O_RDONLY);
+	if (s->p->fd <= 0)
+		return (error_perror_b(NULL, __func__, C_ERROR, 2));
+	if (check_scene(s))
+		return (true);
+	if (s->p->fd >= 0)
+		close(s->p->fd);
+	return (false);
+}
