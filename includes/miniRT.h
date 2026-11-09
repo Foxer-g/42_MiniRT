@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/09 14:13:45 by toespino          #+#    #+#             */
-/*   Updated: 2026/11/09 14:15:04 by toespino         ###   ########.fr       */
+/*   Updated: 2026/11/09 16:31:05 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ void	print_param(t_data *data);
 void	print_struct(t_data *data);
 
 # define DATA_ER	"\e[1;38;2;255;0;144mError : A malloc has failed\n"
-# define ERR_AC		"\e[1;38;2;255;0;144mError : You must enter one argument\
-only\n -> ./miniRT <xxxx>.rt\n"
 # define _USE_MATH_DEFINES
 //================================================//
 int		get_sign(const char *line, int *index);
