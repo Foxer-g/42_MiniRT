@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/14 09:55:23 by toespino          #+#    #+#             */
-/*   Updated: 2026/11/09 14:28:16 by toespino         ###   ########.fr       */
+/*   Updated: 2026/11/09 17:00:40 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ bool	cylinder_intersect(t_vector ray, t_cylinder obj)
 	return (true);
 }
 
-bool	render_cylinder(t_vector ray, int32_t i, t_data scene, t_color *pixel)
+bool	render_cylinder(t_vector ray, int32_t i, t_data *scene, t_color *pixel)
 {
 	(void) ray;
 	(void) scene;

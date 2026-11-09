@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/14 10:47:17 by toespino          #+#    #+#             */
-/*   Updated: 2026/11/09 14:40:58 by toespino         ###   ########.fr       */
+/*   Updated: 2026/11/09 16:52:51 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,15 @@ bool	renderer(t_data *s);
 t_color	render_point(VEC point, t_data *scene, uint64_t index, VEC normal);
 
 bool	ff_free(void *imput);
-void	generate_img(t_color *img, int32_t height, int32_t width, t_mlx *mlx);
-double	get_ray_target(VEC ray, t_data scene);
-t_nc	get_color(VEC point, t_data scene, uint64_t index, VEC normal);
+void	create_img(t_color *img, int32_t height, int32_t width, t_mlx *mlx);
+double	get_ray_target(VEC ray, t_data *scene);
+t_nc	get_color(VEC point, t_data *scene, uint64_t index, VEC normal);
 
-bool	render_sphere(VEC ray, int32_t i, t_data scene, t_color *pixel);
+bool	render_sphere(VEC ray, int32_t i, t_data *scene, t_color *pixel);
 bool	sphere_intersect(VEC ray, t_sphere obj);
 double	sphere_distance(VEC ray, t_sphere obj);
 
-bool	render_cylinder(VEC ray, int32_t i, t_data scene, t_color *pixel);
+bool	render_cylinder(VEC ray, int32_t i, t_data *scene, t_color *pixel);
 bool	cylinder_intersect(VEC ray, t_cylinder obj);
 double	cylinder_distance(VEC ray, t_cylinder obj);
 
@@ -55,12 +55,11 @@ t_color	color_cap(t_nc to_cap);
 void	light_add(t_nc *base, t_color to_add);
 COLOR	to_mlx(t_color input);
 
-double	vetor_norm(VEC vec);
+double	vector_norm(VEC vec);
 void	vector_inv(VEC *vec);
 void	vector_normalize(VEC *vec);
 VEC		vector_sub(VEC vec1, VEC vec2);
 VEC		vector_add(VEC vec1, VEC vec2);
 double	vector_dot(VEC vec1, VEC vec2);
 VEC		vector_coordinate(VEC vec, double t);
-bool	intersect_ray(t_vector ray, uint64_t index, t_data *scene);
 #endif

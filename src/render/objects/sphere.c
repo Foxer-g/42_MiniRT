@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/05 18:11:39 by toespino          #+#    #+#             */
-/*   Updated: 2026/11/09 14:29:33 by toespino         ###   ########.fr       */
+/*   Updated: 2026/11/09 17:00:22 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ bool	render_sphere(t_vector point, int32_t i, t_data *scene, t_color *pixel)
 {
 	t_vector	normal;
 
-	normal = vector_sub(point, ((t_plane *)(scene.objs))[i].coordinate);
+	normal = vector_sub(point, ((t_plane *)(scene->objs))[i].coordinate);
 	*pixel = render_point(point, scene, i, normal);
 	return (true);
 }
