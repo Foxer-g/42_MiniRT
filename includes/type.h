@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/17 14:38:21 by toespino          #+#    #+#             */
-/*   Updated: 2026/11/09 14:40:13 by toespino         ###   ########.fr       */
+/*   Updated: 2026/11/09 16:58:57 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,7 +225,7 @@ typedef struct s_data
 	t_parse	*p;
 	t_amb	ambient;
 	t_cam	camera;
-	t_light	lights;
+	t_light	*lights;
 	t_mlx	*mlx;
 	t_ren	*ren;
 	t_color	*img_c;
@@ -248,10 +248,4 @@ typedef struct s_strtod
 	double		mantis;
 }	t_strtod;
 
-typedef struct s_mlx
-{
-	mlx_context	mlx;
-	mlx_window	win;
-	mlx_image	img;
-}	t_mlx;
 #endif
