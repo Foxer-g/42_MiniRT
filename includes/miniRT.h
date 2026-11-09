@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/17 14:12:29 by toespino          #+#    #+#             */
-/*   Updated: 2026/11/09 13:18:47 by toespino         ###   ########.fr       */
+/*   Updated: 2026/11/09 13:26:20 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,10 +101,6 @@ int		malloc_error(int exit_code);
 bool	error_perror_b(char *error, int type, int fd, bool operator);
 bool	error_message(char *error);
 //=====================================//
-
-//==========Renderer==========//
-void	render(void);
-//============================//
 
 //==========Parsing==========//
 void	*fill_tmp_data(void);

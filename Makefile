@@ -7,7 +7,6 @@ OBJECTS = $(SOURCES:src/%.c=$(BUILD_DIR)%.o)
 CFLAGS = -Wall -Wextra -Werror -ggdb
 LDFLAGS = libft/libft.a macrolibx/libmlx.so -lSDL2 -lm
 CC = cc
->>>>>>> render
 
 all: $(NAME)
 
