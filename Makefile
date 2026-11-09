@@ -5,7 +5,7 @@ BUILD_DIR = build/
 INCLUDES = ./includes -I libft/includes -I macrolibx/includes
 OBJECTS = $(SOURCES:src/%.c=$(BUILD_DIR)%.o)
 CFLAGS = -Wall -Wextra -Werror -ggdb
-LDFLAGS = libft/libft.a macrolibx/libmlx.so -lSDL2
+LDFLAGS = libft/libft.a macrolibx/libmlx.so -lSDL2 -lm
 CC = cc
 
 all: $(NAME)

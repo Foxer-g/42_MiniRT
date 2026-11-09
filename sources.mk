@@ -7,7 +7,7 @@ PARSING_SRCS_DIR = $(SRC_DIR)parser/
 MAIN_FILES = main.c
 
 RENDER_FILES = render.c utils.c color.c
-VECTOR_FILES = vector.c vector_operation.c
+VECTOR_FILES = vector.c vector_operations.c
 OBJECT_FILES = sphere.c cylinder.c plane.c
 PARSING_FILES = 
 
@@ -16,4 +16,4 @@ VECTOR_SOURCES = $(addprefix $(VECTOR_SRCS_DIR), $(VECTOR_FILES))
 OBJECT_SOURCES = $(addprefix $(OBJECT_SRCS_DIR), $(OBJECT_FILES))
 PARSING_SOURCES = $(addprefix $(PARSING_SRCS_DIR), $(PARSING_FILES))
 
-SOURCES = $(MAIN_SOURCES) $(RENDER_SOURCES) $(PARSING_SOURCES)
+SOURCES = $(MAIN_SOURCES) $(RENDER_SOURCES) $(PARSING_SOURCES) $(OBJECT_SOURCES) $(VECTOR_SOURCES)
