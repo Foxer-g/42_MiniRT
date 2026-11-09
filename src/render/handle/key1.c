@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 11:52:38 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/10/28 17:11:36 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/11/09 17:03:50 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void	full_screen(t_data *data)
 		data->ren->full = false;
 	else
 		data->ren->full = true;
-	mlx_set_window_fullscreen(data->m_st->mlx, data->m_st->win, data->ren->full);
+	mlx_set_window_fullscreen(data->mlx->mlx, data->mlx->win, data->ren->full);
 	printf(ORANGE"FULL_SCREEN : %d"RESET"\n", data->ren->full);
 }
 
@@ -74,7 +74,7 @@ void	central_keypress(int key, void *param)
 	data = (t_data *)param;
 	printf(ORANGE"key = %d"RESET"\n", key);
 	if (key == K_ESCAPE)
-		mlx_loop_end(data->m_st->mlx);
+		mlx_loop_end(data->mlx->mlx);
 	else if (key == K_SPACE)
 		data->ren->click_space = true;
 	else if (key == K_W || key == K_S || key == K_A || key == K_D

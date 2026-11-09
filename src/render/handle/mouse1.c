@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 13:47:02 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/10/28 17:12:25 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/11/09 17:04:56 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	central_mouse(int key, void *param)
 	t_data	*data;
 
 	data = (t_data *)param;
-	mlx_mouse_get_pos(data->m_st->mlx, &data->ren->mouse->x, \
+	mlx_mouse_get_pos(data->mlx->mlx, &data->ren->mouse->x, \
 &data->ren->mouse->y);
 	if ((key == M_SCROLL_DOWN || key == M_SCROLL_UP)
 		&& data->ren->click_space)

@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/22 13:59:15 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/10/28 17:10:16 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/11/09 17:06:18 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@
 
 void	update_pos(t_data *data, uint8_t type, int space)
 {
-	void	**objs;
-
 	if (type == 0)
 		data->ren->offset_x += space;
 	else if (type == 1)
@@ -45,23 +43,23 @@ void	update_pos(t_data *data, uint8_t type, int space)
 void	mlx_option(t_data *s)
 {
 	//mettre center_x;y
-	mlx_set_window_position(s->m_st->mlx, s->m_st->win, 980, 540);
-	mlx_set_fps_goal(s->m_st->mlx, FPS);
+	mlx_set_window_position(s->mlx->mlx, s->mlx->win, 980, 540);
+	mlx_set_fps_goal(s->mlx->mlx, FPS);
 }
 
 void	get_hook(t_data *data)
 {
-	mlx_on_event(data->m_st->mlx, data->m_st->win,
+	mlx_on_event(data->mlx->mlx, data->mlx->win,
 		MLX_KEYDOWN, central_keypress, data);
-	mlx_on_event(data->m_st->mlx, data->m_st->win,
+	mlx_on_event(data->mlx->mlx, data->mlx->win,
 		MLX_KEYUP, central_keyup, data);
-	mlx_on_event(data->m_st->mlx, data->m_st->win,
+	mlx_on_event(data->mlx->mlx, data->mlx->win,
 		MLX_WINDOW_EVENT, central_window, data);
-	mlx_on_event(data->m_st->mlx, data->m_st->win,
+	mlx_on_event(data->mlx->mlx, data->mlx->win,
 		MLX_MOUSEDOWN, central_mouse, data);
-	mlx_on_event(data->m_st->mlx, data->m_st->win,
+	mlx_on_event(data->mlx->mlx, data->mlx->win,
 		MLX_MOUSEUP, central_mouse_up, data);
-	mlx_on_event(data->m_st->mlx, data->m_st->win,
+	mlx_on_event(data->mlx->mlx, data->mlx->win,
 		MLX_MOUSEWHEEL, central_mouse, data);
 }
 
@@ -69,8 +67,8 @@ bool	generate_img(t_data *data)
 {
 	t_mlx	*m;
 
-	m = data->m_st;
-	if (data->m_st->img)
+	m = data->mlx;
+	if (data->mlx->img)
 		mlx_destroy_image(m->mlx, m->img);
 	m->img = mlx_new_image(m->mlx, data->width, data->height);
 	if (!m->img)
