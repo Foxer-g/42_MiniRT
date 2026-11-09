@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/17 14:12:29 by toespino          #+#    #+#             */
-/*   Updated: 2026/09/21 17:57:13 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/11/09 13:18:47 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 # define MINIRT_H
 
 # include "libft.h"
-# include "mlx.h"
 # include "type.h"
-
+# include "render.h"
 # include <stdio.h>
 
 //=====Color Reference To Use Everywhere=====//
@@ -86,10 +85,8 @@
 
 # define DATA_ER	"\e[1;38;2;255;0;144mError : A malloc has failed\n"
 # define ERR_AC		"\e[1;38;2;255;0;144mError : You must enter one argument\
-only\n-> ./miniRT <xxxx>.rt\n"
-# define ERR_FILNAM "\e[1;38;2;255;0;144mError : You must enter\
- one argument only\n"
-# define ERR_OPEN	""
+only\n -> ./miniRT <xxxx>.rt\n"
+# define _USE_MATH_DEFINES
 //================================================//
 
 //==========//////////////////////////////////////==========//

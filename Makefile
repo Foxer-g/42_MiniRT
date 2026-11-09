@@ -1,61 +1,42 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2026/09/18 14:10:09 by ethutin-          #+#    #+#              #
-#    Updated: 2026/09/21 18:07:01 by ethutin-         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 include sources.mk
 
-CC          := cc
-CFLAGS      := -Wall -Wextra -Werror -g
-
-NAME        := miniRT
-
-MAKEFLAGS   += --no-print-directory #Remove this to view the directories
-
-LIBS        := $(LIBFT) $(MLX) -lSDL2
-
-Q           := @
-
-OBJS        := $(patsubst %.c,$(BUILDS_DIR)/%.o,$(SOURCES))
-DEPS        := $(OBJS:.o=.d)
+NAME = miniRT
+BUILD_DIR = build/
+INCLUDES = ./includes -I libft/includes -I macrolibx/includes
+OBJECTS = $(SOURCES:src/%.c=$(BUILD_DIR)%.o)
+CFLAGS = -Wall -Wextra -Werror -ggdb
+LDFLAGS = libft/libft.a macrolibx/libmlx.so -lSDL2 -lm
+CC = cc
+>>>>>>> render
 
 all: $(NAME)
 
--include $(DEPS)
+$(BUILD_DIR):
+	mkdir -p $(BUILD_DIR)
 
-$(NAME): $(OBJS) $(LIBFT) $(MLX)
-	$(Q)$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $@
-	$(Q)echo "\e[1;38;2;187;6;6m[\e[1;38;2;242;0;255mminiRT\e[1;38;2;187;6;6m]\
- \e[1;38;2;255;128;0mCompiled successfully!\e[0m"
+$(BUILD_DIR)%.o: src/%.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -I $(INCLUDES) -c $< -o $@
 
-$(LIBFT):
-	$(Q)$(MAKE) -C $(LIBFT_DIR)
+libft/libft.a:
+	make -C libft
 
-$(MLX):
-	$(Q)$(MAKE) -C $(MLX_DIR)
+macrolibx/libmlx.so:
+	make -j -C macrolibx
 
-$(BUILDS_DIR)/%.o: %.c
-	$(Q)mkdir -p $(dir $@)
-	$(Q)$(CC) $(CFLAGS) $(INCLUDES) -MMD -MP -c $< -o $@
+$(NAME): libft/libft.a macrolibx/libmlx.so $(BUILD_DIR) $(OBJECTS)
+	$(CC) $(OBJECTS) -o $@ $(LDFLAGS)
 
 clean:
-	$(Q)echo "\e[1;38;2;255;128;0m[CLEAN]\e[0m"
-	$(Q)rm -rf $(BUILDS_DIR)
-	$(Q)$(MAKE) -C $(LIBFT_DIR) clean
+	-rm -f $(OBJECTS)
+	make clean -C libft
+	make clean -C macrolibx
 
 fclean: clean
-	$(Q)echo "\e[1;38;2;255;128;0m[FCLEAN]\e[0m"
-	$(Q)$(MAKE) -C $(LIBFT_DIR) fclean
-	$(Q)$(MAKE) -C $(MLX_DIR) fclean
-	$(Q)rm -f $(NAME)
+	-rm -f $(NAME)
+	-rm -fr $(BUILD_DIR)
+	make fclean -C libft
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all re fclean clean
