@@ -6,7 +6,7 @@
 /*   By: toespino <toespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/25 13:52:35 by toespino          #+#    #+#             */
-/*   Updated: 2026/11/09 16:55:21 by toespino         ###   ########.fr       */
+/*   Updated: 2026/11/10 16:30:07 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,27 +18,28 @@ bool	ff_free(void *input)
 	return (false);
 }
 
-void	create_img(t_color *img, int32_t height, int32_t width, t_mlx *mlx)
+void	create_img(t_data *scene)
 {
 	int64_t		i;
 	int64_t		j;
 
 	i = 0;
-	while (i < height)
+	while (i < scene->height)
 	{
 		j = -1;
-		while (++j < width)
-			mlx_set_image_pixel(mlx->mlx, mlx->img, i, j,
-				to_mlx(img[(i + 1) * j]));
+		while (++j < scene->width)
+			mlx_set_image_pixel(scene->mlx->mlx, scene->mlx->img, i, j,
+					scene->img_c[(i + 1) * j]);
 		i++;
 	}
 }
 
-double	get_ray_target(t_vector ray, t_data *scene)
+int64_t	get_ray_target(t_vector ray, t_data *scene)
 {
 	double	closest;
 	double	res;
 	int64_t	i;
+	int64_t	index;
 
 	closest = DBL_MAX;
 	i = -1;
@@ -51,9 +52,12 @@ double	get_ray_target(t_vector ray, t_data *scene)
 		else if (((t_plane *)(scene->objs))[i].type == 'p')
 			res = plane_distance(ray, ((t_plane *)(scene->objs))[i]);
 		if (res > 0 && res < closest)
+		{
 			closest = res;
+			index = i;
+		}
 	}
-	return (closest);
+	return (index);
 }
 
 static bool	intersect_ray(t_vector ray, uint64_t index, t_data *scene)
@@ -63,45 +67,42 @@ static bool	intersect_ray(t_vector ray, uint64_t index, t_data *scene)
 
 	i = 0;
 	res = true;
-	while (scene->objs)
+	while (((t_plane *)scene->objs)[i])
 	{
-		if (i == index)
-			i++;
-		else if (((t_plane *)(scene->objs))[i].type == 's')
-			res = !(sphere_intersect(ray, ((t_sphere *)(scene->objs))[i]));
-		else if (((t_plane *)(scene->objs))[i].type == 'c')
-			res = !(cylinder_intersect(ray, ((t_cylinder *)(scene->objs))[i]));
-		else if (((t_plane *)(scene->objs))[i].type == 'p')
-			res = !(plane_intersect(ray, ((t_plane *)(scene->objs))[i]));
-		if (!res)
-			return (true);
+		if (i != index)
+		{
+			res = false;
+			if (((t_plane *)scene->objs)[i].type == 's')
+				res = sphere_intersect(ray, ((t_sphere *)scene->objs)[i]);
+			else if (((t_plane *)scene->objs)[i].type == 'c')
+				res = cylinder_intersect(ray, ((t_cylinder *)scene->objs)[i]);
+			else if (((t_plane *)scene->objs)[i].type == 'p')
+				res = plane_intersect(ray, ((t_plane *)scene->objs)[i]);
+			if (res)
+				return (true);
+		}
+		i++;
 	}
-	return (!res);
+	return (false);
 }
 
 t_nc	get_color(t_vector point, t_data *scene, uint64_t index, t_vector normal)
 {
-	uint64_t	i;
 	double		incidence;
 	t_vector	light_ray;
-	t_color		new_color;
+	mlx_color	new_color;
 	t_nc		res;
 
-	i = 0;
 	res = (t_nc){0};
-	while (scene->lights[i].brightness >= 0.0)
+	light_ray = vector_sub((t_vector) scene->lights.coordinate, point);
+	incidence = vector_dot(normal, light_ray);
+	if (incidence > 0.0 && !intersect_ray(light_ray, index, scene))
 	{
-		light_ray = vector_sub((t_vector) scene->lights[i].coordinate, point);
-		incidence = vector_dot(normal, light_ray);
-		if (incidence > 0.0 && !intersect_ray(light_ray, index, scene))
-		{
-			incidence = sqrt(vector_dot(light_ray, light_ray));
-			new_color = color_incident(((t_plane **)(scene->objs))[index]->color,
-					scene->lights[i].color, incidence,
-					scene->lights[i].brightness);
-			light_add(&res, new_color);
-		}
-		i++;
+		incidence = sqrt(vector_dot(light_ray, light_ray));
+		new_color = color_incident(((t_plane **)(scene->objs))[index]->color,
+				scene->lights.color, incidence,
+				scene->lights.brightness);
+		light_add(&res, new_color);
 	}
 	return (res);
 }

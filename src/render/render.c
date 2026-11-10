@@ -6,7 +6,7 @@
 /*   By: toespino <toespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/18 12:59:48 by toespino          #+#    #+#             */
-/*   Updated: 2026/11/09 16:48:40 by toespino         ###   ########.fr       */
+/*   Updated: 2026/11/10 16:51:16 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ static t_vector	generate_ray(int32_t x, int32_t y, t_data *scene)
 	return (ray);
 }
 
-t_color	render_point(t_vector point, t_data *scene, uint64_t index, t_vector normal)
+mlx_color	render_point(t_vector point, t_data *scene, uint64_t index, t_vector normal)
 {
-	t_color		res;
+	mlx_color		res;
 	t_nc		no_cap;
 
 	no_cap = get_color(point, scene, index, normal);
@@ -37,7 +37,7 @@ t_color	render_point(t_vector point, t_data *scene, uint64_t index, t_vector nor
 }
 
 static bool	process_pixel(t_vector point, int32_t index, t_data *scene,
-		t_color *pixel)
+		mlx_color *pixel)
 {
 	if (((t_plane **)(scene->objs))[index]->type == 's')
 		return (render_sphere(point, index, scene, pixel));
@@ -48,48 +48,47 @@ static bool	process_pixel(t_vector point, int32_t index, t_data *scene,
 	return (false);
 }
 
-static bool	calculate_pixel(int32_t x, int32_t y, t_color *pixel, t_data *scene)
+static bool	calculate_pixel(int32_t x, int32_t y, int64_t index, t_data *scene)
 {
 	t_vector	ray;
 	t_vector	point;
-	double		to_render;
+	int64_t		to_render;
 
 	ray = generate_ray(x, y, scene);
 	vector_normalize(&ray);
 	to_render = get_ray_target(ray, scene);
 	if (to_render == -1)
 	{
-		*pixel = (t_color){0};
+		scene->img_c[index] = (mlx_color){0};
 		return (true);
 	}
-	point = vector_coordinate(ray, to_render);
-	if (!process_pixel(point, to_render, scene, pixel))
-		return (false);
+	else
+	{
+		point = vector_coordinate(ray, to_render);
+		if (!process_pixel(point, to_render, scene, &(scene->img_c[index])))
+			return (false);
+	}
 	return (true);
 }
 
 bool	render(t_data *scene)
 {
-	t_color	*img;
 	int32_t	i;
 	int32_t	j;
 
-	img = ft_calloc(scene->height * scene->width + 1, sizeof(t_color));
-	if (!img)
-		return (false);
 	i = -1;
 	while (++i < scene->height)
 	{
 		j = -1;
 		while (++j < scene->width)
-			if (!calculate_pixel(i, j, &img[(i + 1) * j], scene))
-				return (ff_free(img));
+			if (!calculate_pixel(i, j, (i + 1) * j, scene))
+				return (true);
 	}
-	create_img(img, scene->height, scene->width, scene->mlx);
+	create_img(scene);
 	if (!scene->mlx->img)
-		return (ff_free(img));
-	mlx_put_image_to_window(scene->mlx->mlx, scene->mlx->win, scene->mlx->img, 0, 0);
-	free(img);
+		return (true);
+	mlx_put_image_to_window(scene->mlx->mlx, scene->mlx->win, scene->mlx->img,
+		0, 0);
 	mlx_destroy_image(scene->mlx->mlx, scene->mlx->img);
-	return (true);
+	return (false);
 }
