@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/03 13:44:18 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/10/28 16:41:52 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/11/10 15:31:01 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	key_rotate(t_data *data, int key)//non fonctionnelle attendre que les champ
 	if (data->ren->gamma > (2 * M_PI) || data->ren->gamma < (-2 * M_PI))
 		data->ren->gamma = 0.0;
 	printf(ORANGE"KEY_ROTATE"RESET"\n");
-	renderer(data);
+	render(data);
 }
 
 void	zoom(t_data *data, int key)//non fonctionnelle attendre que les champs calculatoire soit remplis
@@ -55,7 +55,7 @@ void	zoom(t_data *data, int key)//non fonctionnelle attendre que les champs calc
 		data->ren->scale *= PLUS_SCALE;
 	}
 	printf(ORANGE"ZOOM"RESET"\n");
-	renderer(data);
+	render(data);
 }
 
 void	reset_sim(t_data *data)
@@ -69,7 +69,7 @@ void	reset_sim(t_data *data)
 	data->ren->scale = 1;
 	data->ren->z_scale = 1;
 	printf(ORANGE"RESET_SIM"RESET"\n");
-	renderer(data);
+	render(data);
 }
 
 void	key_print(t_data *data, int key)

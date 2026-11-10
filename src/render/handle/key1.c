@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 11:52:38 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/11/09 17:03:50 by toespino         ###   ########.fr       */
+/*   Updated: 2026/11/10 15:30:08 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	arrow_move(t_data *data, int key)
 	else if (key == K_9)
 		update_pos(data, 2, -SPACE);
 	printf(ORANGE"ARROW_MOVE"RESET"\n");
-	renderer(data);
+	render(data);
 }
 
 void	z_scale(t_data *data, int key)//non fonctionnelle atendre les champs calculatoire soit complet 
@@ -45,7 +45,7 @@ void	z_scale(t_data *data, int key)//non fonctionnelle atendre les champs calcul
 			data->ren->z_scale = Z_MAX;
 	}
 	printf(ORANGE"Z_SCALE"RESET"\n");
-	renderer(data);
+	render(data);
 }
 
 static void	full_screen(t_data *data)

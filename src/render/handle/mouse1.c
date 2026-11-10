@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 13:47:02 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/11/09 17:04:56 by toespino         ###   ########.fr       */
+/*   Updated: 2026/11/10 15:31:39 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	drag_cursor(t_data *data)
 	data->ren->mouse->cop_x = data->ren->mouse->x;
 	data->ren->mouse->cop_y = data->ren->mouse->y;
 	printf(ORANGE"DRAG_CURSOR"RESET"\n");
-	renderer(data);
+	render(data);
 }
 
 void	zoom_mouse(t_data *data, t_ren *r, int key)//non fonctionnelle attendre que les champs calculatoire soit remplis
@@ -41,7 +41,7 @@ void	zoom_mouse(t_data *data, t_ren *r, int key)//non fonctionnelle attendre que
 		r->scale *= PLUS_SCALE;
 	}
 	// printf(ORANGE"ZOOM_MOUSE"RESET"\n");
-	renderer(data);
+	render(data);
 }
 
 void	z_scale_mouse(t_data *data, int key)//non fonctionnelle attendre que les champs calculatoire soit remplis
@@ -59,7 +59,7 @@ void	z_scale_mouse(t_data *data, int key)//non fonctionnelle attendre que les ch
 			data->ren->z_scale = Z_MAX;
 	}
 	printf(ORANGE"Z_SCALE_MOUSE"RESET"\n");
-	renderer(data);
+	render(data);
 }
 
 void	central_mouse_up(int key, void *param)
