@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/15 08:24:04 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/10/28 11:21:26 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/11/10 15:18:43 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ bool		valid_ratio(t_data *s, char *str);
 bool		valid_fov(t_data *s, char *str);
 bool		valid_brightness(t_data *s, char *str);
 bool		valid_vector(t_data *s, t_vector *vector, char *str, bool type);
-bool		valid_color(t_data *s, t_color *color, char *str);
+bool		valid_color(t_data *s, mlx_color *color, char *str);
 bool		valid_double(t_data *s, double *data, char *str);
 //===========================//
 #endif

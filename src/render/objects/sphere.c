@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/05 18:11:39 by toespino          #+#    #+#             */
-/*   Updated: 2026/11/09 17:00:22 by toespino         ###   ########.fr       */
+/*   Updated: 2026/11/10 15:21:26 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ bool	sphere_intersect(t_vector ray, t_sphere obj)
 	return (false);
 }
 
-bool	render_sphere(t_vector point, int32_t i, t_data *scene, t_color *pixel)
+bool	render_sphere(t_vector point, int32_t i, t_data *scene, mlx_color *pixel)
 {
 	t_vector	normal;
 
