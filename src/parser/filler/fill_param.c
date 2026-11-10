@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/23 15:24:14 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/10/28 11:23:14 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/11/10 12:39:54 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 void	fill_ambient_lighting(t_data *s, t_parse *p, char **obj)
 {
-	int		i;
-
-	i = 0;
 	if (p->al)
 		error_generic_rt(s->p, ERR_ALREADY_USE, __func__);
 	else if (nb_arg(obj) != 3)
