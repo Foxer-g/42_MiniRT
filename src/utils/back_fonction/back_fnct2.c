@@ -6,25 +6,11 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/29 13:22:42 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/10/28 09:52:37 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/11/10 12:47:07 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
-
-double	ft_dmax(double d1, double d2)//tmp
-{
-	if (d1 >= d2)
-		return (d1);
-	return (d2);
-}
-
-double	ft_dmin(double d1, double d2)//tmp
-{
-	if (d1 <= d2)
-		return (d1);
-	return (d2);
-}
 
 static uint16_t	get_size(t_type type)
 {
