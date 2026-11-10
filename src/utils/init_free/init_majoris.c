@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 11:20:04 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/10/28 15:57:51 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/11/10 14:59:26 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,16 @@ void	init_parse(t_data *data)
 	data->p = parse;
 }
 
-void	init_m_st(t_data *data)
+void	init_mlx(t_data *data)
 {
 	mlx_window_create_info	info;
-	t_mlx					*m_st;
+	t_mlx					*mlx;
 
-	m_st = ft_calloc(sizeof(t_mlx), 1);
-	if (!m_st)
+	mlx = ft_calloc(sizeof(t_mlx), 1);
+	if (!mlx)
 		data_malloc_error(data, ERR_MALOC, __func__);
-	m_st->mlx = mlx_init();
-	if (!m_st->mlx)
+	mlx->mlx = mlx_init();
+	if (!mlx->mlx)
 		data_malloc_error(data, ERR_MLX, __func__);
 	info.title = TITLE;
 	info.width = data->width;
@@ -45,10 +45,10 @@ void	init_m_st(t_data *data)
 	info.render_target = NULL;
 	info.is_fullscreen = false;
 	info.is_resizable = false;
-	m_st->win = mlx_new_window(m_st->mlx, &info);
-	if (!m_st->win)
+	mlx->win = mlx_new_window(mlx->mlx, &info);
+	if (!mlx->win)
 		data_malloc_error(data, ERR_WIN, __func__);
-	data->m_st = m_st;
+	data->mlx = mlx;
 }
 
 void	init_objs(t_data *data)
@@ -92,9 +92,8 @@ t_data	*init_data(void)
 	init_objs(data);
 	init_ren(data);
 	data->img_c = NULL;
-	data->m_st = NULL;
+	data->mlx = NULL;
 	data->height = DEF_HEIGHT;
 	data->width = DEF_WIDTH;
-	data->to_image = NULL;
 	return (data);
 }
