@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 11:20:04 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/11/10 14:59:26 by toespino         ###   ########.fr       */
+/*   Updated: 2026/11/11 14:50:45 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,27 +28,24 @@ void	init_parse(t_data *data)
 	data->p = parse;
 }
 
-void	init_mlx(t_data *data)
+void init_mlx(t_data *data)
 {
-	mlx_window_create_info	info;
-	t_mlx					*mlx;
+    mlx_window_create_info info;
+    t_mlx *m;
 
-	mlx = ft_calloc(sizeof(t_mlx), 1);
-	if (!mlx)
-		data_malloc_error(data, ERR_MALOC, __func__);
-	mlx->mlx = mlx_init();
-	if (!mlx->mlx)
-		data_malloc_error(data, ERR_MLX, __func__);
-	info.title = TITLE;
-	info.width = data->width;
-	info.height = data->height;
-	info.render_target = NULL;
-	info.is_fullscreen = false;
-	info.is_resizable = false;
-	mlx->win = mlx_new_window(mlx->mlx, &info);
-	if (!mlx->win)
-		data_malloc_error(data, ERR_WIN, __func__);
-	data->mlx = mlx;
+    m = ft_calloc(1, sizeof(t_mlx));
+    if (!m)
+        data_malloc_error(data, ERR_MALOC, __func__);
+    data->mlx = m;
+    m->mlx = mlx_init();
+    if (!m->mlx)
+        data_malloc_error(data, ERR_MLX, __func__);
+    info = (mlx_window_create_info){ .render_target = NULL, .title = TITLE,
+        .width = data->width, .height = data->height,
+        .is_fullscreen = false, .is_resizable = false};
+    m->win = mlx_new_window(m->mlx, &info);
+    if (!m->win)
+        data_malloc_error(data, ERR_WIN, __func__);
 }
 
 void	init_objs(t_data *data)
@@ -91,7 +88,9 @@ t_data	*init_data(void)
 	init_parse(data);
 	init_objs(data);
 	init_ren(data);
-	data->img_c = NULL;
+	data->img_c = ft_calloc(DEF_HEIGHT * DEF_WIDTH + 1, sizeof(mlx_color));
+	if (!data->img_c)
+		data_malloc_error(data, ERR_MALOC, __func__);
 	data->mlx = NULL;
 	data->height = DEF_HEIGHT;
 	data->width = DEF_WIDTH;
