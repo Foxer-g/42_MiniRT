@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/14 10:47:17 by toespino          #+#    #+#             */
-/*   Updated: 2026/11/10 15:28:12 by toespino         ###   ########.fr       */
+/*   Updated: 2026/11/11 14:54:49 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,29 +30,28 @@ typedef struct s_nc
 }	t_nc;
 
 bool	render(t_data *scene);
-mlx_color	render_point(VEC point, t_data *scene, uint64_t index, VEC normal);
+COLOR	render_point(VEC point, t_data *scene, uint64_t index, VEC normal);
 
 bool	ff_free(void *imput);
 void	create_img(t_data *scene);
 int64_t get_ray_target(VEC ray, t_data *scene);
-t_nc	gemlx_color(VEC point, t_data *scene, uint64_t index, VEC normal);
+t_nc	get_color(VEC point, t_data *scene, uint64_t index, VEC normal);
 
-bool	render_sphere(VEC ray, int32_t i, t_data *scene, mlx_color *pixel);
+bool	render_sphere(VEC ray, int32_t i, t_data *scene, COLOR *pixel);
 bool	sphere_intersect(VEC ray, t_sphere obj);
 double	sphere_distance(VEC ray, t_sphere obj);
 
-bool	render_cylinder(VEC ray, int32_t i, t_data *scene, mlx_color *pixel);
+bool	render_cylinder(VEC ray, int32_t i, t_data *scene, COLOR *pixel);
 bool	cylinder_intersect(VEC ray, t_cylinder obj);
 double	cylinder_distance(VEC ray, t_cylinder obj);
 
-bool	render_plane(VEC ray, int32_t i, t_data *scene, mlx_color *pixel);
+bool	render_plane(VEC ray, int32_t i, t_data *scene, COLOR *pixel);
 bool	plane_intersect(VEC ray, t_plane obj);
 double	plane_distance(VEC ray, t_plane obj);
 
-mlx_color	color_incident(mlx_color base, mlx_color to_add, double r, double bright);
-mlx_color	color_cap(t_nc to_cap);
-void	light_add(t_nc *base, mlx_color to_add);
-COLOR	to_mlx(mlx_color input);
+COLOR	color_incident(COLOR base, COLOR to_add, double r, double bright);
+COLOR	color_cap(t_nc to_cap);
+void	light_add(t_nc *base, COLOR to_add);
 
 double	vector_norm(VEC vec);
 void	vector_inv(VEC *vec);
