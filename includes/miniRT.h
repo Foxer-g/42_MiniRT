@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/09 14:13:45 by toespino          #+#    #+#             */
-/*   Updated: 2026/11/09 16:31:05 by toespino         ###   ########.fr       */
+/*   Updated: 2026/11/11 14:21:06 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ t_light	*init_light(t_data *data, uintmax_t *i);
 t_amb	init_ambient(void **obj, uintmax_t *i);
 
 void	init_parse(t_data *data);
-void	init_m_st(t_data *data);
+void	init_mlx(t_data *data);
 void	init_objs(t_data *data);
 void	free_data(t_data *data);
 void	free_parse(t_parse *parse, bool complete);
