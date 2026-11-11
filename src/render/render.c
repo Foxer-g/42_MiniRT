@@ -6,7 +6,7 @@
 /*   By: toespino <toespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/18 12:59:48 by toespino          #+#    #+#             */
-/*   Updated: 2026/11/11 13:46:42 by toespino         ###   ########.fr       */
+/*   Updated: 2026/11/11 18:57:56 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,12 @@ bool	render(t_data *scene)
 			if (!calculate_pixel(i, j, (i + 1) * j, scene))
 				return (true);
 	}
+	scene->mlx->img = mlx_new_image(scene->mlx->mlx, scene->height,
+		scene->width);
 	create_img(scene);
 	if (!scene->mlx->img)
 		return (true);
 	mlx_put_image_to_window(scene->mlx->mlx, scene->mlx->win, scene->mlx->img,
 		0, 0);
-	mlx_destroy_image(scene->mlx->mlx, scene->mlx->img);
 	return (false);
 }

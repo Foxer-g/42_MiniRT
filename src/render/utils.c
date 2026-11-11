@@ -6,7 +6,7 @@
 /*   By: toespino <toespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/25 13:52:35 by toespino          #+#    #+#             */
-/*   Updated: 2026/11/11 13:58:52 by toespino         ###   ########.fr       */
+/*   Updated: 2026/11/11 18:24:48 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,19 @@ bool	ff_free(void *input)
 
 void	create_img(t_data *scene)
 {
-	int64_t		i;
-	int64_t		j;
+	int64_t	i;
+	int64_t	j;
 
 	i = 0;
 	while (i < scene->height)
 	{
-		j = -1;
-		while (++j < scene->width)
-			mlx_set_image_pixel(scene->mlx->mlx, scene->mlx->img, i, j,
-					scene->img_c[(i + 1) * j]);
+		j = 0;
+		while (j < scene->width)
+		{
+			mlx_set_image_pixel(scene->mlx->mlx, scene->mlx->img,
+				j, i, scene->img_c[i * scene->width + j]);
+			j++;
+		}
 		i++;
 	}
 }
