@@ -6,7 +6,7 @@
 /*   By: toespino <toespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/25 13:52:35 by toespino          #+#    #+#             */
-/*   Updated: 2026/11/11 18:24:48 by toespino         ###   ########.fr       */
+/*   Updated: 2026/11/11 19:18:24 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static bool	intersect_ray(t_vector ray, uint64_t index, t_data *scene)
 	return (false);
 }
 
-t_nc	get_color(t_vector point, t_data *scene, uint64_t index, t_vector normal)
+t_nc	get_color(VEC point, t_data *scene, uint64_t index, VEC normal)
 {
 	double		incidence;
 	t_vector	light_ray;

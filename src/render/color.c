@@ -6,13 +6,13 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/26 06:03:03 by toespino          #+#    #+#             */
-/*   Updated: 2026/11/10 15:21:08 by toespino         ###   ########.fr       */
+/*   Updated: 2026/11/11 19:14:50 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-mlx_color	color_incident(mlx_color base, mlx_color to_add, double r, double bright)
+mlx_color	color_incident(COLOR base, COLOR to_add, double r, double bright)
 {
 	mlx_color	res;
 

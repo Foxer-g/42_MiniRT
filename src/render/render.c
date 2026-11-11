@@ -6,7 +6,7 @@
 /*   By: toespino <toespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/18 12:59:48 by toespino          #+#    #+#             */
-/*   Updated: 2026/11/11 18:57:56 by toespino         ###   ########.fr       */
+/*   Updated: 2026/11/11 19:16:53 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static t_vector	generate_ray(int32_t x, int32_t y, t_data *scene)
 	return (ray);
 }
 
-mlx_color	render_point(t_vector point, t_data *scene, uint64_t index, t_vector normal)
+COLOR	render_point(VEC point, t_data *scene, uint64_t index, VEC normal)
 {
 	mlx_color	res;
 	t_nc		no_cap;
@@ -85,7 +85,7 @@ bool	render(t_data *scene)
 				return (true);
 	}
 	scene->mlx->img = mlx_new_image(scene->mlx->mlx, scene->height,
-		scene->width);
+			scene->width);
 	create_img(scene);
 	if (!scene->mlx->img)
 		return (true);

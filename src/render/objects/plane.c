@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/14 09:55:28 by toespino          #+#    #+#             */
-/*   Updated: 2026/11/10 15:21:53 by toespino         ###   ########.fr       */
+/*   Updated: 2026/11/11 19:20:43 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ bool	plane_intersect(t_vector ray, t_plane obj)
 		return (false);
 }
 
-bool	render_plane(t_vector point, int32_t i, t_data *scene, mlx_color *pixel)
+bool	render_plane(t_vector p, int32_t i, t_data *scene, COLOR *pixel)
 {
-	*pixel = render_point(point, scene, i, ((t_plane *)(scene->objs))[i].normal);
+	*pixel = render_point(p, scene, i, ((t_plane *)(scene->objs))[i].normal);
 	return (true);
 }
