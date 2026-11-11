@@ -6,7 +6,7 @@
 /*   By: toespino <toespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/25 13:52:35 by toespino          #+#    #+#             */
-/*   Updated: 2026/11/10 16:30:07 by toespino         ###   ########.fr       */
+/*   Updated: 2026/11/11 13:58:52 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,14 @@ int64_t	get_ray_target(t_vector ray, t_data *scene)
 
 	closest = DBL_MAX;
 	i = -1;
+	index = -1;
 	while (((t_plane *)(scene->objs))[++i].type)
 	{
-		if (((t_plane *)(scene->objs))[i].type == 's')
+		if (((t_plane *)(scene->objs))[i].type == OBJ_SPHERE)
 			res = sphere_distance(ray, ((t_sphere *)(scene->objs))[i]);
-		else if (((t_plane *)(scene->objs))[i].type == 'c')
+		else if (((t_plane *)(scene->objs))[i].type == OBJ_CYLINDER)
 			res = cylinder_distance(ray, ((t_cylinder *)(scene->objs))[i]);
-		else if (((t_plane *)(scene->objs))[i].type == 'p')
+		else if (((t_plane *)(scene->objs))[i].type == OBJ_PLANE)
 			res = plane_distance(ray, ((t_plane *)(scene->objs))[i]);
 		if (res > 0 && res < closest)
 		{
@@ -67,16 +68,16 @@ static bool	intersect_ray(t_vector ray, uint64_t index, t_data *scene)
 
 	i = 0;
 	res = true;
-	while (((t_plane *)scene->objs)[i])
+	while (((void **)scene->objs)[i])
 	{
 		if (i != index)
 		{
 			res = false;
-			if (((t_plane *)scene->objs)[i].type == 's')
+			if (((t_plane *)scene->objs)[i].type == OBJ_SPHERE)
 				res = sphere_intersect(ray, ((t_sphere *)scene->objs)[i]);
-			else if (((t_plane *)scene->objs)[i].type == 'c')
+			else if (((t_plane *)scene->objs)[i].type == OBJ_CYLINDER)
 				res = cylinder_intersect(ray, ((t_cylinder *)scene->objs)[i]);
-			else if (((t_plane *)scene->objs)[i].type == 'p')
+			else if (((t_plane *)scene->objs)[i].type == OBJ_PLANE)
 				res = plane_intersect(ray, ((t_plane *)scene->objs)[i]);
 			if (res)
 				return (true);

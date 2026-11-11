@@ -6,7 +6,7 @@
 /*   By: toespino <toespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/18 12:59:48 by toespino          #+#    #+#             */
-/*   Updated: 2026/11/10 16:51:16 by toespino         ###   ########.fr       */
+/*   Updated: 2026/11/11 13:46:42 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static t_vector	generate_ray(int32_t x, int32_t y, t_data *scene)
 
 mlx_color	render_point(t_vector point, t_data *scene, uint64_t index, t_vector normal)
 {
-	mlx_color		res;
+	mlx_color	res;
 	t_nc		no_cap;
 
 	no_cap = get_color(point, scene, index, normal);
@@ -39,11 +39,11 @@ mlx_color	render_point(t_vector point, t_data *scene, uint64_t index, t_vector n
 static bool	process_pixel(t_vector point, int32_t index, t_data *scene,
 		mlx_color *pixel)
 {
-	if (((t_plane **)(scene->objs))[index]->type == 's')
+	if (((t_plane **)(scene->objs))[index]->type == OBJ_SPHERE)
 		return (render_sphere(point, index, scene, pixel));
-	else if (((t_plane **)(scene->objs))[index]->type == 'c')
+	else if (((t_plane **)(scene->objs))[index]->type == OBJ_CYLINDER)
 		return (render_cylinder(point, index, scene, pixel));
-	else if (((t_plane **)(scene->objs))[index]->type == 'p')
+	else if (((t_plane **)(scene->objs))[index]->type == OBJ_PLANE)
 		return (render_plane(point, index, scene, pixel));
 	return (false);
 }

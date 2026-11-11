@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/17 14:38:21 by toespino          #+#    #+#             */
-/*   Updated: 2026/11/10 15:20:00 by toespino         ###   ########.fr       */
+/*   Updated: 2026/11/11 13:53:40 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,10 +190,10 @@ typedef struct s_mlx
 
 typedef enum s_kind
 {
+	OBJ_DEFAULT,
 	OBJ_PLANE,
 	OBJ_SPHERE,
-	OBJ_CYLINDER,
-	OBJ_DEFAULT
+	OBJ_CYLINDER
 }	t_kind;
 
 // @doc t_data
