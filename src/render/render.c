@@ -6,7 +6,7 @@
 /*   By: toespino <toespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/18 12:59:48 by toespino          #+#    #+#             */
-/*   Updated: 2026/11/12 12:51:13 by toespino         ###   ########.fr       */
+/*   Updated: 2026/11/12 17:00:09 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,11 @@ static bool	calculate_pixel(int32_t x, int32_t y, int64_t index, t_data *scene)
 	t_vector	ray;
 	t_vector	point;
 	int64_t		to_render;
+	double		distance;
 
 	ray = generate_ray(x, y, scene);
 	vector_normalize(&ray);
-	to_render = get_ray_target(ray, scene);
+	to_render = get_ray_target(ray, scene, &distance);
 	scene->img_c[index] = (mlx_color){.rgba = 0xFFFFFF};
 	if (to_render == -1)
 	{
@@ -65,7 +66,7 @@ static bool	calculate_pixel(int32_t x, int32_t y, int64_t index, t_data *scene)
 	}
 	else
 	{
-		point = vector_coordinate(ray, to_render);
+		point = vector_coordinate(ray, distance);
 		if (!process_pixel(point, to_render, scene, &(scene->img_c[index])))
 			return (false);
 	}

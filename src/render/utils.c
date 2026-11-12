@@ -6,7 +6,7 @@
 /*   By: toespino <toespino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/25 13:52:35 by toespino          #+#    #+#             */
-/*   Updated: 2026/11/11 19:18:24 by toespino         ###   ########.fr       */
+/*   Updated: 2026/11/12 17:01:09 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	create_img(t_data *scene)
 	}
 }
 
-int64_t	get_ray_target(t_vector ray, t_data *scene)
+int64_t	get_ray_target(t_vector ray, t_data *scene, double *distance)
 {
 	double	closest;
 	double	res;
@@ -61,6 +61,7 @@ int64_t	get_ray_target(t_vector ray, t_data *scene)
 			index = i;
 		}
 	}
+	*distance = res;
 	return (index);
 }
 
