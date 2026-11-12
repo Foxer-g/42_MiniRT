@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/14 10:47:17 by toespino          #+#    #+#             */
-/*   Updated: 2026/11/12 17:05:10 by toespino         ###   ########.fr       */
+/*   Updated: 2026/11/12 17:23:15 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ COLOR	render_point(VEC point, t_data *scene, uint64_t index, VEC normal);
 
 bool	ff_free(void *imput);
 void	create_img(t_data *scene);
-int64_t get_ray_target(VEC ray, t_data *scene, double *distance);
+int64_t	get_ray_target(VEC ray, t_data *scene, double *distance);
 t_nc	get_color(VEC point, t_data *scene, uint64_t index, VEC normal);
 
 bool	render_sphere(VEC ray, int32_t i, t_data *scene, COLOR *pixel);

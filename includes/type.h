@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/17 14:38:21 by toespino          #+#    #+#             */
-/*   Updated: 2026/11/11 13:53:40 by toespino         ###   ########.fr       */
+/*   Updated: 2026/11/12 17:23:02 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include "mlx.h"
 # include "mlx_extended.h"
 
-#define COLOR mlx_color
+# define COLOR mlx_color
 
 //////////TEMPORAIRE_PEUX_CHANGER///////////
 
