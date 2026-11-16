@@ -6,20 +6,13 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 11:17:43 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/10/28 10:04:13 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/11/10 16:10:41 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-static void	free_mlx_map(t_ren *map)
-{
-	if (!map)
-		return ;
-	free (map);
-}
-
-void	free_objs(void *objs)
+static void	free_objs(void *objs)
 {
 	t_header	*header;
 	uintmax_t	i;
@@ -52,17 +45,17 @@ void	free_parse(t_parse *parse, bool complete)
 	}
 }
 
-static	void	free_m_st(t_mlx *m_st)
+static	void	free_mlx(t_mlx *mlx)
 {
-	if (!m_st)
+	if (!mlx)
 		return ;
-	if (m_st->win)
-		mlx_destroy_window(m_st->mlx, m_st->win);
-	if (m_st->img)
-		mlx_destroy_image(m_st->mlx, m_st->img);
-	if (m_st->mlx)
-		mlx_destroy_context(m_st->mlx);
-	free(m_st);
+	if (mlx->win)
+		mlx_destroy_window(mlx->mlx, mlx->win);
+	if (mlx->img)
+		mlx_destroy_image(mlx->mlx, mlx->img);
+	if (mlx->mlx)
+		mlx_destroy_context(mlx->mlx);
+	free(mlx);
 }
 
 void	free_data(t_data *data)
@@ -71,11 +64,10 @@ void	free_data(t_data *data)
 		return ;
 	free_parse(data->p, true);
 	free_objs(data->objs);
-	free_m_st(data->m_st);
-	free_mlx_map(data->ren);
+	free_mlx(data->mlx);
+	if (data->ren)
+		free(data->ren);
 	if (data->img_c)
-		free (data->img_c);
-	if (data->to_image)
-		free (data->to_image);
+		free(data->img_c);
 	free(data);
 }

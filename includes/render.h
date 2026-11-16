@@ -6,61 +6,50 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/14 10:47:17 by toespino          #+#    #+#             */
-/*   Updated: 2026/10/28 13:43:22 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/11/16 11:06:48 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RENDER_H
 # define RENDER_H
 
-# define VECTOR t_vector
 # define OBJ ((t_plane *)scene->objs)[index]
 # define OBJECT ((t_plane *)objs[index])
 # define LIGHT scene->lights
+# define M (data->mlx)
 
-// @doc t_nc
-// @kind type
-// @desc Bloated uncaped color representation with number bigger than 255
-// @field r: uint64_t, red color;
-// @field g: uint64_t, green color;
-// @field b: uint64_t, blue color;
-typedef struct	s_nc
-{
-	uint64_t	r;
-	uint64_t	g;
-	uint64_t	b;
-}	t_nc;
+# define VEC t_vector
+# define COLOR mlx_color
 
 bool	render(t_data *scene);
-bool	renderer(t_data *s);
-t_color	render_point(VECTOR point, t_data *scene, uint64_t index, VECTOR normal);
+COLOR	render_point(VEC point, t_data *scene, uint64_t index, VEC normal);
 
-double	get_ray_target(VECTOR ray, t_data *scene, int64_t i);
-VECTOR	generate_ray(int32_t x, int32_t y, t_data *scene);
-t_nc	get_color(VECTOR point, t_data *scene, uint64_t index, VECTOR normal);
+bool	ff_free(void *input);
+void	create_img(t_data *scene);
+int64_t	get_ray_target(VEC ray, t_data *scene, double *distance);
+t_nc	get_color(VEC point, t_data *scene, uint64_t index, VEC normal);
 
-bool	render_sphere(VECTOR ray, int32_t i, t_data *scene, t_color *pixel);
-bool	sphere_intersect(VECTOR ray, t_sphere obj);
-double	sphere_distance(VECTOR ray, t_sphere obj);
+bool	render_sphere(VEC ray, int32_t i, t_data *scene, COLOR *pixel);
+bool	sphere_intersect(VEC ray, t_sphere obj);
+double	sphere_distance(VEC ray, t_sphere obj);
 
-bool	render_cylinder(VECTOR ray, int32_t i, t_data *scene, t_color *pixel);
-bool	cylinder_intersect(VECTOR ray, t_cylinder obj);
-double	cylinder_distance(VECTOR ray, t_cylinder obj);
+bool	render_cylinder(VEC ray, int32_t i, t_data *scene, COLOR *pixel);
+bool	cylinder_intersect(VEC ray, t_cylinder obj);
+double	cylinder_distance(VEC ray, t_cylinder obj);
 
-bool	render_plane(VECTOR ray, int32_t i, t_data *scene, t_color *pixel);
-bool	plane_intersect(VECTOR ray, t_plane obj);
-double	plane_distance(VECTOR ray, t_plane obj);
+bool	render_plane(VEC ray, int32_t i, t_data *scene, COLOR *pixel);
+bool	plane_intersect(VEC ray, t_plane obj);
+double	plane_distance(VEC ray, t_plane obj);
 
-t_color	color_incident(t_color base, t_color to_add, double r, double bright);
-t_color	color_cap(t_nc to_cap);
-void	light_add(t_nc *base, t_color to_add);
+COLOR	color_incident(COLOR base, COLOR to_add, double r, double bright);
+COLOR	color_cap(t_nc to_cap);
+void	light_add(t_nc *base, COLOR to_add);
 
-double	vetor_norm(VECTOR vec);
-void	vector_inv(VECTOR *vec);
-void	vector_normalize(VECTOR *vec);
-VECTOR	vector_sub(VECTOR vec1, VECTOR vec2);
-VECTOR	vector_add(VECTOR vec1, VECTOR vec2);
-double	vector_dot(VECTOR vec1, VECTOR vec2);
-VECTOR	vector_coordinate(VECTOR vec, double t);
-bool	intersect_ray(t_vector ray, uint64_t index, t_data *scene);
+double	vector_norm(VEC vec);
+void	vector_inv(VEC *vec);
+void	vector_normalize(VEC *vec);
+VEC		vector_sub(VEC vec1, VEC vec2);
+VEC		vector_add(VEC vec1, VEC vec2);
+double	vector_dot(VEC vec1, VEC vec2);
+VEC		vector_coordinate(VEC vec, double t);
 #endif

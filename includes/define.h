@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/05 10:22:16 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/10/28 16:41:52 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/11/16 14:46:41 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define DEFINE_H
 
 //=====Color Reference To Use Everywhere=====//
-# define RESET   "\e[0m"//It's like set but in revese
+# define RESET   "\e[0m"//It's like set but in reverse
 # define D_RED   "\e[1;38;2;187;6;6m"// You are my fluoroethylene methyl
 # define MAG     "\e[1;38;2;242;0;255m"// I love magenta  F200FF mmh delicious
 # define Z_BLUE  "\e[1;38;2;22;184;243m"// A life of work to know how to live
@@ -22,9 +22,12 @@
 
 # define RGBA_MAG 0xF200FFFF
 # define RGBA_D_RED 0xBA0606FF
-# define RGBA_L_BLUE 0x000FFFFFF
+# define RGBA_L_BLUE 0x00FFFFFF
 # define RGBA_DK_RED 0x590000FF
 # define RGBA_BLACK 0x000000FF
+# define RGBA_NULL  0x00000000
+# define RGBA_ORANGE 0xFF8000FF
+
 //=====================================//
 
 //=============<for general utility>=============//
@@ -42,10 +45,12 @@
 /////CENTRAL_VERIF/////
 # define ERR_AC "You must enter one argument only\n ->\
  ./miniRT <xxxxxxx>.rt\nIN "
-# define ERR_FILNAME "You must only enter a single file with a\
- .rt extension\n-> ./miniRT <xxxxxxx>.rt\nIN "
+# define ERR_FILNAME "You must only enter files with correct extension\n-> \
+./miniRT <xxxxxxx>.rt\nIN "
 # define ERR_NOT_IDENTIFIER "Identifier not \
 regognize please try with a valid one IN "
+# define ERR_NO_PARAM "You must give at least a Camera a Light \
+and the Ambient light to start a simulation IN "
 
 /////RATIO/////
 # define ERR_RT_FORMAT_RATIO "Wrong format used, correct format x.x IN"
@@ -74,7 +79,7 @@ in the correct format IN "
 
 /////FOV/////
 # define ERR_RT_INVALID_FOV "The fov must be provide only with \
-numerical betwen [0:180] caratere IN"
+numerical value betwen [0:180] IN"
 # define ERR_RT_INCORECT_FOV "The fov must be betwen [0:180] IN"
 # define ERR_RT_FORMAT_FOV "Wrong format used, correct format x.x IN"
 
@@ -106,18 +111,22 @@ the correct format IN "
 # define LOCAL '.'
 # define SEP ','
 
-# define DEF_HEIGHT 240
-# define DEF_WIDTH 320
-# define POS_X 0
-# define POS_Y 0
+# define DEF_WIDTH 720
+# define DEF_HEIGHT 480
+# define POS_X 960//screen_center_x
+# define POS_Y 540//screen_center_y
 
 # define DEFAULT_ALPHA 0.5235987756
 # define DEFAULT_BETA 0.32
 # define FPS 60
+# define MAX_IMG 99999
+
+# define TYPO "includes/minecraft.ttf"
 # define TITLE "Mongolian Rescue Therapy"
+
 # define SPACE 5
-# define PLUS_SCALE 1.03
-# define MINUS_SCALE 0.97
+# define ADD 1
+# define FACTOR 0.03
 # define Z_MAX 10.0
 # define Z_MIN 0.0 
 //================================================//

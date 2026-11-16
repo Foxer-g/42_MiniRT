@@ -1,11 +1,13 @@
 ###########Diretory###########
 SRC_DIR 		= src/
+HANDLE_DIR 		= src/handle/
 PARSER_DIR		= src/parser/
 RENDER_DIR		= src/render/
 UTILS_DIR		= src/utils/
 
 RENDER_SRCS_DIR 				= $(RENDER_DIR)
-HANDLE_RENDER_SRCS_DIR			= $(RENDER_DIR)handle/
+HANDLE_RENDER_SRCS_DIR			= $(HANDLE_DIR)
+VIEW_HANDLE_RENDER_SRCS_DIR		= $(HANDLE_DIR)view/
 OBJECt_ren_SRCS_DIR 			= $(RENDER_DIR)objects/
 VECTOR_RENDER_SRCS_DIR 			= $(RENDER_DIR)vector/
 PARSING_SRCS_DIR				= $(PARSER_DIR)
@@ -14,31 +16,29 @@ UTILS_PARSING_SRCS_DIR			= $(PARSER_DIR)p_utils/
 ERROR_UTILS_SRCS_DIR			= $(UTILS_DIR)error_management/
 BACKFONC_UTILS_SRCS_DIR 		= $(UTILS_DIR)back_fonction/
 INIT_BACKFONC_UTILS_SRCS_DIR	= $(UTILS_DIR)init_free/
-
-BUILDS_DIR			= builds
-LIBFT_DIR   		= libft/
-MLX_DIR				= macrolibx/
 ###############################
 
 ###########FILES###########
-MAIN_FILES 			= miniRT.c
-RENDER_FILES		= render.c render_utils_1.c render_utils_2.c color.c
+MAIN_FILES 			= main.c
+RENDER_FILES		= render.c utils.c color.c
 DRAW_FILES			= central_draw.c
 OBJECT_FILES		= sphere.c cylinder.c plane.c
-HANDLE_FILES		= key1.c key2.c mouse1.c window1.c handle_utils.c
+HANDLE_FILES		= key1.c key2.c key3.c mouse1.c mouse2.c window1.c handle_manage.c
+VIEW_FILES			= view_1.c view_2.c view_3.c
 VECTOR_FILES		= vector.c vector_operations.c
 PARSING_FILES		= central_verif.c
 P_UTILS_FILES		= check_1.c check_2.c check_3.c
 FILLER_FILES		= fill_objs.c fill_param.c
 ERROR_FILES			= error_manage.c
-BACK_FONCK_FILES	= back_fnct1.c back_fnct2.c back_fnct3.c back_fnct4.c back_fnct5.c ft_strtod.c
-INIT_FREE_FILES		= init_majoris.c free1.c
+BACK_FONCK_FILES	= back_fnct1.c back_fnct2.c back_fnct3.c back_fnct4.c back_fnct5.c ft_strtod.c ft_dtoa.c
+INIT_FREE_FILES		= init_1.c init_2.c free1.c
 ###########################
 
 ###########SOURCES###########
-MAIN_SOURCES				= $(MAIN_FILES)
+MAIN_SOURCES				= $(addprefix $(SRC_DIR), $(MAIN_FILES))
 RENDER_SOURCES				= $(addprefix $(RENDER_SRCS_DIR), $(RENDER_FILES))
 HANDLE_SOURCES				= $(addprefix $(HANDLE_RENDER_SRCS_DIR), $(HANDLE_FILES))
+VIEW_SOURCES				= $(addprefix $(VIEW_HANDLE_RENDER_SRCS_DIR), $(VIEW_FILES))
 OBJECT_SOURCES				= $(addprefix $(OBJECt_ren_SRCS_DIR), $(OBJECT_FILES))
 VECTOR_SOURCES				= $(addprefix $(VECTOR_RENDER_SRCS_DIR), $(VECTOR_FILES))
 PARSING_SOURCES 			= $(addprefix $(PARSING_SRCS_DIR), $(PARSING_FILES))
@@ -52,6 +52,7 @@ SOURCES			= $(MAIN_SOURCES) \
 					$(RENDER_SOURCES) \
 					$(OBJECT_SOURCES) \
 					$(HANDLE_SOURCES) \
+					$(VIEW_SOURCES) \
 					$(VECTOR_SOURCES) \
 					$(PARSING_SOURCES) \
 					$(P_UTILS_SOURCES) \
@@ -60,12 +61,3 @@ SOURCES			= $(MAIN_SOURCES) \
 					$(UTILS_SOURCES) \
 					$(INIT_FREE_SOURCES)
 #############################
-###########INCLUDE###########
-LIBFT			= $(LIBFT_DIR)libft.a
-MLX				= $(MLX_DIR)libmlx.so
-LIBFT_INCLUDE	= $(LIBFT_DIR)includes/
-MLX_INCLUDE		= $(MLX_DIR)includes/
-
-INCLUDES		= -Iincludes -I$(LIBFT_INCLUDE) -I$(MLX_INCLUDE)
-#############################
-

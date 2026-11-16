@@ -6,82 +6,85 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/16 18:00:37 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/10/28 09:55:14 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/11/12 16:51:23 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-bool	check_line(t_data *s)
+bool	check_line(t_data *data)
 {
-	if (ft_isvoid(s->p->line))
+	if (ft_isvoid(data->p->line))
 		return (false);
-	s->p->obj = ft_split(s->p->line + leap_space(s->p->line), ' ');
-	if (!s->p->obj)
-		data_malloc_error_parse(s, __func__, true, NULL);
-	if (!ft_strncmp(s->p->obj[0], "A", 2))
-		fill_ambient_lighting(s, s->p, s->p->obj);
-	else if (!ft_strncmp(s->p->obj[0], "C", 2))
-		fill_camera(s, s->p, s->p->obj);
-	else if (!ft_strncmp(s->p->obj[0], "L", 2))
-		fill_light(s, s->p, s->p->obj);
-	else if (!ft_strncmp(s->p->obj[0], "sp", 3))
-		fill_sphere(s, s->p->obj);
-	else if (!ft_strncmp(s->p->obj[0], "pl", 3))
-		fill_plane(s, s->p->obj);
-	else if (!ft_strncmp(s->p->obj[0], "cy", 3))
-		fill_cylinder(s, s->p->obj);
-	// else if (!ft_strncmp(s->p->obj[0], "tr", 3))
-	// 	fill_triangle(s, s->p->obj);
+	data->p->obj = ft_split(data->p->line + leap_space(data->p->line), ' ');
+	if (!data->p->obj)
+		data_malloc_error_parse(data, __func__, true, NULL);
+	if (!ft_strncmp(data->p->obj[0], "A", 2))
+		fill_ambient_lighting(data, data->p, data->p->obj);
+	else if (!ft_strncmp(data->p->obj[0], "C", 2))
+		fill_camera(data, data->p, data->p->obj);
+	else if (!ft_strncmp(data->p->obj[0], "L", 2))
+		fill_light(data, data->p, data->p->obj);
+	else if (!ft_strncmp(data->p->obj[0], "sp", 3))
+		fill_sphere(data, data->p->obj);
+	else if (!ft_strncmp(data->p->obj[0], "pl", 3))
+		fill_plane(data, data->p->obj);
+	else if (!ft_strncmp(data->p->obj[0], "cy", 3))
+		fill_cylinder(data, data->p->obj);
 	else
-		error_generic_rt(s->p, ERR_NOT_IDENTIFIER, __func__);
-	return (s->p->error);
+		error_generic_rt(data->p, ERR_NOT_IDENTIFIER, __func__);
+	return (data->p->error);
 }
 
-bool	check_scene(t_data *s)
+bool	check_scene(t_data *data)
 {
 	char	*tmp;
 
 	while (1)
 	{
-		tmp = get_next_line(s->p->fd);
+		tmp = get_next_line(data->p->fd);
 		if (!tmp)
 			break ;
-		s->p->line = ft_strtrim(tmp, " \n");
+		data->p->line = ft_strtrim(tmp, " \n");
 		free (tmp);
-		if (!s->p->line)
-			data_malloc_error_parse(s, __func__, true, NULL);
-		if (check_line(s))
+		if (!data->p->line)
+			data_malloc_error_parse(data, __func__, true, NULL);
+		if (check_line(data))
 		{
 			get_next_line(-1);
 			return (true);
 		}
-		free_parse(s->p, false);
+		free_parse(data->p, false);
 	}
 	get_next_line(-1);
 	return (false);
 }
 
-bool	check_filename(const char *filename)
+bool	check_filename(const char *filename, char *extension)
 {
-	int	len;
+	u_int32_t	l_file;
+	u_int32_t	l_ext;
 
-	len = ft_strlen(filename);
-	if (!ft_strncmp(&filename[len - 3], ".rt", 4))
+	l_file = ft_strlen(filename);
+	l_ext = ft_strlen(extension);
+	if (!ft_strncmp(&filename[l_file - l_ext], extension, l_ext + 1))
 		return (false);
 	return (true);
 }
 
-bool	central_verif(t_data *s, char **av)
+bool	central_verif(t_data *data, char **av)
 {
-	if (check_filename(av[1]))
+	if (check_filename(av[1], ".rt"))
 		return (error_perror_b(ERR_FILNAME, __func__, P_ERROR, 2));
-	s->p->fd = open(av[1], O_RDONLY);
-	if (s->p->fd <= 0)
+	data->p->fd = open(av[1], O_RDONLY);
+	if (data->p->fd <= 0)
 		return (error_perror_b(NULL, __func__, C_ERROR, 2));
-	if (check_scene(s))
+	if (check_scene(data))
 		return (true);
-	if (s->p->fd >= 0)
-		close(s->p->fd);
-	return (false);
+	if (data->p->fd >= 0)
+		close(data->p->fd);
+	if (data->p->al && data->p->c && data->p->l)
+		return (false);
+	else
+		return (error_generic(ERR_NO_PARAM, __func__, true));
 }

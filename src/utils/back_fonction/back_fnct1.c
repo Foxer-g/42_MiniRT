@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 11:53:33 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/10/21 15:24:59 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/11/12 17:23:36 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,21 @@ int	nb_arg(char **ar)
 	return (i);
 }
 
+void	free_size_arr(char **tab, size_t size)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < size)
+	{
+		free(tab[i]);
+		i++;
+	}
+}
+
 void	free_nt_arr(char **tab)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	while (tab[i])
@@ -59,18 +71,4 @@ bool	ft_isvoid(char *line)
 	if (!line[i])
 		return (true);
 	return (false);
-}
-
-int	get_sign(const char *line, int *index)
-{
-	int	sign;
-
-	sign = 1;
-	while (line[*index] == '+' || line[*index] == '-')
-	{
-		if (line[*index] == '-')
-			sign *= -1;
-		(*index)++;
-	}
-	return (sign);
 }

@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/05 18:11:39 by toespino          #+#    #+#             */
-/*   Updated: 2026/10/28 17:13:29 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/11/16 15:09:46 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,10 @@ double	sphere_distance(t_vector ray, t_sphere obj)
 	double		distance;
 	double		thc;
 
+	// printf(ORANGE"ENTER SPHERE DISTANCE"RESET"\n");
 	pos = vector_sub(obj.coordinate, (t_vector){.x = 0, .y = 0, .z = 0});
 	closest = vector_dot(pos, ray);
-	distance = vector_dot(pos, pos) - pow(closest, 2);//vec_dot has ben replace
+	distance = vector_dot(pos, pos) - pow(closest, 2);
 	if (distance > pow(obj.radius, 2))
 		return (-1.0);
 	thc = sqrt(pow(obj.radius, 2) - distance);
@@ -41,7 +42,7 @@ bool	sphere_intersect(t_vector ray, t_sphere obj)
 
 	pos = vector_sub(obj.coordinate, (t_vector){.x = 0, .y = 0, .z = 0});
 	closest = vector_dot(pos, ray);
-	distance = vector_dot(pos, pos) - pow(closest, 2);//vec_dot has been replace
+	distance = vector_dot(pos, pos) - pow(closest, 2);
 	if (distance > pow(obj.radius, 2))
 		return (false);
 	discriminant = 4.0 * (pow(obj.radius, 2) - distance);
@@ -50,11 +51,11 @@ bool	sphere_intersect(t_vector ray, t_sphere obj)
 	return (false);
 }
 
-bool	render_sphere(t_vector point, int32_t i, t_data *scene, t_color *pixel)
+bool	render_sphere(t_vector point, int32_t i, t_data *scene, COLOR *pixel)
 {
 	t_vector	normal;
 
-	normal = vector_sub(point, ((t_sphere *)scene->objs)[i].coordinate);
+	normal = vector_sub(point, ((t_plane *)(scene->objs))[i].coordinate);
 	*pixel = render_point(point, scene, i, normal);
 	return (true);
 }

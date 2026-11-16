@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/08 17:06:35 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/10/28 16:12:51 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/11/16 10:49:28 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,48 +25,46 @@
 # include <math.h> 
 # include <stdio.h>
 
-// a degager a la fin
-
-void	display_head(void *objs);
-void	print_cylinder(t_cylinder cylinder);
-void	print_sphere(t_sphere sphere);
-void	print_plane(t_plane plane);
-///////////////
-
 //==========Generic Fonction==========//
+char	*objs_str(void **objs, int32_t index);
+char	*ft_utoa(uint64_t n);
+char	*ft_dtoa(double n);
+
 void	*ft_init_array_back(t_elem elem);
 void	*ft_realloc_back(void *ptr, uintmax_t old_size, uintmax_t new_size);
 void	*ft_extend_array_back(void **arr);
 void	free_nt_arr(char **tab);
-void	print_param(t_data *data);
-void	print_struct(t_data *data);
+void	ft_rev(char *str, uintmax_t isnegative);
+void	free_size_arr(char **tab, size_t size);
+void	reset_img(mlx_context mlx, mlx_image img, \
+int64_t width, int64_t height);
+
+int32_t	get_10_pow(uint64_t value);
 
 int		get_sign(const char *line, int *index);
 int		nb_arg(char **ar);
 int		leap_space(char *str);
 
 double	ft_strtod(const char *line, char **end);
-double	ft_dmax(double d1, double d2);
-double	ft_dmin(double d1, double d2);
 
 bool	ad_data_scene_objects(void **arr, void *value, t_kind type);
 bool	ft_isvoid(char *line);
 bool	is_k_arrow(int64_t key);
+bool	is_rotate(int64_t key);
 //===================================//
 
 //====For Initialization And Free====//
 t_data	*init_data(void);
-t_cam	*init_camera(t_data *data, uintmax_t *i);
-t_light	*init_light(t_data *data, uintmax_t *i);
-t_amb	init_ambient(void **obj, uintmax_t *i);
 
 void	init_parse(t_data *data);
-void	init_m_st(t_data *data);
 void	init_objs(t_data *data);
 void	free_data(t_data *data);
 void	free_parse(t_parse *parse, bool complete);
-void	free_objs(void *objs);
+void	init_mlx(t_data *data);
 void	init_ren(t_data *data);
+void	init_img_c(t_data *data);
+void	fill_control(t_data *data);
+
 //===================================//
 
 //==========Error Managenment==========//

@@ -1,67 +1,54 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2026/09/18 14:10:09 by ethutin-          #+#    #+#              #
-#    Updated: 2026/10/28 10:58:25 by ethutin-         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
 
 include sources.mk
 
-###########COLOR###########
-RESET		= \e[0m
-D_RED		= \e[1;38;2;187;6;6m
-MAG			= \e[1;38;2;242;0;255m
-Z_BLUE		= \e[1;38;2;22;184;243m
-ORANGE		= \e[1;38;2;255;128;0m
-###########################
+########### COLOR ###########
+RESET   = \e[0m
+D_RED   = \e[1;38;2;187;6;6m
+MAG     = \e[1;38;2;242;0;255m
+Z_BLUE  = \e[1;38;2;22;184;243m
+ORANGE  = \e[1;38;2;255;128;0m
+#############################
 
 CC          := cc
-CFLAGS      := -Wall -Wextra -Werror -g
-
+CFLAGS      := -Wall -Wextra -Werror -ggdb
 NAME        := miniRT
 
-MAKEFLAGS   += --no-print-directory #comment this to view the directories
+MAKEFLAGS   += --no-print-directory
 
-LIBS        := $(LIBFT) $(MLX) -lSDL2 -lm
+BUILD_DIR   := build/
+LIBFT       := libft/libft.a
+MLX         := macrolibx/libmlx.so
+INCLUDES    := -I ./includes -I libft/includes -I macrolibx/includes
+LDFLAGS     := $(LIBFT) $(MLX) -lSDL2 -lm
 
-Q           := @
-
-OBJS        := $(patsubst %.c,$(BUILDS_DIR)/%.o,$(SOURCES))
+OBJS        := $(patsubst %.c,$(BUILD_DIR)%.o,$(SOURCES))
 DEPS        := $(OBJS:.o=.d)
 
 all: $(NAME)
 
--include $(DEPS)
-
-$(NAME): $(OBJS) $(LIBFT) $(MLX)
-	$(Q)$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $@
-	$(Q)echo "$(D_RED)[$(MAG)miniRT$(D_RED)] $(ORANGE)Compiled successfully!$(RESET)"
+$(BUILD_DIR)%.o: %.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(INCLUDES) -MMD -MP -c $< -o $@
 
 $(LIBFT):
-	$(Q)$(MAKE) -C $(LIBFT_DIR)
+	$(MAKE) -C libft
 
 $(MLX):
-	$(Q)$(MAKE) -C $(MLX_DIR)
+	$(MAKE) -j -C macrolibx
 
-$(BUILDS_DIR)/%.o: %.c
-	$(Q)mkdir -p $(dir $@)
-	$(Q)$(CC) $(CFLAGS) $(INCLUDES) -MMD -MP -c $< -o $@
+$(NAME): $(OBJS) $(LIBFT) $(MLX)
+	$(CC) $(CFLAGS) $(OBJS) $(LDFLAGS) -o $@
+
+-include $(DEPS)
 
 clean:
-	$(Q)echo "$(ORANGE)[CLEAN]$(RESET)"
-	$(Q)rm -rf $(BUILDS_DIR)
-	$(Q)$(MAKE) -C $(LIBFT_DIR) clean
+	rm -rf $(BUILD_DIR)
+	$(MAKE) clean -C libft
+	$(MAKE) clean -C macrolibx
 
 fclean: clean
-	$(Q)echo "$(ORANGE)[FCLEAN]$(RESET)"
-	$(Q)$(MAKE) -C $(LIBFT_DIR) fclean
-	$(Q)$(MAKE) -C $(MLX_DIR) fclean
-	$(Q)rm -f $(NAME)
+	$(MAKE) fclean -C libft
+	rm -f $(NAME)
 
 re: fclean all
 
