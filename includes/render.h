@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/14 10:47:17 by toespino          #+#    #+#             */
-/*   Updated: 2026/11/12 17:23:15 by toespino         ###   ########.fr       */
+/*   Updated: 2026/11/17 06:16:11 by toespino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,15 @@ t_nc	get_color(VEC point, t_data *scene, uint64_t index, VEC normal);
 
 bool	render_sphere(VEC ray, int32_t i, t_data *scene, COLOR *pixel);
 bool	sphere_intersect(VEC ray, t_sphere obj);
-double	sphere_distance(VEC ray, t_sphere obj);
+double	sphere_distance(VEC origin, VEC ray, t_sphere obj);
 
 bool	render_cylinder(VEC ray, int32_t i, t_data *scene, COLOR *pixel);
 bool	cylinder_intersect(VEC ray, t_cylinder obj);
-double	cylinder_distance(VEC ray, t_cylinder obj);
+double	cylinder_distance(VEC origin, VEC ray, t_cylinder obj);
 
 bool	render_plane(VEC ray, int32_t i, t_data *scene, COLOR *pixel);
 bool	plane_intersect(VEC ray, t_plane obj);
-double	plane_distance(VEC ray, t_plane obj);
+double	plane_distance(VEC origin, VEC ray, t_plane obj);
 
 COLOR	color_incident(COLOR base, COLOR to_add, double r, double bright);
 COLOR	color_cap(t_nc to_cap);
