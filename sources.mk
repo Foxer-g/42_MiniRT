@@ -16,6 +16,10 @@ UTILS_PARSING_SRCS_DIR			= $(PARSER_DIR)p_utils/
 ERROR_UTILS_SRCS_DIR			= $(UTILS_DIR)error_management/
 BACKFONC_UTILS_SRCS_DIR 		= $(UTILS_DIR)back_fonction/
 INIT_BACKFONC_UTILS_SRCS_DIR	= $(UTILS_DIR)init_free/
+
+BUILDS_DIR			= builds
+LIBFT_DIR   		= libft/
+MLX_DIR				= macrolibx/
 ###############################
 
 ###########FILES###########
@@ -61,3 +65,13 @@ SOURCES			= $(MAIN_SOURCES) \
 					$(UTILS_SOURCES) \
 					$(INIT_FREE_SOURCES)
 #############################
+
+###########INCLUDE###########
+LIBFT			= $(LIBFT_DIR)libft.a
+MLX				= $(MLX_DIR)libmlx.so
+LIBFT_INCLUDE	= $(LIBFT_DIR)includes/
+MLX_INCLUDE		= $(MLX_DIR)includes/
+
+INCLUDES		= -Iincludes -I$(LIBFT_INCLUDE) -I$(MLX_INCLUDE)
+#############################
+

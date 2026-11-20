@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/05 10:22:16 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/11/16 14:46:41 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/11/20 10:43:11 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define RGBA_BLACK 0x000000FF
 # define RGBA_NULL  0x00000000
 # define RGBA_ORANGE 0xFF8000FF
-
+# define RGBA_GREEN 0X00C059FF 
 //=====================================//
 
 //=============<for general utility>=============//
@@ -111,7 +111,7 @@ the correct format IN "
 # define LOCAL '.'
 # define SEP ','
 
-# define DEF_WIDTH 720
+# define DEF_WIDTH 760
 # define DEF_HEIGHT 480
 # define POS_X 960//screen_center_x
 # define POS_Y 540//screen_center_y

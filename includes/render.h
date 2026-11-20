@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/14 10:47:17 by toespino          #+#    #+#             */
-/*   Updated: 2026/11/16 11:06:48 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/11/20 10:00:24 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,19 @@ COLOR	render_point(VEC point, t_data *scene, uint64_t index, VEC normal);
 bool	ff_free(void *input);
 void	create_img(t_data *scene);
 int64_t	get_ray_target(VEC ray, t_data *scene, double *distance);
-t_nc	get_color(VEC point, t_data *scene, uint64_t index, VEC normal);
+t_nc	get_color(t_vector point, t_data *scene, uint64_t index, t_vector normal);
 
 bool	render_sphere(VEC ray, int32_t i, t_data *scene, COLOR *pixel);
 bool	sphere_intersect(VEC ray, t_sphere obj);
-double	sphere_distance(VEC ray, t_sphere obj);
+double	sphere_distance(t_vector origin, t_vector ray, t_sphere obj);
 
 bool	render_cylinder(VEC ray, int32_t i, t_data *scene, COLOR *pixel);
 bool	cylinder_intersect(VEC ray, t_cylinder obj);
-double	cylinder_distance(VEC ray, t_cylinder obj);
+double	cylinder_distance(t_vector origin, t_vector ray, t_cylinder obj);
 
 bool	render_plane(VEC ray, int32_t i, t_data *scene, COLOR *pixel);
 bool	plane_intersect(VEC ray, t_plane obj);
-double	plane_distance(VEC ray, t_plane obj);
+double	plane_distance(t_vector origin, t_vector ray, t_plane obj);
 
 COLOR	color_incident(COLOR base, COLOR to_add, double r, double bright);
 COLOR	color_cap(t_nc to_cap);

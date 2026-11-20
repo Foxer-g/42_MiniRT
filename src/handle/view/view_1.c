@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/06 09:39:35 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/11/12 17:19:04 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/11/16 16:46:50 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	view_object(t_data *data, void **objs)
 	RENC.level = 0;
 	if (OBJECT->type == OBJ_DEFAULT)
 		mlx_string_put(M->mlx, M->win, RENC.ob_w, RENC.ob_h,
-			(mlx_color)RGBA_ORANGE, "Uknown object are not show");
+			(mlx_color){.rgba = RGBA_ORANGE}, "Uknown object are not show");
 	else if (OBJECT->type == OBJ_PLANE)
 		view_plane(data, objs, RENC.ob_w, RENC.ob_h);
 	else if (OBJECT->type == OBJ_SPHERE)
@@ -30,13 +30,13 @@ void	view_object(t_data *data, void **objs)
 		view_cylinder(data, objs, RENC.ob_w, RENC.ob_h);
 	mlx_string_put(M->mlx, M->win, RENC.ob_w,
 		(RENC.ob_h - (++RENC.level * RENC.p_h)),
-		(mlx_color)RGBA_ORANGE, objs_str(objs, REN->s_index));
+		(mlx_color){.rgba = RGBA_ORANGE}, objs_str(objs, REN->s_index));
 	tmp = ft_itoa(REN->s_index);
 	if (!tmp)
 		data_malloc_error(data, ERR_MALOC, __func__);
 	mlx_string_put(M->mlx, M->win, RENC.ob_w + (2 * SP),
 		(RENC.ob_h - (RENC.level * RENC.p_h)),
-		(mlx_color)RGBA_ORANGE, tmp);
+		(mlx_color){.rgba = RGBA_ORANGE}, tmp);
 	free(tmp);
 }
 
@@ -55,12 +55,12 @@ void	view_info(t_data *data)
 		data_malloc_error(data, ERR_MALOC, __func__);
 	}
 	mlx_string_put(M->mlx, M->win, RENC.in_w, RENC.p_h,
-		(mlx_color)RGBA_ORANGE, tmp[1]);
+		(mlx_color){.rgba = RGBA_ORANGE}, tmp[1]);
 	mlx_string_put(M->mlx, M->win, RENC.in_w - (2 * SP), RENC.p_h,
-		(mlx_color)RGBA_ORANGE, "Image :");
+		(mlx_color){.rgba = RGBA_ORANGE}, "Image :");
 	mlx_string_put(M->mlx, M->win, RENC.in_w, (2 * RENC.p_h),
-		(mlx_color)RGBA_ORANGE, tmp[0]);
+		(mlx_color){.rgba = RGBA_ORANGE}, tmp[0]);
 	mlx_string_put(M->mlx, M->win, (RENC.in_w - (2 * SP)), (2 * RENC.p_h),
-		(mlx_color)RGBA_ORANGE, "FPS max :");
+		(mlx_color){.rgba = RGBA_ORANGE}, "FPS max :");
 	free_size_arr(tmp, 2);
 }

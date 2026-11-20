@@ -6,7 +6,7 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/09 10:34:44 by ethutin-          #+#    #+#             */
-/*   Updated: 2026/11/16 09:52:26 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/11/16 16:46:50 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	view_message(t_data *data, char *msg, uint32_t w, uint32_t h)
 {
 	mlx_string_put(data->mlx->mlx, data->mlx->win, w,
 		(h - (++data->ren->control.level * data->ren->control.p_h)),
-		(mlx_color)RGBA_ORANGE, msg);
+		(mlx_color){.rgba = RGBA_ORANGE}, msg);
 }
 
 void	view_plane(t_data *data, void **objs, uint32_t w, uint32_t h)

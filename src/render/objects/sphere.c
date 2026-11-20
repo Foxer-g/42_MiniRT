@@ -6,30 +6,57 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/05 18:11:39 by toespino          #+#    #+#             */
-/*   Updated: 2026/11/16 15:09:46 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/11/20 10:38:10 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-double	sphere_distance(t_vector ray, t_sphere obj)
+// double	sphere_distance(t_vector ray, t_sphere obj)
+// {
+// 	t_vector	pos;
+// 	double		closest;
+// 	double		distance;
+// 	double		thc;
+
+// 	printf(ORANGE"ENTER SPHERE DISTANCE"RESET"\n");
+// 	pos = vector_sub(obj.coordinate, (t_vector){.x = 0, .y = 0, .z = 0});
+// 	closest = vector_dot(pos, ray);
+// 	distance = vector_dot(pos, pos) - pow(closest, 2);
+// 	if (distance > pow(obj.radius, 2))
+// 		return (-1.0);
+// 	thc = sqrt(pow(obj.radius, 2) - distance);
+// 	if (closest - thc >= 0)
+// 		return (closest - thc);
+// 	if (closest + thc >= 0)
+// 		return (closest + thc);
+// 	return (-1.0);
+// }
+
+
+double	sphere_distance(t_vector origin, t_vector ray, t_sphere obj)
 {
 	t_vector	pos;
-	double		closest;
-	double		distance;
-	double		thc;
+	double		param[3];
+	double		delta;
+	double		t;
 
 	// printf(ORANGE"ENTER SPHERE DISTANCE"RESET"\n");
-	pos = vector_sub(obj.coordinate, (t_vector){.x = 0, .y = 0, .z = 0});
-	closest = vector_dot(pos, ray);
-	distance = vector_dot(pos, pos) - pow(closest, 2);
-	if (distance > pow(obj.radius, 2))
+	pos = vector_sub(origin, obj.coordinate);
+	param[0] = vector_dot(ray, ray);
+	if (param[0] == 0.0)
 		return (-1.0);
-	thc = sqrt(pow(obj.radius, 2) - distance);
-	if (closest - thc >= 0)
-		return (closest - thc);
-	if (closest + thc >= 0)
-		return (closest + thc);
+	param[1] = 2.0 * vector_dot(pos, ray);
+	param[2] = vector_dot(pos, pos) - obj.radius * obj.radius;
+	delta = param[1] * param[1] - 4.0 * param[0] * param[2];
+	if (delta < 0.0)
+		return (-1.0);
+	t = (-param[1] - sqrt(delta)) / (2.0 * param[0]);
+	if (t >= 0.0)
+		return (t);
+	t = (-param[1] + sqrt(delta)) / (2.0 * param[0]);
+	if (t >= 0.0)
+		return (t);
 	return (-1.0);
 }
 

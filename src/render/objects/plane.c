@@ -6,26 +6,26 @@
 /*   By: ethutin- <ethutin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/14 09:55:28 by toespino          #+#    #+#             */
-/*   Updated: 2026/11/16 15:09:31 by ethutin-         ###   ########.fr       */
+/*   Updated: 2026/11/20 10:38:53 by ethutin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-double	plane_distance(t_vector ray, t_plane obj)
+double	plane_distance(t_vector origin, t_vector ray, t_plane obj)
 {
-	double		denom;
-	t_vector	o;
+	double	denom;
+	double	t;
 
 	// printf(ORANGE"ENTER PLANE DISTANCE"RESET"\n");
 	denom = vector_dot(obj.normal, ray);
-	if (denom > 0.000001)
-	{
-		o = vector_sub(obj.coordinate, (t_vector){.x = 0, .y = 0, .z = 0});
-		return (vector_dot(o, obj.normal) / denom);
-	}
-	else
+	if (fabs(denom) < 0.000001)
 		return (-1.0);
+	t = vector_dot(vector_sub(obj.coordinate, origin),
+			obj.normal) / denom;
+	if (t < 0.0)
+		return (-1.0);
+	return (t);
 }
 
 bool	plane_intersect(t_vector ray, t_plane obj)
