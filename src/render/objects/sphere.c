@@ -59,7 +59,8 @@ bool	render_sphere(t_vector point, int32_t i, t_data *scene, COLOR *pixel)
 {
 	t_vector	normal;
 
-	normal = vector_sub(point, ((t_plane *)(scene->objs))[i].coordinate);
+	normal = vector_sub(point,
+			((t_sphere *)scene->objs[i])->coordinate);
 	*pixel = render_point(point, scene, i, normal);
 	return (true);
 }

@@ -40,14 +40,14 @@ COLOR	render_point(VEC point, t_data *scene, uint64_t index, VEC normal)
 	return (res);
 }
 
-static bool	process_pixel(t_vector point, int32_t index, t_data *scene,
-		mlx_color *pixel)
+static bool	process_pixel(t_vector point, int64_t index,
+		t_data *scene, COLOR *pixel)
 {
-	if (((t_plane *)(scene->objs))[index].type == OBJ_SPHERE)
+	if (((t_plane *)scene->objs[index])->type == OBJ_SPHERE)
 		return (render_sphere(point, index, scene, pixel));
-	else if (((t_plane *)(scene->objs))[index].type == OBJ_CYLINDER)
+	else if (((t_plane *)scene->objs[index])->type == OBJ_CYLINDER)
 		return (render_cylinder(point, index, scene, pixel));
-	else if (((t_plane *)(scene->objs))[index].type == OBJ_PLANE)
+	else if (((t_plane *)scene->objs[index])->type == OBJ_PLANE)
 		return (render_plane(point, index, scene, pixel));
 	return (false);
 }
