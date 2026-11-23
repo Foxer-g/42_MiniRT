@@ -59,5 +59,6 @@ void	vector_normalize(VEC *vec);
 VEC		vector_sub(VEC vec1, VEC vec2);
 VEC		vector_add(VEC vec1, VEC vec2);
 double	vector_dot(VEC vec1, VEC vec2);
+t_vector	vector_cross(t_vector a, t_vector b);
 VEC		vector_coordinate(VEC vec, double t);
 #endif

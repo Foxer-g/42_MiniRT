@@ -36,3 +36,12 @@ double	vector_dot(t_vector vec1, t_vector vec2)
 {
 	return ((vec1.x * vec2.x) + (vec1.y * vec2.y) + (vec1.z * vec2.z));
 }
+
+t_vector	vector_cross(t_vector a, t_vector b)
+{
+	return ((t_vector){
+		.x = a.y * b.z - a.z * b.y,
+		.y = a.z * b.x - a.x * b.z,
+		.z = a.x * b.y - a.y * b.x
+	});
+}

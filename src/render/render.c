@@ -12,17 +12,21 @@
 
 #include "miniRT.h"
 
-static t_vector	generate_ray(int32_t x, int32_t y, t_data *scene)
+static t_vector	generate_ray(int32_t x, int32_t y, t_data *scene, VEC right)
 {
-	const double	aspect_ratio = ((double) scene->width / scene->height);
-	const double	fov_tan = tan((scene->camera.fov * (M_PI / 180)) / 2);
-	const double	x_on_screen = (((double)x + 0.5) / scene->width);
-	const double	y_on_screen = (((double)y + 0.5) / scene->height);
-	t_vector		ray;
+	t_vector	forward;
+	t_vector	up;
+	t_vector	ray;
+	double		fov;
 
-	ray.x = (2 * x_on_screen - 1) * aspect_ratio * fov_tan;
-	ray.y = (1 - 2 * y_on_screen) * fov_tan;
-	ray.z = 1;
+	forward = scene->camera.orient_vector;
+	up = vector_cross(forward, right);
+	fov = tan(scene->camera.fov * M_PI / 360.0);
+	ray = vector_add(forward, vector_coordinate(right,
+				(2.0 * (x + 0.5) / scene->width - 1.0) * fov));
+	ray = vector_add(ray, vector_coordinate(up,
+				(1.0 - 2.0 * (y + 0.5) / scene->height)
+				* fov * scene->height / scene->width));
 	return (ray);
 }
 
@@ -48,14 +52,14 @@ static bool	process_pixel(t_vector point, int32_t index, t_data *scene,
 	return (false);
 }
 
-static bool	calculate_pixel(int32_t x, int32_t y, int64_t index, t_data *scene)
+static bool	calculate_pixel(int32_t x, int32_t y, int64_t index, t_data *scene, VEC r)
 {
 	t_vector	ray;
 	t_vector	point;
 	int64_t		to_render;
 	double		distance;
 
-	ray = generate_ray(x, y, scene);
+	ray = generate_ray(x, y, scene, r);
 	vector_normalize(&ray);
 	to_render = get_ray_target(ray, scene, &distance);
 	scene->img_c[index] = (mlx_color){.rgba = 0xFFFFFF};
@@ -70,27 +74,31 @@ static bool	calculate_pixel(int32_t x, int32_t y, int64_t index, t_data *scene)
 	return (true);
 }
 
-bool	render(t_data *scene)
+bool	render(t_data *scn)
 {
-	int32_t	i;
-	int32_t	j;
+	t_vector	r;
+	t_vector	up;
+	int64_t		i[2];
 
-	i = -1;
-	while (++i < scene->height)
+	up = (t_vector){0, 1, 0};
+	if (fabs(scn->camera.orient_vector.y) > 0.999)
+		up = (t_vector){0, 0, 1};
+	r = vector_cross(up, scn->camera.orient_vector);
+	vector_normalize(&r);
+	i[0] = -1;
+	while (++i[0] < scn->height)
 	{
-		j = -1;
-		while (++j < scene->width)
-		{
-			if (!calculate_pixel(j, i, i * scene->width + j, scene))
+		i[1] = -1;
+		while (++i[1] < scn->width)
+			if (!calculate_pixel(i[1], i[0], i[0] * scn->width + i[1], scn, r))
 				return (true);
-		}
 	}
-	scene->mlx->img = mlx_new_image(scene->mlx->mlx,
-			scene->width, scene->height);
-	if (!scene->mlx->img)
+	scn->mlx->img = mlx_new_image(scn->mlx->mlx,
+			scn->width, scn->height);
+	if (!scn->mlx->img)
 		return (true);
-	create_img(scene);
-	mlx_put_image_to_window(scene->mlx->mlx, scene->mlx->win,
-		scene->mlx->img, 0, 0);
+	create_img(scn);
+	mlx_put_image_to_window(scn->mlx->mlx, scn->mlx->win,
+		scn->mlx->img, 0, 0);
 	return (false);
 }
