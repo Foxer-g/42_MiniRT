@@ -80,6 +80,7 @@ bool	render(t_data *scn)
 	t_vector	up;
 	int64_t		i[2];
 
+	fix_data(scn);
 	up = (t_vector){0, 1, 0};
 	if (fabs(scn->camera.orient_vector.y) > 0.999)
 		up = (t_vector){0, 0, 1};

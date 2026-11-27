@@ -49,6 +49,7 @@ double	plane_distance(VEC origin, VEC ray, t_plane obj);
 COLOR	color_incident(COLOR base, COLOR to_add, double r, double bright);
 COLOR	color_cap(t_nc to_cap);
 void	light_add(t_nc *base, COLOR to_add);
+void	fix_data(t_data *scene);
 
 double	vector_norm(VEC vec);
 void	vector_inv(VEC *vec);

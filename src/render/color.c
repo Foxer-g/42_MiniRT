@@ -38,3 +38,17 @@ mlx_color	color_cap(t_nc to_cap)
 	res.b = (uint8_t) ft_min(255, to_cap.b);
 	return (res);
 }
+
+void	fix_data(t_data *scene)
+{
+	int64_t	i;
+
+	scene->ambient.color.a = 255;
+	scene->lights.color.a = 255;
+	i = 0;
+	while (((void **)scene->objs)[i])
+	{
+		((t_plane *)((void **)scene->objs)[i])->color.a = 255;
+		i++;
+	}
+}
