@@ -47,15 +47,18 @@ int64_t	get_ray_target(t_vector ray, t_data *scene, double *distance)
 	closest = DBL_MAX;
 	i = -1;
 	index = -1;
-	while (scene->objs[++i])
+	while (((void **)scene->objs)[++i])
 	{
 		res = -1.0;
-		if (((t_plane *)scene->objs[i])->type == OBJ_SPHERE)
-			res = sphere_distance((t_vector){0}, ray, *(t_sphere *)scene->objs[i]);
-		else if (((t_plane *)scene->objs[i])->type == OBJ_CYLINDER)
-			res = cylinder_distance((t_vector){0}, ray, *(t_cylinder *)scene->objs[i]);
-		else if (((t_plane *)scene->objs[i])->type == OBJ_PLANE)
-			res = plane_distance((t_vector){0}, ray, *(t_plane *)scene->objs[i]);
+		if (((t_plane *)((void **)scene->objs)[i])->type == OBJ_SPHERE)
+			res = sphere_distance((t_vector){0}, ray,
+					*(t_sphere *)((void **)scene->objs)[i]);
+		else if (((t_plane *)((void **)scene->objs)[i])->type == OBJ_CYLINDER)
+			res = cylinder_distance((t_vector){0}, ray,
+					*(t_cylinder *)((void **)scene->objs)[i]);
+		else if (((t_plane *)((void **)scene->objs)[i])->type == OBJ_PLANE)
+			res = plane_distance((t_vector){0}, ray,
+					*(t_plane *)((void **)scene->objs)[i]);
 		if (res > 0.0 && res < closest)
 		{
 			closest = res;
@@ -66,23 +69,27 @@ int64_t	get_ray_target(t_vector ray, t_data *scene, double *distance)
 	return (index);
 }
 
-static bool	intersect_ray(t_vector origin, t_vector ray, uint64_t index, t_data *scene)
+static bool	intersect_ray(t_vector origin, t_vector ray,
+		uint64_t index, t_data *scene)
 {
 	uint64_t	i;
 	double		t;
 
 	i = 0;
-	while (scene->objs[i])
+	while (((void **)scene->objs)[i])
 	{
 		t = -1.0;
 		if (i != index)
 		{
-			if (((t_plane *)scene->objs[i])->type == OBJ_SPHERE)
-				t = sphere_distance(origin, ray, *(t_sphere *)scene->objs[i]);
-			else if (((t_plane *)scene->objs[i])->type == OBJ_CYLINDER)
-				t = cylinder_distance(origin, ray, *(t_cylinder *)scene->objs[i]);
-			else if (((t_plane *)scene->objs[i])->type == OBJ_PLANE)
-				t = plane_distance(origin, ray, *(t_plane *)scene->objs[i]);
+			if (((t_plane *)((void **)scene->objs)[i])->type == OBJ_SPHERE)
+				t = sphere_distance(origin, ray,
+						*(t_sphere *)((void **)scene->objs)[i]);
+			else if (((t_plane *)((void **)scene->objs)[i])->type == OBJ_CYLINDER)
+				t = cylinder_distance(origin, ray,
+						*(t_cylinder *)((void **)scene->objs)[i]);
+			else if (((t_plane *)((void **)scene->objs)[i])->type == OBJ_PLANE)
+				t = plane_distance(origin, ray,
+						*(t_plane *)((void **)scene->objs)[i]);
 		}
 		if (t > 0.000001 && t < 1.0)
 			return (true);
@@ -109,7 +116,7 @@ t_nc	get_color(t_vector point, t_data *scene, uint64_t index, t_vector normal)
 	if (denom == 0.0)
 		return (res);
 	incidence /= denom;
-	new_color = color_incident(((t_plane *)scene->objs[index])->color,
+	new_color = color_incident(((t_plane *)((void **)scene->objs)[index])->color,
 			scene->lights.color, incidence, scene->lights.brightness);
 	light_add(&res, new_color);
 	return (res);

@@ -207,7 +207,7 @@ typedef enum s_kind
 // @field width: int32_t, Window width in pixels.
 typedef struct s_data
 {
-	void	**objs;
+	void	*objs;
 
 	t_parse	*p;
 	t_amb	ambient;
