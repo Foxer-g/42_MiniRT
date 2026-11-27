@@ -37,30 +37,13 @@ double	sphere_distance(t_vector origin, t_vector ray, t_sphere obj)
 	return (-1.0);
 }
 
-bool	sphere_intersect(t_vector ray, t_sphere obj)
-{
-	t_vector	pos;
-	double		closest;
-	double		distance;
-	double		discriminant;
-
-	pos = vector_sub(obj.coordinate, (t_vector){.x = 0, .y = 0, .z = 0});
-	closest = vector_dot(pos, ray);
-	distance = vector_dot(pos, pos) - pow(closest, 2);
-	if (distance > pow(obj.radius, 2))
-		return (false);
-	discriminant = 4.0 * (pow(obj.radius, 2) - distance);
-	if (discriminant >= 0)
-		return (true);
-	return (false);
-}
-
-bool	render_sphere(t_vector point, int32_t i, t_data *scene, COLOR *pixel)
+bool	render_sphere(t_vector point, int32_t i, t_data *scene,
+		COLOR *pixel)
 {
 	t_vector	normal;
 
 	normal = vector_sub(point,
-			((t_sphere *)scene->objs[i])->coordinate);
+			((t_sphere *)((void **)scene->objs)[i])->coordinate);
 	*pixel = render_point(point, scene, i, normal);
 	return (true);
 }

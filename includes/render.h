@@ -38,15 +38,12 @@ int64_t	get_ray_target(VEC ray, t_data *scene, double *distance);
 t_nc	get_color(VEC point, t_data *scene, uint64_t index, VEC normal);
 
 bool	render_sphere(VEC ray, int32_t i, t_data *scene, COLOR *pixel);
-bool	sphere_intersect(VEC ray, t_sphere obj);
 double	sphere_distance(VEC origin, VEC ray, t_sphere obj);
 
 bool	render_cylinder(VEC ray, int32_t i, t_data *scene, COLOR *pixel);
-bool	cylinder_intersect(VEC ray, t_cylinder obj);
 double	cylinder_distance(VEC origin, VEC ray, t_cylinder obj);
 
 bool	render_plane(VEC ray, int32_t i, t_data *scene, COLOR *pixel);
-bool	plane_intersect(VEC ray, t_plane obj);
 double	plane_distance(VEC origin, VEC ray, t_plane obj);
 
 COLOR	color_incident(COLOR base, COLOR to_add, double r, double bright);
